@@ -1,0 +1,254 @@
+Bootcamp .NET - Lógica de Programação Essencial
+
+
+
+Capítulo 1 - Aula 1 - Entendendo o que é lógica
+
+
+* Programar é resolver problemas e não digitar códigos.
+
+* "Lógica é coerência de raciocínio, de ideias"  ou "sequência coerente, regular e necessária de acontecimentos, atos"
+
+* Lógica de programação significa apenas contextualizar a lógica na programação de computadores, buscanco a melor sequencaia de ações"
+
+* Metacognição: "pensar como você pensa"
+
+* Existem várias formas de resolver um problema (caminhos mentais).
+
+* Abstração é a habilidade de concentrar nos aspectos essenciais de um contexto qualquer, ignorando características menos importantes ou acidentais.
+
+* Abstração é uma otima habilidade de um programador.
+
+
+
+Capítulo 1 - Aula 2 - O que são algoritmos e pseudocódigos.
+
+
+* "Algoritmo é uma sequencia de passos para resolver um problema". É uma sequência lógica de uma ação.
+
+* No algoritmo você identifica qual é o início e o fim da Atividade.
+
+* A ordem dos passos altera o funcionamento do algoritmo. 
+
+* https://studio.code.org/s/mc/stage/1/puzzle/1
+
+* code.org -> site voltado a ensino de programação à iniciantes e crianças.
+
+* Pseudocódigo é uma forma genérica de escrever um algoritmo, utilizando uma linguagem simples (nativa, ou seja, em português a quem o escreve, de forma a ser entendida por qualquer pessoa).
+
+* https://www.proprofs.com/games/wolf-sheep-and-cabbage/
+
+* https://rachacuca.com.br/jogos/pinguins-numa-fria/
+
+
+
+Capítulo 1 - Aula 3 - Aprendendo fluxogramas, variáveis e constantes
+
+
+* Fluxograma é uma ferramenta utilizada para representar graficamente o algoritmo, isto é, a sequência lógica e coerente do fluxo de dados.
+
+* Um fluxograma é um tipo de diagrama e pode ser entendido como uma representação esquemática de um processo.
+
+* É comum blocos difernetes dentro de um fluxograna. Blocos de: processo, decisão, temrinal, documento, varios documentos, entrada manual, preparação dados base de dados display.
+
+* O fluxograma precisa ser claro. Existem diversas formas de se representar um bloco do fluxograma.
+
+* Variáveis: Na programçação uma variável é um objeto (uma posição, frequentemente localizada na memória) capaz de reter e represntar um valor ou expressão
+
+* Uma variável é um espeço na memória do computador destinado a um dado que é alterado durante a execução do algoritmo.
+
+* Tipos de variáveis: as variáveis e as constantes podem ser classificadas basicamente de quatro tipos: Numéricas, caracteres, alfanuméricas ou lógicas.
+
+* As constantes são valores imutáveis e não são alterados durante a vida útil do programa.
+
+* https:www.flowgorithm.org (desenha fluxogramas de algoritmos e faz eles funcionarem)
+
+* variável não pode ter espaço, não pode começar com número e deve se evitar acento.
+
+
+
+Capítulo 1 - Aula 4 - Tomadas de decisão e expressões
+
+
+* Expresões aritiméticas: são expressões que utilizam operadores aritmeticos e funções aritmeticas envolvendo constantes e variáveis.
+
+* Operadores: Soma (+), Subtração (-), multiplicação (*), Divisão (/), Potenciação (^), Porcentagm (%);
+
+* Expressões literiais: são expressões com constantes e/ou variáveis que tem como  resultado valores literais. Iremos utilizar as expressões literais na atribuição de valor para uma variável ou constante.
+
+* Sempre que for atribuir valores alfanumericos é necessário usar "" aspas.
+
+* Expressões relacionais: São expressões copostas por outras expressões ou variáveis numéricas com operadores relacionais. As expressões relacionais retornam valores lógicos (verdadeiro/falso).
+
+* Maior que >, Maior ou igual >=, Menor que <, Menor ou igual <=, Igualdade ==, Diferente de != ou <>.
+
+* Tomadas de decisão: "Quando escrevemos programas, geralmente ocorre a necessidade de decidir o que fazer dependendo de alguma condição encontrada durante a execução" 
+
+* Tomada de decisão, por exemplo, pode ser um if que recebendo uma resposta true faz uma coisa e recebendo false faz outra coisa.
+
+
+
+Capítulo 1 - Aula 5 - Como utilizar a concatenação
+
+
+* Concatenação é um termo usado em computação para designar a operação de unir o conteúdo de duas strings. String é uma sequência de caracteres.
+
+* Concatenação é o agrupamento de duas ou mais célular que, incluindo fórumlas, textos ou outras informações cotida no seu interior, dá origem a um único resultado.
+
+* O símbolo para concatenação vai depender da linguagem de programação. Algumas usam o . (ponto) outras o &, e outras o sinal de +.
+
+
+
+Capítulo 2 - Introdução ao Portugol
+
+
+Capítulo 2 - Aula 1 - Aprenda como utilizar uma estrutura de repetição
+
+
+* Estrutura de repetição: dentro da lógica de programação é uma estrutura que permite executar mais de uma vez o mesmo comando ou conjunto de comandos, de acordo com uma condição ou com um contador.
+
+* Vcê define um número de partida, um número limite e cria um loop de repetição. Dentro dessa estrutura de repetição você deve sempre acrescentar um valor ao número inicial para que ele possa ir aumentando a cada vez que passa pela estrutura de repetição. Quando o número atingir o limite ele sai do loop.
+
+
+
+Capítulo 2 - Aula 2 - O que são linguagens de programação?
+
+
+* Linguagem de Programação é uma linguagem escrita e formal que especifica um conjunto de instruções e regras usadas para gerar programas (software). Um software pode ser desenvolvido para rodar em um computador, dispositivo móvel ou em qualuqer equipamento que permita sua execução.
+
+* A função das linguagens de programação é servir de um meio de comunicação ente computadores e humanos.
+
+* Linguagem de Alto Nível: são aquelas cuja sintaxe se aproxima mais da nossa linguagem e se distanciam mais da linguagem de máquina. Exemplos: C, PHP, JS, C++, Phyton, etc. 
+
+* Linguagem de Baixo Nível: É aquela que se aproxima mais da linguagem de máquina. Essas são as que você precisa ter o conhecimento direto da arquitetura do computador para fazer alguma coisa. Exemplos: Assembly
+
+* Linguagens de programação COMPILADAS: é uma linguagem em que o código fonte é executado diretamente pelo sistema operacional ou pelo processador após ser traduzido por meio de um processo chamado compilação. Exemplo: C#. Você digitou todo o código, o computador pega todo o algoritmo e vai transformar em um arquivo .exe e vai executar no sistema operacional. O Compilador pega o seu código e transforma em uma linguagem que o computadorconsegue entender.
+
+* Linguagens de programação INTERPRETADAS: É uma linguagem em que o código fonte é executado por um programa de computador chamado interpretador, que em seguida é executado pelo sistema operacional ou processador. Exemplo: JavaScript e PHP (que é interpretada pelo servidor e depois transformada em HTML), Phyton.
+
+* Portugal é uma pseudolinguagem que permite ao programador pensar no problema em si e não no equipamento que irá executar o algoritmo.
+
+* IDE: é o ambiente gráfico (editor).
+
+* Em POrtugol para iniciar os comandos é necessário usar:
+	funcao inicio()
+	{
+	}
+
+* caracter é apenas para uma letra de A a Z. Um conjunto de caracteres é cadeia. 
+
+* O escreva() imprime algo na tela.
+
+* O leia(variável) vai abrir o espaço para o usuário escrever algo
+
+* Para concatenar usa-se +
+
+* Utiliza-se . (ponto) e não , (vírgula) para números reais.
+
+
+
+Capítulo 2 - Aula 3 - Aprenda a utilizar desvios condicionais e boas práticas em programação
+
+
+*  Estruturas de decisão são os ifs.
+
+* O if é uma palavra reservada. Isso quer dizer que não podemos criar uma variável com esse nome.
+
+* Em Portugol usamos SE. A condição a ser testada entre parenteses e as instruções que devem ser executadas entre chaves aso o desvio seja verdadeiro. 
+	se(media>=7) {
+	    escreva("Parabéns! Você foi aprovado")
+	}
+
+* Para quebrar a linha usamos "\n" e concatenamos com a string que vai aparecer na linha de baixo.
+
+* se-senao: Caso a condição seja falsa um outro conjunto de comandos deve ser executado.
+	se(media>=7) {
+	    escreva("\n" + "Parabéns! Você foi aprovado")
+	}
+	senao {
+	    escreva("\n" + "Infelizmente você foi reprovado")
+	}
+
+* Comentário em Portugal é usado com //
+
+* Desvio Condicional - Caso: Este comando é similar aos comandos se e senão, e reduz a complexidade na escolha de diversas opções. Apesar de suas similaridades com o se, ele possui algumas diferenças. Neste comando não é possível o uso de operadores lógicos, ele apenas trabalha com valores definidos.
+	
+	funcao inicio()
+	{
+		escreva ("Escolha uma das opções: 1 - Abrir Netflix 2 - Abrir Amazon")
+		inteiro menu = 0
+		escreva ("\n" + "Sua escolha:")
+		leia (menu)
+		escolha (menu) //sempre começar com o escolha para mostrar qual será o critério
+		{
+		caso 1:
+		escreva ("Ok! Abrir Netflix")
+		pare
+		caso 2:
+		escreva ("OK! Abrir Amazon")
+		pare
+		caso contrario:
+		escreva ("Você deve escolher entre as opções 1 e 2")
+		}
+	}
+
+
+
+Capítulo 2 - Aula 4 - Trabalhando com laços de repetição em Portugol
+
+
+*  Estrutura de repetição já foi definida acima, na Aula 1 desse capítulo.
+
+* No Portugol a estrutura de repetição ficaria assim:
+	funcao inicio ()
+	{
+		inteiro contador,limite,resultado
+		contador = 0
+		limite = 10
+		faca{
+		    resultado = 9 * contador
+		    escreva ("9 X " + contador + " = " + resultado + "\n")
+		    contador ++
+		}enquanto (contador <= limite)
+	}
+
+* Lembrar sempre de somar um valor ao contador para o loop não ficar eterno.
+
+
+
+Capítulo 2 - Aula 5 - Aplicação prática com matrizes e vetores
+
+
+* Uma MATRIZ é uma coleção de variáveis de mesmo tipo, acessíveis com um único nome e armazenados contiguamente na memória. Você não pode ter informções de tipos diferentes dentro de uma matriz.
+
+* A individualização de cada variável de um vetor é feita através do uso de ÍNDICES. O índice começa sempre no zero.
+
+* Os VETORES são matrizes de uma só dimensão.
+
+* cadeia Vetor[5]; //declara vetor de 5 posições
+* cadeia Matriz [5][3]; // declara uma matriz de 5 linhas e 3 colunas
+
+* Vetor no Portugol:
+	funcao inicio()
+	{
+		cadeia frutas[4]
+		frutas [0] = "maçã"
+		frutas [1] = "pera"
+		frutas [2] = "uva"
+		frutas [3] = "jaca"
+
+		escreva (frutas[2])
+	}
+
+* Matriz no Portugol:
+	funcao inicio()
+	{
+		cadeia cesta [][] = {{"pera", "100"},{"Jaca","200"},{"maça","900"},{"uva","89"}}
+		escreva ("Produto: ")
+		escreva (cesta[0][0])
+		escreva (" Quantidade: ")
+		escreva (cesta [0][1])
+	}
+	Resultado: Produto: pera Quantidade: 100
+
+* 

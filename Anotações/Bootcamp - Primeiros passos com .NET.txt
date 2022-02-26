@@ -1,0 +1,804 @@
+Curso - Primeiros passos com .NET
+
+
+
+Capítulo 1 - O que é .NET?
+
+
+
+Capítulo 1 - Aula 1 - Conhecemdo o framework
+
+
+* Passado presente e futuro do .NET
+
+* Nos anos 70 a Microsoft criou a linguagem Basic
+
+* No anos 80 a MS firmou uma parceria com a IBM: surgiu o DOS.
+
+* Nos anos 90 surge o Windows
+
+* MS tentou consolidar as ferramentas de desenvolvimento (IDEs e runtimes) com o Visual Studio 97. A ideia era juntar em um único programa a possibilidade de programar em diversas linguagens.
+
+* 1998: Visual Studio 6 é lançado. Começa a consolidar um único runtime.
+
+* Scott Guthrie criou uma ferramenta web com Java e a chamou de ASP+ (depois chamou ASP NEXT e depois ASPX)
+
+* Jason Zander ajudou na criação de um common runtime para VB e C++ (CLR)
+
+* Em 1999, a Sun Microsystems fez um acordo para a Microsoft não mexer mais com Java. Com isso, Andres Hejlsberg começou a trabalhar no C#.
+
+* Em 2000, a Microsoft lança um novo ambiente de desenvolvimento .NET 1.0 - inicialmente chamado de Next Generation Windows Services (NGWS)
+
+* Em 2001, Miguel de Icaza começa a trabalhar no projeto Mono, uma reimplementação black box do .NET, open source e multiplataforma (o .NET era apenas para Windows)
+
+* Em 2002, lançamento do Visual Studio .NET com C# 1.0. Conhecido como 22 linguagens, 1 plataforma.
+
+* Em 2003 é lançado o .NET 1.1 com o Visual Studio 2003. Trabalham em melhorias na CLR para lançar a CLR 2.
+
+* Cada Linguagem tem seu proprio compilador que vai transformar o código em uma linguagem intermediária. E essa linguagem intermediária vai ser interpretada pelo CLR que vai converter para uma linguagem de máquina. Foi isso que permitiu a Microsoft ter várias linguagens em um mesmo ambiente.
+
+* Em 2005 é lançado o .NET 2.0 com C#2.0 no Visual Studio 2005. Microsoft começa a atingir seu objetivo inicial, inclusive evoluindo na web. Consolidou o ASP.NET que é a frente web do .NET Framework.
+
+* Entre 2007 e 2008 é lançado o .NET 3.5 com C#3.0 no Visual Studio 2008, com Silverlight, WPF (para criar aplicações desktop) e WCF (para serviços web). Microsoft contrata um time de pessoas que tinham uma pegada open source e começam a atuar na criação do ASP.NET MVC. Começa a se falar em Windows Azure.
+
+* Em 2010 é lançado o .NET 4.0 com C#4.0 no Visual Studio 2010, também com F# (linguagem de orientação funcional) . Microsoft lançou o Windows Azure comercialmente. Anders Hejlberg começou a trabalhar no Typescript. 
+
+* Em 2011, Miguel de Icaza inicia o Xamarin, basicamente ele desenvolvia em C# aplicativos que rodam em Android e IOS. 
+
+* Em 2012 é lançado o .NET 4.5 com C# 5.0 no VS 2012. É feito o lançamento do Typescript. 
+
+* Até esse periodo o CEO da Microsoft era o Steve Bauner que tinha uma pegada Windows
+
+* Em 2013 é lançado o .NET 4.5.1 no VS 2013. Início do Roslyn (um novo compilador para C# e VB.NET).
+
+* Microsoft continua atuando mais na frente JS e aumenta também a incorporação de ferramentas open source ao ambiente
+
+* Já temos o ASP.NET mais consolidado com MVC (que é um novo framework Web alternativo ao Asp.Net WEBForms), Web API (voltados para serviços WEB) e SignalR (é um framework para comunicação real time). Mas, tudo ainda é muito Windows   
+
+* Em 2014, Satya Nadella se torna CEO da Microsoft e direciona o foco da empresa para cloud.
+
+* É criado o .NET Foundation para a gestão de projetos open source. A Microsoft deixa de ser uma empresa focada em sistemas operacionais e passaa se focar em tecnologia para Cloud.
+
+* Em 2014 o Windows Azure passa a se chamar Microsoft Azure. É introduzido o conceito do ASP.NET vNext, posteiormente chamado de ASP.NET Core. A ideia é que ele teria uma biblioteca básica do .NET que seria compartilhada tanto pelo CLr padrão como pelo CLR Core (novo CLR para novas funcionalidades, como o Cloud).
+
+* Em 2015 é lançado o .NET 4.6 com C# 6.0 no VS 2015. Lançamento do Visual Studio Code. 
+
+* Em 2016 a Microsoft adquire a Xamarin e adiciona o produto como parte de sua stack .Net e projetos open source. Lançamento do Visual Studio for Mac.
+
+* Lançamento do .NET Core 1.0 - totalmente novo, open source e multiplataforma. O .NET Core 1.0 é um framework do ASP.NET Core 1.0
+
+* Em 2017 é lançado o .NET Framework 4.7 com C# 7.0 no VS 2017.
+
+* Lançamento do .NET Core 2.0 com C#7.0 no VS2017, VSCode e VS for Mac 2017. 
+
+* Em 2019 (ano que o professor está gravando a aula) teve o lançamento do .NET FRamework 4.8 com C# 7.3 no VS 2019.
+
+* Lançamento do .NET Core 3.0 com C#8 no VS2019, VSCode e VS for Mac. 
+
+* 2020 - .NET Framework está pronto na versão 4.8. E deixa de ser evoluído - junto com ele WCF e ASP.NET WEBforms.
+
+* Previsto o lançamento do .NET 5. Não vai mais existir .NET Framework ou .NETCore vai ser apenas .NET 5.
+
+* Elas vão ter suporte, mas não serão mais evoluídas.
+
+* O .NET Core será a única versão a continuar sendo evoluída, mas se chamara apenas .NET 5. Ele juntará o que tem de melhor no .NET Framework, no .NET Core o no Mono. 
+
+* Quando a Microsoft adquiriu a Xamarin ela também passou a dar suporte no Mono.  
+
+
+
+Capítulo 1 - Aula 2 - Como e aonde usar .NET
+
+
+* O que é? Infraestrutura para desenvolvimento de software criada pela Microsoft. Uma aplicação .NET é desenvolvida para e roda em uma das seguintes implementações do .NET:
+	* .NET Core
+	* .NET Framework
+	* Mono
+	* Universal Windows Plataform (UWP) - aplicações Xbox, IoT.
+
+* O controle e a interação entre esses framework .NET são feitos pelo .NET Standard Library - One library to rule them all
+
+* .NET Framework -> WPF, Windows Forms, ASP.NET
+
+* .NET Core -> UWP, ASP.NET Core
+
+* Xamarin -> iOS, OS X, Android
+
+* Cada implementação inclui um ou mais .NET Runtimes (ambiente de execução)
+
+	* .NET Core: CoreCLR e CoreRT
+	* .NET Framwork: CLR
+	* Mono: Mono Runtime
+	* UWP: .NET Native
+
+* Atualmente a Microsoft desenvolve e suporta 3 linguagens para .NET -> C#, F# e VB
+
+* Onde eu posso usar o .NET? 
+	* Desktop: WPF, Windows Forms, UWP
+	* WEB: ASP.NET
+	* Cloud: Azure
+	* Mobile: Xamarin
+	* Games: Unity
+	* IoT: ARM32, ARM64
+	* AI: ML.NET, .NET for Apache Spark
+
+* Quem usa .NET? Diversas empresas pequenas e grandes.
+
+
+
+Capítulo 2 - Iniciando com .NET
+
+
+
+Capítulo 2 - Aula 1 - Preparando o ambiente
+
+
+* Preparando o ambiente: Instalação do .NET; Instalação do Visual Studio Code
+
+* O Visual Studio tem uma versão grátis (community version).
+
+* Extensões do VSCode: C# e C# Extensions
+
+
+
+Capítulo 2 - Aula 2 - Conhecendo a CLI do .NET
+
+
+* dotnet --help: vai te dar a documentação do dotnet. NO início ele mostra a versão do dotnet, e a forma de uso
+
+* dotner --info: mostra todas as versões do dotnet instalada na máquina.
+
+* nuget: é um gerenciador de pacotes. Se você desenvolve algo que acredita ser interesante compartilhar você pode usar o nuget para isso.
+
+* O "dotnet --help" vai trazer a ajuda para o comando dotnet. Caso você use "dotnet new --help" ele vai trazer a ajuda para o comando new.
+
+* Para criar um novo projeto você pode dar um "dotnet new --help". Com isso, vários formatos de projetos e suas linhas de comando são apresentados.
+
+* Na nossa aula nós vamos criar uma aplicação console.
+
+
+
+Capítulo 2 - Aula 3 - Criando uma aplicação console
+
+
+* Uma aplicação console nada mais é do que uma aplicação que vai ser executada via terminal,
+
+* Para criar um novo projeto no dotnet você precisa usar o comando "dotnet new". Esse comando precisa de um complemento/modelo que você precisa determinar depois do new. NO nosso caso será um console. Ao digitar o comando "dotnet new" vai aparecer uma lista dos modelos mais comuns.
+
+* Desta forma, nosso comando para criar um console é "dotnet new console".
+
+* Para dar um nome para o console que vamos criar é necessário usar o comando "dotnet new console -n NomeDoConsole
+
+* Se você usar o comando "explorer ." uma janela do explorer será aberta.
+
+* Se você usar o comando "code ." a pasta que você estiver será aberta no Visual Studio Code
+
+* Através dos plugin de C# que foram instalados, o proprio VSCode identifica que o arquivo é C# e já começa a baixar pacotes para o projeto.
+
+* O VSCode vai perguntar se você quer criar uma pasta para debugs e etc. Clique em Sim.
+
+* A pasta bin são os binários do seu projeto.
+
+* O comando "dotnet restore" restaura pacotes atrelados ao projeto e atualiza eles.
+
+* O comando "dotnet build" também vai restaurar e pegar o código fonte para fazer esse processo de compilação e vai gerar os binários. 
+
+* O comando "dotnet run" Vai fazer a sua aplicação rodar.
+
+* Pelo terminal do VSCode é posssível executar os mesmos comandos do CLI.
+
+* Console.Write() vai fazer com que a palavra seja escrita uma ao lado da outra. Enquanto Console.WriteLine() vai fazer com que a palavra seja escrita e pule uma linha.
+
+* Antes de rodar a aplicação você pode usar o comando "dotnet build" para ver se não tem nenhum erro.
+
+* Se você não estiver no mesmo nível do seu arquivo Program.cs, na hora que você for rodar a aplicação vai dar erro.
+
+
+
+Capítulo 3 - Conhecendo o C#
+
+
+
+Capítulo 3 - Aula 1 - O que é e como funciona o C#
+
+
+* O C# é a lingaugem mais utilizada em .NET.
+
+* É uma linguagem que começou a ser criada no final da década de 90.
+
+* Ela evoluiu junto com o .NET.
+
+* C# é uma linguagem elegante, orientada a objeto e fortemente tipada.
+
+* A sintaxe do C# é similar a do C, C++ ou Java.
+
+* Suporta os conceitos de encapsulamento, herança e polimorfismo (POO)
+
+* Os programas C# são executados no .NET, que inclui:
+	CLR (Common Language Runtime).
+	Conjunto unificado de bibliotecas de classes
+
+* Atualmente o compilador do C# é o Roslyn
+
+Como funciona?
+
+* O código-fonte escrito em C# é compilado em uma linguagem intermediária (IL).
+
+* O código e os recursos de IL são armazenados no disco em um arquivo executável chamado assembly, geralmente com uma extensão .exe ou .dll 
+
+* Seguindo o exemplo da última aula: quando damos o comando "dotnet build", o código escrito em linguagem de alto nível é compilado para uma linguagem intermediária. O arquivo produzido nessa fase terá uma extesão .exe ou .dll. DEpois disso, esse arquivo .exe ou .dll será rodado no Runtime.
+
+* No .NET qualquer linguagem que for utilizada vai ser compilada para uma linguagem intermediária para só depois rodar na CLR.
+
+* Quando o programa C# é executado, o assembly é carregado no CLR.
+
+* Em seguinda o CLR executará a compilação Justi In Time (JIT) para converter o código IL em instruções de máquina nativas. 
+
+* Quando eu dou um "dotnet run" é nesse momento que ele vai pegar o arquivo .dll e vai ser importando na CLR e vai fazer o JIT convertendo em linguaguem de máquina.
+
+* O CLR também fornce outros serviços:
+	* Garbage Collector: uma ferramenta que trabalha coletando o lixo. Ele desaloca objetos que estão sem uso na memória.
+	* Exception Handler: receber e controlar as excessões que ocorrem de erros no código.
+	* Resources Manager: Gerenciador de Recursos.
+
+* Além dos serviços de tempo de execução, o .NET também inclui uma extensa biblioteca com milhares de classes que fornecem uma ampla variedade de funcionalidades úteis, desde entrada e saída de arquivos, manipulação de cadeias de caracteres, análise XML, etc. 
+
+
+
+Capítulo 3 - Aula 2 - Estrutura de programa
+
+
+* Os principais conceitos organizacionais em C# são:
+	* programas 
+	* namespaces 
+	* tipos
+	* membros
+	* assemblies
+
+* Programas em C# consitem em um ou mais arquivos. Arquivos de extensão .cs
+
+* Os programas declaram tipos, que contêm membros e podem ser organizados em namespaces
+
+* Classes e interfaces são exemplos de tipos
+
+* Campos, métodos, propriedades e eventos são exemplos de membros.
+
+* Quando os programas C# são compilados, eles são fisicamente empacotados em assemblies.
+
+* Os assemblies geralmente têm a extensão de arquivo .exe ou .dll, dependendo se são aplicações ou bibliotecas. 
+
+Por padrão o nome do projeto será o namespace de cada classe. Se a classe estiver dentro de uma pasta, o namespace pode ser o "nomedoprojeto.nomedapasta"
+
+
+
+Capítulo 4 - Conhecendo variáveis e instruções
+
+
+
+Capítulo 4 - Aula 1 - Tipos de valor
+
+
+* Nós temos dois tipos de variáveis no C#:
+
+1 - Variáveis de "tipos de valor" contêm diretamente seus dados (Ao criarmos uma variável de "tipos de valor" é separado um espaço na memória para esse valor e os seus dados estão no mesmo espaço da memória). As variáveis têm sua própria cópia dos dados e não é possível que as operações afetem outra variável (exceto no caso das variáveis de parâmetro ref e out).
+
+* Numéricos: sbyte, short, int, long, byte, ushort, uint, ulong.
+
+* Caracteres Unicode: char
+
+* Pontos flutuantes: float, double, decimal
+
+* Booleano: bool
+
+* enum, struct e tipos nullable (Exemplo int?)
+
+2 - Variáveis de "tipos de referência" armazenam referências a seus dados (Elas não tem os dados diretamente/juntamente na memória. Elas guardam a referência pra esses dados e os dados são armazenados em outro espaço da memória). É possível que duas variáveis façam referência ao mesmo objeto/dado na memória e, portanto, que operações em uma variável afetem o objeto referenciado pela outra variável.
+
+* Tipos de Classe: class, objet, string
+
+* Tipos de Arrays: int[], int[,], etc...
+
+* Interface, delegate 
+
+
+
+Capítulo 4 - Aula 2 - Utilizando instruções em programas
+
+
+* Instruções: Ações de um programa são expressas usando instruções
+
+	{
+		Um bloco permite que várias instruções sejam escritas em contextos (blocos)
+	}
+
+* As chaves são usadas para espeficicar um bloco de codigo e ter as instruções dentro.
+
+* O que podem ser instruções:
+	* Declaração de variáveis e constantes locais
+	* if (condicional)
+	* switch (condicional)
+	* while (repetição)
+	* do (repetição)
+	* for (repetição)
+	* foreach (repetição)
+
+* Instruções auxiliares:
+	* break
+	* continue
+	* return
+	* throw (para tratativas de exceptions)
+	* try .. catch .. finally (para tratativas de exceptions)
+	* using (importar referências a pacotes e namespacings)
+
+
+
+* Capítulo 4 - Aula 3 - Exemplificando o conteúdo
+
+
+* Exemplo prático de C#
+
+* Declarações: Podemos declarar variáveis e constantes. Elas podem ser locais (dentro de um método) 
+	static void Declaracoes()
+	{
+		int a;
+		int b = 2, c = 3;
+		const int d = 4;
+		a = 1;
+		Console.WriteLine (a + b + c + d)
+	}
+
+* Você pode criar variáveis especificando ou não valores.
+
+* Instrução IF: Uma condicional
+
+    static void InstrucaoIf (string[] args)
+    {
+	if (args.Length == 0)
+	{
+	    Console.WriteLine("Nenhum argumento");
+	}
+	else if (args.Length == 1)
+	{
+	    Console.WriteLine("Um argumento");
+	}
+	else
+	{
+	    Console.WriteLine($"{args.Length} argumentos");
+	}
+    }
+
+* Quando eu uso $ na frente é uma string interpolation que eu consigo concatenar o texto da string.
+
+* Atalho para comentário: selecionar as linhas de código e dar um crtl+K+C
+
+* Atalho para tirar comentário: selecionar as linhas de código e dar um crtl+;
+
+* Instrução Switch: a ideia é parecida do if, mas a interpretação do código é mais simples (a escrita pode ser até mais verbosa).
+
+static void InstrucaoSwitch(string[] args)
+        {
+            int numeroDeArgumentos = args.Length;
+            switch (numeroDeArgumentos)
+            {
+                case 0:
+                    Console.WriteLine("Nenhum argumento");
+                    break;
+                case 1:
+                    Console.WriteLine("Um argumento");
+                    break;
+                default:
+                    Console.WriteLine($"{numeroDeArgumentos} argumentos");
+                    break;
+            }
+        }
+
+* Instrução While: instrução de repetição.
+
+static void InstrucaoWhile(string[] args)
+        {
+            int i = 0;
+            while (i < args.Length)
+            {
+                Console.WriteLine(args[i]);
+                i++;
+            }
+        }
+
+* Instrução Do: outra forma de repetição. Ele é parecido com o while. A diferença é que no While você faz a a condicional (verificação para ver se você continua) antes de executar. O DO você faz a vereificação no final. Se você usar o Do, pelo menos uma vez você vai executar o que está dentro do bloco. No While pode acontecer de você não passar pelo bloco nenhuma vez.
+
+static void InstrucaoDo(string[] args)
+        {
+            string texto;
+            do
+            {
+                texto = Console.ReadLine();
+                Console.WriteLine(texto);
+            } while (!string.IsNullOrEmpty(texto));
+        }
+
+* Console.ReadLine(); vai ficar aguardando que o usuário digite alguma coisa.
+
+* Instrução For: é muito comum sua utilização. É a mesma coisa que o While, só que tudo é feito em uma única linha. 
+
+static void InstrucaoFor(string[] args)
+        {
+            for (int i = 0; i < args.Length; i++)
+            {
+                Console.WriteLine(args[i]);
+            }
+        } 
+
+* Instrução Foreach: Ele vai executar um FOR, mas de uma forma mais simples. Você não trabalha com índices (i=0), para pegar a posição do array ou do objeto, você consegue trabalhar de uma forma mais tipada (com tipos ou objetos que você criou). Foreach significaria para cada.
+
+static void InstrucaoForeach(string[] args)
+        {
+            foreach (string s in args)
+            {
+                Console.WriteLine(s);
+            }
+        }
+
+* NO exemplo acima ficaria: para cada string que eu chamei de s no args, eu vou dar um WriteLine no s.
+
+* Tem situações que o Foreach é menos performática.
+
+* Instrução Continue: Usando o exemplo abaixo o Continue seria algo como eu recebo um valor pelo array, se esse valor comaçar com "/" o sistema vai automaticamente passar para o próximo valor em vez de rodar o WriteLine. É como se o valor recebido não tivesse existido.
+
+static void InstrucaoContinue(string[] args)
+        {
+            for (int i = 0; i < args.Length; i++)
+            {
+                if (args[i].StartsWith("/"))
+                {
+                    continue;
+                }
+                
+                Console.WriteLine(args[i]);
+            }
+
+* Instrução Return: 
+
+static void InstrucaoReturn(string[] args)
+        {
+            int Somar(int a, int b)
+            {
+                return a + b;
+            }
+
+            Console.WriteLine(Somar(1, 2));
+            Console.WriteLine(Somar(3, 4));
+            Console.WriteLine(Somar(5, 6));
+            return;
+        }
+
+* O "void" do início do código significa que esse método não retorna nenhum valor, mas executa.
+
+* Quando eu uso o return, eu indico que ele vai retonar algo (no caso um valor inteiro).
+
+* Instrução Try .. Catch .. Finally .. Throw ..: Tudo isso tem a ver com exceções.
+
+static void InstrucoesTryCatchFinallyThrow(string[] args)
+        {
+            double Dividir(double x, double y)
+            {
+                if (y == 0)
+                    throw new DivideByZeroException();
+
+                return x / y;
+            }
+
+            try
+            {
+                if (args.Length != 2)
+                {
+                    throw new InvalidOperationException("Informe 2 números");
+                }
+
+                double x = double.Parse(args[0]);
+                double y = double.Parse(args[1]);
+                Console.WriteLine(Dividir(x, y));
+            }
+            catch (InvalidOperationException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Erro genérico: {e.Message}");
+            }
+            finally
+            {
+                Console.WriteLine("Até breve!");
+            }
+        }
+ 
+        }
+
+* Instrução Using: importação de referências e pacotes. Faz limpeza de objetos não gerenciados.
+
+static void InstrucaoUsing(string[] args)
+        {
+            using (System.IO.TextWriter w = System.IO.File.CreateText("teste.txt"))
+            {
+                w.WriteLine("Line 1");
+                w.WriteLine("Line 2");
+                w.WriteLine("Line 3");
+            }
+        }
+
+* Array: Um array é uma estrutura de dados que contém um número X de elementos, todos do mesmo tipo, que são acessados através de índices computados.
+
+* Arrays são tipos de referência e a declaração de uma variável array simplesmente reserva espaço para uma referência de uma instancia de array.
+
+* Ao criar um array é especificado o tamanho da nova instância, que é fixo durante todo o tempo de vida da instância.
+
+* Os índices dos elementos de um array variam de 0 a comprimento do array -1
+
+* Array unidimensional: é um array de apenas uma dimensão.
+
+	int[] a = new int [10];
+
+* Array multidimensional: são as matrizes. Pode ter 2, 3, 4, et dimensões. 
+
+	int [,] a2 = new int [10, 5];
+
+	int [,,] a3 = new int [10, 5, 2];
+
+Inicializador de array: Já é passado os valores do array
+
+	int [] a = new int [] {1, 2, 3};
+
+	int [] a = {1, 2, 3}; 
+
+
+
+Capítulo 5 - Classes e objetos essenciais em C#
+
+
+
+Capítulo 5 - Aula 1 - O que são Classes e Objetos em C#
+
+
+* Classes são os tipos mais fundamentais de C#. A classe permite que a gente crie objetos. A classe é a definição de uma estrutura que vai gerar um objeto em tempo de execução. 
+
+* O C# é uma linguagem orientada a objeto. 
+
+* Uma classe é uma estrutura de dados que combina estado (são os campos ou propriedades) e ações (métodos: são ações que o objeto vai poder executar)
+
+* Objetos são instâncias de uma classe. A classe é como se fosse a declaração (definição da estrutura desejada, enquanto no tempo de execução aquela classe vai ser instânciada e vai gerar um objeto em memória). 
+
+* As classes suportam herança e polimorfismo, mecanismos pelos quais as classes derivadas podem estender e especializar as classes base. 
+
+* Instâncias de classes (objetos) são criadas usando o operador new, que aloca memória para uma nova instância, chama um construtor para inicializar a instância e retorna uma referência à instância
+	Ponto p1 = new Ponto (0,0);
+	Ponto p2 = new Ponto (10, 20);
+
+* Quando eu escrevo esse new Ponto() e informo o valor de x e y alocasse um espaço na memória para guardar a informação. O p1 ou p2 apenas referencia o valor que está guardado na memória 
+
+* A memória ocupada por um objeto é recuperada automaticamente quando o objeto não está mais acessível. Não é necessário nem possível desalocar explicitamente objetos em C#. O Gargage Collection tem essa função (desalocar da memória objetivos que não estão sendo utilizados).
+
+* Membros:
+
+* Os membros de uma classe podem ser estáticos ou membros da instância.
+
+* Membros estáticos pertencem a classe e membros de instância pertencem ao objeto.
+
+* Constantes, variáveis, métodos, propriedades, construtores, etc. são membros.
+
+* Acessibilidade: 
+
+* Cada membro de uma classe tem uma acessibilidade associada, que controla as regiões do texto do programa que podem acessar o membro.
+
+* A acessibilidade pode ser:
+	* public: qualquer parte do código pode acessar (pode ser um método, propriedade)
+	* protected: quando eu falo de herança eu vou ter uma classes base e outras classes que herdam essa classe base. SE essa classe base tiver um método "protected" apenas as classes que herdam dessa classe base terão acesso a este método que é protected. Nenhuma outra class não conseguiria acessar esse método protected
+	* internal: Ele só é acessado de dentro do assembly que ele faz parte. 
+	* private: ele é acessado unica e excusivamente dentro da classe que ele está contido. Não há acesso a ele de outra classe, mesmo que das classes filhas.
+
+* Herança:
+
+* Uma declaração de classe pode especificar uma classe base, herdando os membros public, internal (se essa classe filha estiver dentro do mesmo assembly) e protected da classe base.
+
+* Omitir uma especificação de classe base é o mesmo que derivar do tipo object. Quando eu não quero herdar eu apenas omito aquela herança.
+
+* Métodos:
+
+* Um método é um membro que implementa uma computação ou ação que pode ser executada por um objeto ou classe. É ele que determina as ações que uma classe ou objeto podem ter.
+
+* Os métodos são denominados com verbos (pois são ações) e propriedades substantivos (pois eles indicam propriedades).
+
+* Os métodos podem ter uma lista de parâmetros, que representam valores ou referências de variáveis passados para o método, e um tipo de retorno, que especifica o tipo do valor calculado e retornado pelo método. 
+
+* Após o processamento interno de um método ele pode ou não retornar um valor. Se ele não retorna nada ele vai ser um método do tipo "void".
+
+
+
+Capítulo 5 - Aula 2 - Como aplicar classes e objetos em projetos
+
+
+* Exemplo prático
+
+* Quando eu crio uma classe e digo que ela vai herdar os membros de outra classe eu uso:
+	public class Ponto3D : Ponto
+
+* No código acima estou criando uma classe chamada Ponto3D que vai herdar os membros da classe Ponto.
+
+* Só pode ser herdado membros de uma única classe
+
+* Ao criar uma propriedade que vai utilizar um membro de outra classe que foi herdada você precisa fazer da seguinte forma:
+	public Ponto3D (int x, int y, int z) : base (x, y)
+	{
+	    this.z = z;
+	    CalcularDistancia ();
+	}
+
+* NO caso acima, quando digitamos ": base (x, y)" estamos informando que o x e o y vão vir da classe herdada.
+
+* Além disso, não precisamos informar o x e o y dentro do bloco, apenas o z "this.z = z;"
+
+* Se eu tentar acessar um método de uma classe herdada (usando F12), o sistema vai abrir o arquivo que está a classe que foi herdade e mostrar o método.
+
+* Para declarar um mebro estático nós utilizamos:
+	public static void Calcular()
+        {
+            //Faz alguma coisa...
+        }
+
+* Para acessar o método acima eu não preciso necessariamente instanciar um objeto. Pela classe eu posso chamar esse método.
+
+* Os métodos que são private na classe básica não podem ser acessados pelas classes filhas.
+
+* Quando temos um método que recebe um virtual nós permitimos que a classe filha possa sobreescrever o método:
+	public virtual void CalcularDistancia3()
+        {
+            //Faz alguma coisa...
+        }
+
+* Para isso nós temos que dar um "public override" para sobreescrever.
+	public override void CalcularDistancia3()
+        {
+            //Faz outra coisa ...
+            base.CalcularDistancia3();
+        }
+
+* Métodos:
+
+* O tipo int é um tipo de valor (ele próprio guarda os seus valores).
+
+* Quando eu tenho um método que inverte um valor int (x, y), esses valores serão invertidos, mas ficarão restritos ao método. O que eu fizer dentro do método não vai afetar que for chamar o método. 
+
+* Quando eu passo o x e y por referência (ref int x, ref int y) o que for alterado no método será alterado para quem for chamar o método. 
+
+
+
+Capítulo 6 - Trabalhando com structs, interfaces e enums
+
+
+
+Capítulo 6 - Aula 1 - O que são structs
+
+
+* Como as classes, as structs são estruturas de dados que podem conter membros de dados e membros de ação, mas, diferentemente das classes, as structs são tipos de valor e não requerem alocação de heap (quando temos uma variável por referência, nós não temos os dados, mas sim uma referência a um outro local da memória. O valor armazenado fica em um lugar separado da memória, esse lugar se chama heap). Como a struct é um tipo de valor, ela não precisa de um valor de referência. A classe precisa dessa referência de valor. Quando eu declaro uma variável ela estará em uma parte da memória chamada stack. Heap e stack são as duas partes de uma memória. 
+
+* Uma variável de um tipo de struct armazena diretamente os dados da estrutura, enquanto uma variável de um tipo de classe armazena uma referência a um objeto alocado na memória.
+
+* Structs não aceitam herança determinada pelo desenvolvedor.
+
+* A struct é uma estrutura mais simples. Não se usa para tudo.
+
+* São úteis para pequenas estruturas de dados que possuem semântica de valor: números complexos, pontos em um sistema de coordenadas ou pares de chave-valor em um dicionário são bons exemplos de utilização.
+
+* O uso de struct em vez de classes para pequenas estruturas de dados pode fazer uma grande diferença no número de alocações de memória.
+
+* Structs
+	public struct Ponto
+	{
+	    public int x, y;
+	    public Ponto (int x, int y)
+	    {
+		this.x = x;
+		this.y = y;
+	    }
+	}
+
+* A única diferença entre esse código para o código da class é que na class o código começa com "public class Ponto"
+
+* Construtores de structs são chamados com o operador new, semelhante a um construtor de classe, mas em vez de alocar dinamicamente um objeto no heap gerenciado e retornar uma referência a ele, um construtor struct simplesmente retorna o próprio valor struct (normalmente em um local temporário na stack), e esse valor é copiado conforme necessário. 
+
+
+
+Capítulo 6 - Aula 2 - Entendendo a função de interfaces e enums
+
+
+* Uma interface define um contrato que pode ser implementado por classes e structs.
+
+* Uma interface pode conter métodos, propriedades, eventos e indexadores.
+
+* Uma interface não fornece implementações dos membros que define - apenas suas "assinaturas".
+
+* As interfaces odem empregar herança múltipla. 
+
+* Interfaces:
+	interface IControl
+	{
+	    void Paint();
+	}
+	interface IListBox
+	{
+	    void SetText (string text);
+	}
+	interface IComboBox: IControl, IListBox {}
+
+* Na interface acima, a terceira delas vai herdar a interface IControl e a interface IListBox
+
+* Quem for implementar a terceira interface vai ter que implementar as duas primeiras que foram herdadas.
+
+* Você pode criar uma classe que herde interfaces.
+
+* Enums: Um enum é um tipo de valor distinto com um conjunto de constantes nomeadas.
+
+* Você define enumerações quando precisa definir um tipo que pode ter um conjunto de valores discretos. Eles usam um dos tipos de valor integral como armazenamento subjacente. Eles fornecem significado semântico aos valores discretos. Isso quer dizer que: os valores discretos são aqueles valores que são atribuídos, por exemplo, ao status de uma nota fiscal: 1 - emitido; 2 - cancelado; 3 - enviado, etc. Para não confundir qual é o valor de cada status, você pode definir um enum (enumerador). Aí você vai definir um conjunto de valores discretos e vai atribuir uma descrição, ou um valor mais semântico para cada um desses valores discretos. 
+
+* Enums:
+	enum Cor
+	{
+		Vermelho,
+		Verde,
+		Azul
+	} // Não precisa ter uma númeração, pode ser uma lista (como esta acima usando cores).
+
+	static void EscreverCor (Cor cor)
+	{
+	    switch (cor)
+	    {
+		case Cor.Vermelho:
+		    Console.WriteLine ("Vermelho");
+		    break;
+		case Color.Verde:
+		    Console.WriteLine ("Verde");
+		    break;
+	    }
+	}
+
+* Cada tipo de enum possui um tipo integral correspondente chamado tipo subjacente do tipo de enum.
+
+* Um tipo de enumeração que não declara explicitamente um tipo subjacente tem um tipo subjacente int. 
+
+	enum Alinhamento: sbyte
+	{
+		Esquerda = -1,
+		Centro - 0,
+		Direita = 1
+	}
+
+* No código acima, se eu não tivesse indicado que ele é um sbyte, o sistema automaticamente declararia como int. 
+
+
+
+Capítulo 7 - Uma síntese do que é .NET
+
+
+
+Capítulo 7 - Revisão introdutória
+
+
+* Exemplo prático
+
+* Ideia da aplicação: cadastrar alunos e armazenar em uma array, adicionar notas, fazer médias, etc.
+
+1 - abrir o CLI (ou git Bash) e criar uma pasta nova. Dentro dessa pasta criar um novo projeto .NET usando o comando "dotnet new console -n NomedoProjeto"
+
+2 - entrar nessa pasta usando o comando "code ."
+
+3 - no arquivo Program.cd dentro da área do Main é que serão executados os códigos. A primeira coisa que nosso programa vai precisar é de um menu para o usuário informar a opção desejada. Substituir o Hello World por essa frase.
+
+** Não vou detalhar o que foi feito no programa, mas coisas interessantes que foram passadas.
+
+* Ao criar um menu com várias opções para o usuário escolher, você pode selecionar todas as opções e clicar na lampada que vai aparecer no VScode. Nessa lampada você pode escolher "Extrair Método" e o proprio VSCode vai transformá-lo em um método com um return. Desta forma, você pode substituir todos os lugares que o menu for aparecer apenas pela chamada do método.
+
+* Na área do explorador do VSCode, você pode clicar com o botão direito de mouse e criar um arquivo de class automaticamente.
+
+* Quando você cria um array você precisa indicar quantas posições ele vai ter, por exemplo: new Aluno [5];
+
+* Para concatenar no C# você pode usar Console.WriteLine($"Média Geral {variável}");
+

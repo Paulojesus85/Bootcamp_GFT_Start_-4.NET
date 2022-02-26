@@ -1,0 +1,278 @@
+Bootcam- .NET - Introdução ao Git e ao GitHub
+
+
+
+Capítulo 1 - Introdução ao Git
+
+
+
+Capítulo 1 - Aula 1 - Entendendo o que é Git e sua importância
+
+
+* É um sistema de versionamento de código.
+
+* Surgiu para tentar resolver problemas na produção e aperfeiçoamento do Linux.
+
+* Git e GitHub não são as mesmas coisas.
+
+
+
+Capítulo 2 - Navegação via command line interface e instalação
+
+
+
+Capítulo 2 - Aula 1 - Comandos básicos para um bom desempenho no terminal
+
+
+* GUI X CLI
+
+* GUI: Graphyc User Interface - Programas que possuem interface gráfica e responsiva.
+
+* CLI: Command Line Interface - usado no Git. Não tem uma interface gráfica. A forma de interação com o Git é atraves de linhas de comando.
+
+* Existem comandos diferentes para o Windows e para Linux.
+
+* Windows: -cd -dir -mkdir -del/rmdir
+
+* Linux: -cd -ls - mkdir - rm -rf
+
+* Usando o Git Bash, você usa o comando "ls" para conseguir uma lista com os diretorios que existem nas pasta. No Windows é "dir"
+
+* O comando "cd /" nós leva para a base do diretório (cd significa change directory)
+
+* O comando "cd nomedapasta" faz a gente acessar a pasta
+
+* O comando "cd .." faz a gente retroceder uma pasta
+
+* Para limpar o terminal usamos o comando "clear" ("cls" no windows).
+
+* No Git Bash você pode usar o atalho crtl + L para limpar
+
+* No Windows você pode usar o atalho TAB para autocompletar o nome de uma pasta que você queira acessar.
+
+* O comando "mkdir" cria uma pasta nova.
+
+* Existe um comando "echo" que apenas printa na tela uma palavra ou grase que você escrever após "echo". Entretanto, se você usar o comando "echo" escrever uma palavra e depois usar o símbolo ">" essa frase será redirecionada para uma arquivo que você indicar/criar aopós o símbolo de ">". Por exemplo:
+	echo hello > hello.txt // isso significa que ele vai na pasta em que você estiver e vai analisar se tem um arquivo chamado hello.txt. Se  tiver vai dar uma msg de erro. Se não tiver ele vai criar um arquivo chamado hello.txt com o conteúdo "hello".
+
+* No Windows, se você utilizar o comando "del" para tentar deletar uma pasta você não vai conseguir. O comando "del" só serve para deletar arquivos. 
+
+* No Windows tem um atalho para navegar pelos comandos que você já escreveu. Para isso você precisa apenas clicar na seta para cima e procurar os comandos que você já deu.
+
+* No Windows para remover uma pasta com todos os seus arquivos você precisar usar o comando "rmdir nomedapasta /S /Q" (esse /S /Q ele não explicou o motivo de usar)
+
+* No Git Bash, para deletar uma pasta você usa o comando "rm -rf nomedapasta/". Nesse caso ele explicou que -rf significa que dentro da pasta que você indicar para ser deletada toda e qualquer pasta dentro dela será deletada (r) e que nenhuma mensagem de confirmação será exibida (f).
+
+** Para acessar as pastas em qualquer que seja o hd é necessário prestar atenção se após o MINGW64 vai estar um / ou um ~. Se ele estiver com um "/" isso quer dizer que você está dentro da pasta do Git. Você precisa dar um comando "cd" para sair o "/" e entrar o "~". Após aparecer o símbolo "~" você pode dar um "ls" que todas as pastar do seu C: vai aparecer. Aí é só dar um "cd nomedapasta" que você acessa qualquer lugar no seu hd.
+
+
+
+
+Capítulo 3 - Entendendo como o Git funciona por baixo dos panos
+
+
+
+Capítulo 3 - Aula 1 - Tópicos fundamentais para entender o funcionamento do Git
+
+
+* SHA1 - A sigla SHA significa Secure Hash Algorithm (Algoritmo de Hash Seguro), é um connjunto de funções hash criptográficas projetadas pela NSA (Agência de SEgurança Nacional dos EUA).
+
+* É um algoritmo de encriptação.
+
+* A encriptação gera um conjunto de caracteres identificadores de 40 dígitos únicos.
+
+
+
+Capítulo 3 - Aula 2 - Objetos internos do Git
+
+
+* Os treês objetos básicos do Git que que são responsáveis pelo versionamento são:
+	Blobs:
+	Tress:
+	Commits:
+
+* Blobs: é um objeto que armazena arquivos. E esse objeto tem meta-dados dentro dele. O objeto Blob vai ter o tipo do objeto (que é o próprio blob), o tamanho (da string ou arquivo), uma barra contrária com o zero (\0) e o conteúdo de fato do arquivo (seja texto, binário, etc).
+
+* Trees: as tree são objetos que armazenam Blobs. Ela também contém meta-dados. Enquanto o blob só guarda o SHA do arquivo, a Tree guarda o nome do arquivo. A arvore será responsável por montar toda a estrutura onde estão os arquivos. As árvores podem apontar para para os Blobs ou outras árvores. Além de guardar o nome dos arquivos, a Tree tem a sua p´ropria SHA1. Qualquer mudança em qualquer arquivo vai gerar um SHA diferente. 
+
+* Commit: é um objeto que vai juntar tudo. O commit aponta para uma árvores, aponta para um parente (que significa que aponta para o último commit realizado antes dele), aponta para um autor, aponta para uma mensagem. O commit também tem um TIMESTAMP (carimbo de tempo - data e hora que foi realizado). Os commits também possuem encriptação (SHA1).
+
+* Se algo for alterado em uma blob que está dentro de uma árvore, que está dentro de um commit, o SHA de todas elas vai mudar. 
+
+* Você consegue montar uma linha do tempo entre os commits.
+
+* O Git é um sistema distribuido e seguro, pois qualquer versão de um mesmo arquivo no git vai ter o mesmo SHA. Assim todas as versões distribuídas de um arquivo vai ter a mesma informação e segurança.
+
+
+
+Capítulo 3 - Aula 3 - Chave SSH e Token
+
+
+* O GitHub é uma plataforma em nuvem. Você precisa se identificar para acessar a plataforma.
+
+* Em busca de mais segurança, o GitHub criou uma nova autenticação mais segura.
+
+* Você não consegue mais empurrar os arquivos pro GitHub apenas com senha e usuário.
+
+* A chave SSH é uma forma segura e encriptada de manter uma relação/conecção entre duas máquinas. 
+
+* Para conectar a nossa máquina ao servidor do GitHub precisa tornar a nossa máquina segura para tal ação. Para isso precisamos de duas chaves (uma pública e outra privada).
+
+* Para isso, precisamos pegar a nossa chave pública e colocar no GitHub. Aí o GitHub já vai conhecer a nossa máquina.
+
+* Precisamos gerar uma chave usando o Git Bash. 
+
+* O professor está passando todos os passos para gerar a chave. Mas, se pegar algum vídeo na internet você consegue criar essa chave sem ter que decorar esses comandos tão específicos.
+
+* No GitHub você vai expor a chave pública (o conteúdo da chave que é uma quantidade grande de números e caracteres).
+
+* Indo para o GitHub você tem que procuara em Settings a área de SSH Keys. É só você jogar no GitHub a sua chave pública que eles vão criar a sua chave para a sua utilização. 
+
+* Depois você precisa voltar ao Git Bash para gerar um agent e entragar a sua chave (privada).
+
+* Entre o Windows e o Linux a forma de criar essas chaves é igual. A diferença é no Mac. 
+
+* Procurar no Git Hub Docs sobre como gerar chaves SSH.
+
+* Outra forma de segurança oferecida pelo GitHub é o Token de acesso pessoal.
+
+* É preferível configurar uma chave SSH se você usa a máquina com frequência.
+
+* Você precisa procurar em Settings a área de configurar o Token.
+
+
+
+Capítulo 4 - Primeiros comandos com Git
+
+
+
+Capítulo 4 - Aula 1 - Iniciando o Git e criando um commit
+
+
+* git init: iniciar um repositório;
+
+* git add: adicionar um arquivo no repositório;
+
+* git commit: fazer um commit no repositório
+
+* Usamos o comando "mkdir nomedodiretorio" para criar uma nova pasta com o nome escolhido.
+
+* Para transformar uma pasta em um repositório git precisamos entrar dentro da apsta que queremos transformar em repositório e usar o comando "git init"
+
+* Com o código acima uma pasta oculta é criada dentro do repositório. Para ver todos os arquivos ocultos temos que usar o comando "ls -a"
+
+* Se for a primeira vez que estamos usando o git precisamos configurar o git. Para isso usamos o seguinto comando:
+	$ git config --global user.email "email"
+	$ git config --global user.name "nome"
+
+* Na configuração acima estamos configurando de forma global. Se quisermos configurar localmente só para esse projeto devemos usar --local
+
+* Quando você tem um arquivo na pasta que é seu repositório, você precisa adicioná-lo ao git usando o comando "git add nomedoarquivo".
+
+* Você também pode usar o comando "git add ." ou "git add *" para adicionar todos os arquivos que estão na pasta mais ainda não foram adicionados.
+
+* Após adicionar o arquivo, você precisa fazer o commit dele. Para isso você deve utilizar o comando git commit -m "mensagem"
+
+
+
+Capítulo 5 - Ciclo de vida dos arquivos no Git
+
+
+
+Capítulo 5 - Aula 1 - Passo a passo no cliclo de vida
+
+
+* Entender o que é Tracked e Untracked
+
+* Untracked são os arquivos que o git ainda não tem ciência deles.
+
+* Tracked seriam os arquivos que podem ser rastreados pelo git. Eles se dividem em três categorias:
+	Unmodified: ainda não foi modificado.
+	Modified: arquivo que sofreu modificação
+	Staged: é onde ficam os arquivos que estão se preparando para fazer parte de outro tipo de agrupamento. 
+
+* Quando você adiciona um arquivo ele passa de Untracked para Tracked no estágio de Staged. Se você commita esse arquivo, ele sai de Staged para Unmodidied. Caso você edite esse arquivo, ele deixa de ser Unmodified para ser Modified e você precisa adicioná-lo novamente, o que leva ele a ficar no estágio de Staged. Quando você commita ele volta para o estágio de Unmodified. Caso você remova o arquivo ele passa para Untracked novamente.
+
+* Área de desenvolvimento: 1 - Working Directory; 2 - Staging Area; 3 - Local repository;
+
+* Servidor: 1 - Remote Repository;
+
+* O repositório local está na sua máquina enquanto o repositório remote fica em um servidor.
+
+* A gente trabalha no Ambiente de desenvolvimento, você fica alterando entre o diretorio de trabalho, a área de staging e o reporitório local. Quando você passa os comandos corretos, você pode enviar os arquivos de repositório local para o repositório remoto.
+
+* Tudo o que está no repositório local precisa estar commitado para que você possa enviá-lo para o repositório remoto. 
+
+* O comando "git status" vai ajudar a gente a monitorar os estágios dos nossos arquivos.
+
+* Para mover um arquivo de uma pasta do repositório para outra pasta (dentro do repositório) você pode usar o comando:
+	$ mv nomedoarquivo ./nomedanovapasta/
+
+* Você consegue adicionar mais de um arquivo de uma vez usando "git add nomedoaquivo1 nomedoarquivo2/"
+
+
+
+Capítulo 6 - Introdução ao GitHub
+
+
+
+Capítulo 6 - Aula 1 - Trabalhando com o GitHub
+
+
+* O professor disse que é importante manter o mesmo e-mail e user.name que é usado no GitHub para as configurações globais no Git na máquina. DEsta forma, não vai dar conflito ao fazer um merge ou algo do tipo.
+
+* Para saber se os dados que estão no git são os mesmos do GitHub você deve usar o comando:
+	$ git config --list
+
+* Desta forma, uma lista com todas as configurações do Git vão aparecer.
+
+* Caso o user.name estja diferente você pode usar o comando:
+	$git config --global --unset user.name
+
+* Você pode substituir o user.name por outra propriedade que você queira mudar.
+
+* Ao usar o comando acima, a informação irá desaparecer e não ser trocada por outra.
+
+* Depois de ter retirado a informação errada, você precisa indicar a nova informação usado o comando:
+	$git config --global user.name "Nome"
+
+* Ao criar um repositório no GitHub você precisa mostrar para o repositório local que existe um repositório remoto. O próprio site do GitHub mostra quais são os passos que você precisa dar.
+
+* Para indicar o repositório remoto para o Git, você precisar usar o comando:
+	git remote add origin linkdogithub
+
+* Para ver quais repositórios remotos você tem adicionado ao repositório local você deve usar o comando:
+	git remote -v
+
+* O comando que usamos para enviar os arquivos do repositório local para o remoto é o push.
+
+* O comando completo para enviar um arquivo da master (repositório local) para o repositório remoto (origin) é:
+	git push origin master
+
+
+
+Capítulo 7 - Resolvendo conflitos
+
+
+
+Capítulo 7 - Como os conflitos acontecem no GitHub e como resolvê-los
+
+
+* Se duas pessoas clonaram um repositório do GitHub e fizeram alterações, quando a primeira pessoa der um push do arquivo dela para o GitHub o código será atualizado para a versão dessa pessoal. Quando a segunda pessoa der um push no arquivo dela o sistema do Git vai identificar que o código que ela está tentando dar um push é diferente da versão que está no GitHub e vai permitir que o segundo usuário analise as alterações para ver quais ele vai aceitar e rejeitar.
+
+* A questão é que na hora em que o segundo usuário tentar fazer o push para empurrar as alterações para o GitHub vai aparecer uma mensagem de erro dizendo que o push não pode ser feito, pois a versão do código que está no GitHub é diferente da versão que o usuário tem.
+
+* Para resolver isso é necessário fazer um pull para puxar as informações do GitHub.
+
+* Para fazer um pull o comando é:
+	$ git pull origin master
+
+* Ao fazer o pull, o Git vai mostrar que tem um conflito de merge entre as versões.
+
+* O segundo usuário deve abrir o arquivo e analisar as alterações que foram feitas, salvar a versão final, fazer um git add *, um git commit -m "mensagem" e um git push origin master.
+
+* Para clonar um repositório do github é necessário usar o comando:
+	$ git clone linkdorepositoriadogithub
+
+
+

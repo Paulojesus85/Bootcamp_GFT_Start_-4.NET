@@ -1,0 +1,26 @@
+Curso - IDE Instalação e Configuração (Visual Studio Code)
+
+
+Capítulo 1 - Instalando o VSCode
+
+
+Capítulo 2 - Recursos básicos
+
+
+Capítulo 3 - Extensões e temas
+
+
+Capítulo 4 - Terminal e Git
+
+
+* Você pode abrir um terminal indo em Terminal -> Novo Terminal.
+
+* Qualquer comando que eu der no Prompt de comando eu posso dar no Terminal. Seja lista com $ls ou criar uma pasta com $mkdir nomedapasta, entrar nos diretorios com $cd.
+
+* Se você adicionou o VSCode no seu Path na instalação, quando você digitar code no terminal tudo o que estiver no seu Path você vai poder digitar nas linhas de comando.
+
+* Se eu digitar code .nomedapasta ele vai abrir a pasta.
+
+* Se eu estiver dentro de uma pasta e quiser abrir um arquivo é só clicar code arquivo.extensão
+
+* No terminal você pode dar um git init em uma pasta para torná-la um repositório. Desta forma, os arquivos vão começar a ser acomanhados pelo Git.

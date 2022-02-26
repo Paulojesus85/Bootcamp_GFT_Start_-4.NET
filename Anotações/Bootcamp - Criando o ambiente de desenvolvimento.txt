@@ -1,0 +1,59 @@
+Curso - Criando o ambiente de desenvolvimento
+
+
+
+Capítulo 1 - Instalação do .NET
+
+
+
+Capítulo 1 - Aula 1 - Apresentação do curso
+
+
+Capítulo 1 - Aula 2 - Instalando o .NET
+
+
+
+Capítulo 2 - Net Framework, Core e 5
+
+
+
+Capítulo 2 - Aula 1 - Diferenças entre .NET Framework, Core e 5
+
+
+* O .NET FRamework foi criado para desenvolvimento em Web e Windows.
+
+* Com o aumento da tecnologia de nuvem (que usa Linux) a Microsoft desemvolveu o .NET Core que é multiplataforma.
+
+* Com a existência de duas ferramentas diferentes, a Microsoft criou a .NET Standard. Ele não é uma nova ferramenta, mais um crontrato entre as duas ferramentas que determina que a linguagem e os códigos são iguais entre as duas ferramentas.
+
+* O .NET 5 tem a função de pegar tudo de melhor das duas ferramentas anteriores e funcionar para todos os tipos de plataformas ( gaming, iot, ai, desktop, mobile, etc). O .NET é uma plataforma unificada.
+
+
+
+Capítulo 3 - Aula 1 - Framework e Runtime
+
+
+* Framework:  é uma caixa de ferramenta que você pega ferramentas prontas para utilizar da forma como você quiser. Você não precisa criar as coisas do zero. Você pega o código pronto e muda as coisas que você quiser.
+
+* Runtime: O computador não entende a linguagem de alto nível (feito pelas linguagens de programação que usamos). O computador só entende 0 e 1. O Runtime pega o bloco de código que você escreveu e compila (transforma) em linguagem binária. 
+
+
+
+Capítulo 4 - Aula 1 - Conhecendo a CLI do .NET
+
+
+* CLI (Command-Line Interface): Significa em Português "Interface de Linha de Comando". É o prompt de comando do Windows. Ele processa os comandos que serão enviados para um programa de computador na forma de linhas de texto.
+
+* Na prática: comandos que podemos usar (usei no Prompt de Comando)
+	dotnet --version (vai mostrar qual a versão do dotnet está sendo usada)
+	dotnet --help (vai listar todos os comandos que posso usar)
+	dotnet --info (vai trazer informações sobre versão, sistema operacional, etc)
+	dotnet new (vai criar um novo projeto no .NET, mas para isso vocÇe precisa indicar qual modelo de projeto você quer fazer.)
+	dotnet new --list (apresenta uma lista completa de modelos de projetos)
+	dotnet new --list --tag web (você consegue filtrar os modelos de projetos a partir da tag, no caso desse exemplo o sistema filtraria apenas os projetos de web)
+	dotnet new console -o myApp (Com esse comando nós criamos um novo projeto que estará em uma pasta chamada myApp)
+	cd myApp (comando cd é para acessar um duretório, nesse caso o diretório myApp que criamos)
+	dotnet run (Se você der esse comando dentro de uma pasta criada no .NET ele vai fazer o programa rodar)
+	dotnet build (ele vai compilar o projeto para poder executar.)
+	dotnet restore (Ele vai restaurar para o projeto poder rodar)
+
