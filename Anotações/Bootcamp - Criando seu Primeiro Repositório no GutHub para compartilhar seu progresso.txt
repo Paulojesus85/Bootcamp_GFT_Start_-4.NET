@@ -1,0 +1,21 @@
+Curso - Criando seu Primeiro Repositório no GutHub para compartilhar seu progresso
+
+
+
+* Criar um repositório do GitHub
+
+* Deixar o repositório público
+
+* Adicionar a README file
+
+* Com o repositório criado:
+
+* Copiar o link para a clonagem do projeto
+
+* Dar um $ git clone linkdo repositório
+
+* Após clonar, se modificações forem feitas no servidor local você terá que dar um git add ., um git commit -m e um git push origin main.
+
+* O desafio será:
+
+	* Criar um repositório no GitHub para compartilhar o progresso. 
