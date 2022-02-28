@@ -1,0 +1,525 @@
+Curso - Trabalhando com Tipos de Referência e Valor com C#
+
+
+
+Capítulo 1 - Entendendo o que são Value Types e Reference Types
+
+
+
+Capítulo 1 - Aula 1 - Entendendo o que são Value Types e Reference Types
+
+
+* Common Type System (CTS): é como o .NET chama a separação do que é value Types e o que é Reference types. 
+
+* O compilador vai tratar como Reference Types tudo o que herda do System.Object (são todas as classes básicas, todas as bibliotecas, interfaces, System.String, o System.Array, listas, tudo aquilo que a gente converter para Object).
+
+* E tudo o que herda de System.ValueTypes será Value Types (são todos os Enums, todos os tipos de int (decimal, float, etc - tipos primitivos do .NET), boolean, todos os structs) 
+
+* Como definimos uma Value Types:
+	* Contém uma instância do tipo criado - (INSTÂNCIA é sempre que eu estou trabalhando com valores). Se eu crio uma variável x do tipo inteiro, dentro dessa variável x eu vou ter uma instância do tipo inteiro com determinado valor.
+	* A instância sempre é copiada ao atribuir o valor para outra variável. Se eu crio a variável x do tipo inteiro e atribuo para outra variável y o que vai acontecer é que uma cópia daquele x vai ser criada internamente no CLR e atribuir essa instância para outra variável. Desta forma, eu vou ter duas instâncias de inteiro distintas com o mesmo valor. 
+	* Alocação na STACK (melhor performance): 
+	* O valor inicial é sempre o valor default de cada tipo: quando eu criar uma variável sem atribuir um valor, o valor sempre vai ser 0 se for valor númerico, sempre vai ser false se for boolean. Cada tipo vai ter uma valor default determinado.
+	* Não precisa se preocupar com o gerenciamento de Memória: Como no Value Type os valores ficam na Stack, nós temos algo que se chama CONTEXTO (flame). Isso quer dizer que quando o Contexto morre, tudo que está no contexto morre junto. 
+
+* Como definimos uma Reference Types:
+	* Contém uma REFERÊNCIA para uma instância do tipo criado: a referência é como se fosse um ponteiro que aponta para algo. 
+	* A referência nunca muda ao atribuir o valor para outra variável: SE eu tenho uma classe P1 por referência, ao criar uma classe P2 e falar que P2 é igual a P1 não vai ser feita uma cópia de P1 e atribuí-la a P2 (como no Value Type), o que vai acontecer é que vai ser pego a referência de P1 e vai jogar a referência em P2.
+	* Na STACK fica um ponteiro e a alocação na HEAP. Na Stack fica apenas a referência de algo que está armazenado na Heap. Isso faz a performance cair. Mas dá mais poder pro programador, pois é possível armazenar projetos maiores e complexos.
+	* Seu valor inicial é sempre "Null". Se eu criar uma classe e não atribuir nenhum valor, o valor inicial vai ser sempre Null. É comum no início da programação com .NET criar uma classe e não atribuir nenhum valor, ao rodar o programa vai dar uma Exception, pois o valor da Reference Type é Null.
+	* Requer gerenciamento de Memória através do GC: GC é Garbage Collector. Como no Reference Type os valores ficam alocados na Heap, em algum momento será necessário limpar a Heap. Quando o Contexto morre, os valores continuam na Heap durante todo o clico de vida da aplicação. O Garbage Collector faz a função de limpar a Heap quando os objetos alocados dentro dela deixam de ser utilizados.
+
+* Value Types:
+
+* Value Types são todos os "Tipos primiticos":
+
+	* Valores numéricos:
+		** int
+		** decimal
+		** double
+		** float, etc
+	
+	* Boolean (true/false)
+	* Char (armazena apenas 1 caractere)
+	* Tuples 
+
+* Reference Types
+	* Class
+	* Interface
+	* Delegate
+	* Record
+	* object
+	* string (string é um tipo primito que não faz parte dos Value Types. Isso acontece pois a string não tem limite de tamanho. Por isso elas precisam ficar alocadas na Heap para não dar problema de alocação na Stack).
+
+
+
+Capítulo 1 - Aula 2 - Criando o projeto no VSCode
+
+
+* O professor sugeriu a instalação de duas extensões:
+	1 - C# for Visual Studio Code
+	2 - dotnet (A modern wrapper around CLI): essa extensão ajuda você a construir aplicações como a Console sem ter que usar o terminal.
+
+* Ao desenvolver uma aplicação, se você der um F5 ele vai dar um run e executar a aplicação no Console de Depuração.
+
+* No arquivo launch.json o professor mudou de ""console": "internalConsole"" para ""console": integratedTerminal"". Desta forma, ele vai rodar o código sem misturar com o log do Debug. Após fazer essa alteração, se você der um F5 os debugs vão rodar no Console de Depuração enquanto o resultado do programa vai rodar no Terminal.
+
+* No Console de Depuração existe um botãozinho de limpar, logo após uma caixa para busca.
+
+* No Terminal você pode dar um crtl+l para limpar.
+
+* Vamos criar dentro do arquivo Program.cs uma classe public chamada Program. Vamos criar um método de entrada para aparecer no Console:
+	public static void Main()
+	{	
+		Console.WriteLine("Hello World");
+	}
+
+* Uma dica que o professor deu é que o comando Console.WriteLine é muito utilizando. Para diminuir a quantidade de coisas que escrevemos nós podemos usar o comando "using static System.Console; na primeira linha do código. Desta forma, nós não precisamos mais escrever Console.WriteLine, mas só WriteLine.
+
+
+
+Capítulo 1 - Aula 3 - Demo Value Types na prática
+
+
+* Demos:
+	1 - Criar uma Console application que receba um valor inteiro na Main;
+	2 - Criar um método void que receba esse inteiro e altere o seu valor para qualquer outro;
+	3 - De volta ao Main exiba no terminal o valor alterado
+
+* Utilizando o Main que começamos na outra aula, dentro das chaves nós criamos uma variável "int a = 2;". Esse Main é o nosso Console Application recebendo um valor.
+
+* Acima da área do Main, a gente cria um método usando o comando: "static void Adicionar20(int a)". Na linha de baixo nós vamos criar o código que vai receber o "int a" e somar mais 20. O código vai ficar da seguinte forma: "a = a + 20;"
+
+* Voltando no Main, precisamos chamar o método que criamos acima usando: "Adicionar 20(a);". Também precisamos dar um WriteLine para aparecer um texto e o resultado da variável.
+
+* Ao rodar esse programa, o resultado vai ser 2 e não 22. Temos um bug no programa.
+
+* Isso acontece pois quando temos uma Value Type, o valor dela ao ser passado para outra variável é copiado, e não passado o mesmo valor como no Reference Type. Essa copia que é feita só vive no escopo (contexto) da chamada. Desta forma, quando passamos o valor a int a para o método Adicionar20, uma cópia de "int a = 2" é enviado para o método. Dentro no método será adicionado 20, mas, quando o sistema sair do método o contexto vai deixar de existir e o valor 22 vai ser apagado. Ao retornar ao Main, o valor do int continuará sendo 2 e não 22. 
+
+* O que chega no Adicionar20(int a) não é o vai de int a = 2, mas sim uma cópia dele. Por isso que no método podemos usar outra letra para a variável em vez de usar a. Se fosse Adicionar20(int x) o resultado seria o mesmo, pois o int x iria receber uma cópia da instância do valor de a.
+
+* O que vai ser alterado no método é a copia de int a=2 que foi enviada e não o valor original do Main. 
+
+* Se eu quiser que o resultado 22 retorne para o Main, eu não posso trabalhar com o método void, pois o método void não retorna valor. Para isso, precisamos trocar o "void" por "int" e na frente da nossa conta precisamos colocar um "return a + 20;". Além disso, no Main vai ser necessário dizer que o "a" vai ser igual ao resultado do método Adicionar20(a). Assim nosso código fica:
+
+public class Program
+{
+    static int Adicionar20(int a)
+    {
+        return a + 20;
+    }
+    public static void Main()
+    {
+        int a = 2;
+        a = Adicionar20(a);
+
+        WriteLine($"O valor da variável é {a}");
+    }
+}
+
+
+
+Capítulo 1 - Aula 4 - Demo Reference Types na prática
+
+
+* Criar uma Console application e uma class Pessoa com os seguintes atributos "Nome", "Idade" e "Documento".
+
+* No Main, crie uma instância de Pessoa atribuindo a essas propriedades seu nome e sua idade.
+
+* Crie um método void para alterar o Nome do objeto Pessoa.
+
+* De volta ao Main exiba no terminal o nome alterado.
+
+* Parte 1:
+	* Vamos começar criando uma class com os atributos Nome, idade e documento. Para fazer isso é só ir na área do explorador e clicar com o botão direito e escolher criar class no C#.
+	* Dentro das chaves da nossa class "public class Pessoa", vamos criar os atributos. Para facilitar a digitação é só escrever prop no VSCode e dar enter. Um atributo será criado e você só precisará trocar o nome do atributo:
+	public int Idade { get; set; }
+	public string Nome { get; set; }
+	** Embaixo da palavra Nome vai aparecer um underline de warning. Isso acontece pois o nome é uma string, e sendo string ele recebe um valor null caso nenhum valor seja atribuído. Isso acontece pois string e um Reference Type.
+
+* Parte 2:
+	* Voltar para o Main "public static void Main()" e inicializar a class que criamos no outro arquivo. Para isso vamos fazer o seguinte:
+	Pessoa p1 = new Pessoa();
+	p1.Nome = "Ricardo";
+	p1.Idade = 30;
+	p1.Documento = "1234";
+	* No Main é que as informações serão passadas pelo usuário. No código acima, Pessoa chama a class que criamos no outro arquivo. Essa class chama Pessoa. 
+
+* Parte 3:
+	* Temos que criar um método para trocar o nome da pessoa:
+	* Para isso vamos usar o comando:
+	static void TrocarNome(Pessoa p1, string nomeNovo) // Nesse código estamos criando o método "static void TrocarNome" Dentro desse método passamos qual pessoa queremos trocar o nome "Pessoa p1", e passamos uma nova variável que vai receber o novo nome "string nomeNovo".
+	* Dentro das chaves desse método vamos fazer:
+	{
+	    p1.nome = nomeNovo;
+	}
+	* O atributo nome da pessoa p1 vai ser igual ao nomeNovo.
+	* 
+
+* Parte 4:
+	* Dentro no Main() precisamos chamar o método "TrocarNome" e passar pra ele o que queremos. Como o método TrocarNome pede uma pessoa e um novo nome (Pessoa p1, string nomeNovo), nós precisamos passar os valores (p1, "José") onde p1 é a pessoa que terá o nome trocado e "José" será o novo nome da pessoa. 
+	TrocarNome(p1, "José"); 
+
+* Parte 5:
+	* Precisamos chamar o WriteLine.
+	WriteLine($"O novo nome é : {p1.nome}");
+
+
+
+Capítulo 1 - Aula 5 - Atribuindo valores e referências
+
+
+* Posso criar uma variável usando var. Por exemplo:
+	Pessoa p2 = p1; ou
+	var p2 = p1; // dá na mesma
+
+* No WriteLine, além do símbolo de $ para concatenar, eu posso usar o símbolo de @ ao lado do $ para permitir que eu dê enter em partes da minha string e que ela apareça com alinha quebrada aonde eu indicar.
+	WriteLine($@"
+	O nome de p1 é: {p1.Nome}
+	O nome de p2 é: {p2.Nome}
+");
+
+* Se p1 recebe valores de nome, idade e documento e depois o p2 vai receber esses mesmos valores por referência, quando o TrocarNome() for chamado para trocar o nome do p1, como o p2 é referência do p1 o p2 também vai ter o nome trocado.
+
+* Para resolver o problema acima eu não poderia passar o p1 para o p2 por referência. Eu tenho que criar uma nova pessoa para p2 e passar valor por valor de p1 para p2:
+	Pessoa p2 = new Pessoa();
+	p2.Documento = p1.Documento;
+	p2.Nome = p1.Nome;
+	p2.Idade = p1.Idade;
+
+* Dessa forma, eu vou copiar os valores e não passar por referência. Nesse caso, eu estou indo item por item em Value Types. 
+
+* Apesar das strings serem Refernece Types elas seguem alguns regras diferentes. É uma exceção no interpretador. Quando a gente trabalha com strings atribuindo valores para uma variável, mesmo sendo Reference Type vai ocorrer a cópia. 
+
+* SE você for debugar o código, ele vai criar p1 e p2, primeiro serão atribuídos os valores de p1 (um a um) e o p2 vai ficar null. Depois serão atribuídos os valores de p2. Diferente do que aconteceu quando fizemos "Pessoa p2 = p1" (onde automáticamente todos os valores de p1 foram referenciados de uma vez para p2, agora os valores de p2 são atribuídos um a um. 
+
+* Nesse caso, quando criamos o p2 ele não aponta mais para o p1 no heap, mas sim para o p2 no heap. Se eu trocar o nome no p1, a referência do p2 no heap não vai ser a do p1.
+
+* this. significa pegar a instância atual e passar os valores dela.
+
+* Quando eu crio uma nova pessoa, eu mudo a instância em que as informações estão. É por isso que posso alterar a instância original que a segunda instância não é alterada. 
+
+* Uma outra forma de passar os valores por Value Type em vez de Reference Type é trocando a class por um struct.
+
+* Cada chamada de método é um escopo (stack) diferente. Desta forma, você não precisa se preocupar se os nomes das variáveis dentro dos métodos são iguais, pois eles estão restritos a essa stack. Quando o método chegar ao fim todo desaparece.
+
+* Quando passamos o valor de uma pessoa para a outra pessoa usando o struct ao inves de usar a class, temos que ficar atento que ao fazer o TrocaNome, o que está sendo passado para o método é um Value Type e, desta forma, as mudanças que forem feitas vão desaparecer ao final do método. Sendo assim, precisamos tirar o "void" e colocar o nome da Struct no lugar. Além disso, precisamos colocar um return para que ele passe para o p1 o valor que foi trocado na stack.
+
+* Quando usamos a Struct nós não utilizamos a HEAP, o Main fica na STACK. Quando chamamos um método, uma nova STACK se abre para realizar o comando e depois desaparece, ficando apenas a STACK onde está a Main. 
+
+* A string é um Reference Type que se comporta como uma Value Type
+
+
+
+Capítulo 1 - Aula 6 - Strings
+
+
+* Criar um Console application com uma variável do tipo string e atribua seu nome a esta variável;
+* Crie um método void que receba essa variável e altere esse valor.
+* No Main escreva no terminal o valor alterado.
+
+
+* A string é um Reference Type, mas ela tem um comportamento diferente. A string quando é atribuída para outra variável ela passa no formato de cópia. Qualquer alteração que for feita na stack vai desaparecer quando a stack acabar. Os valores de string que estavam na Main não vão sofrer alteração.
+
+
+
+Capítulo 1 - Aula 7 - Arrays
+
+
+* Criar uma Console application com uma variável do tipo array de int para armazenar os números pares de 0 a 8;
+* Criar um método void que receba essa variável e altere o conteúdo desse array para que nele fique armazenado o próximo número inteiro ímpar de cada elemento;
+* No Main escreva no terminal todos os números desse array;
+
+* Um array é um reference type, mas nós estamos colocando dentro da array um elemento int que é Value Type.
+
+* O comando string.Join junta uma array. Após string.Join você vai colocar um (",", nomedoarray). Isso que dizer que o string.Join vai juntar os valores do array que você chamar no parenteses e vai separar os valores com vírgula. 
+
+* Mesmo colocando um int que é Value Type em um Array que é Reference Type isso não muda o conjunto que é Reference Type. Desta forma, quando os valores do array (reference type) são passados para o método, todas as alterações feitas no método vão alterar diretamente os valores do array que estão na heap. 
+
+
+
+Capítulo 1 - Aula 8 - Desenvolvendo um algoritmo
+
+
+* Criar uma Console application para encontrar um número inteiro em um array;
+
+* Criar uma console application para encontrar uma pessoa em uma lista de pessoas;
+
+* Para criar um lista nós usamos a seguinte estrutura:
+	List<Pessoa> pessoas = new List<Pessoa>()
+	{
+	new Pessoa(){Nome = "Ricardo"},
+	new Pessoa(){Nome = "José"},
+	new Pessoa(){Nome = "Maria"},
+	new Pessoa(){Nome = "Fabiana"},
+	};
+
+* Tem que tomar cuidado ao fazer comparações entre referências e comparações entre valores. Se você tem uma lista com nome que foram passadas por referência e uma outra variável nome também passada por referência, mesmo se eles forem iguais, não vai ser feita a comparação pois as referência são diferentes. Você precisa comparar o valor de um nome em uma lista com o valor de um nome em uma variável. 
+
+* Na criação da lista você pode fazer por Struct ao inves de fazer por class. Nesse caso ficaria:
+	List<StructPessoa> pessoas = new List<StructPessoa>()
+	{
+	new StructPessoa(){Nome = "Ricardo"},
+	new StructPessoa(){Nome = "José"},
+	new StructPessoa(){Nome = "Maria"},
+	new StructPessoa(){Nome = "Fabiana"},
+	};
+
+* Dessa forma os valores vão ser passados por Valor e não por referência.
+
+* Na Struct para comparar dois itens não dá para usar "==". É preciso usar a propriedade ".Equals(itemAserComparado)
+	if(item.Equals(pessoa))
+	{
+		return true;
+	}
+
+
+
+Capítulo 2 - Aprendendo a utilizar a palavra chave "ref"
+
+
+
+Capítulo 2 - Aula 1 - Revisando o conteúdo
+
+
+* Value Types vão para a STACK
+
+* Reference Types vão para a HEAP
+
+* Existe uma documentação da miscrosoft sobre "the common type system"
+
+* Utilização do "ref":
+	* O ref é uma palavra chave indica que o conteúdo de determinada variável acessado será acessado por referência. Ela muda o comportamento do próprio compilador. 
+	
+	* Pode ser usada em 4 situações:
+	1 - Na declaração dos parâmetros do método e na chamada do método. Quando a gente declarar um método a gente vai poder colocar a palavra ref no parâmetro de entrada (que é o mais visto, mas pode ser em outros também). Na hora que o método for chamado para ser executado a gente vai ter que indicar essa palavra ref.
+	2 - Na declaração do retorno do método. Eu posso usar o ref na hora que o método estiver retornando. 
+	3 - No corpo do método para receber um retorno como ref. No momento que eu to chamando um método que retorna um ref, a gente vai ter que declarar que a variável que vai receber esse retorno vai ser um ref também (antes da declaração do tipo). O ref vai sempre antes da declaração do tipo.
+	4 - Na declaração de uma Struct. Quando formos declarar uma struct eu vou poder dizer que ela vai ter um ref na frente.
+
+
+
+Capítulo 2 - Aula 2 - Demos
+
+
+* Exemplificar com ref no parâmetro de entrada o mesmo que fizemos na DEMO 1.
+
+* Na nossa DEMO 1 foi criado uma int a = 5; que vai chamar o método Adicionar20 passando o a para o método. No método vamos fazer o "a" receber mais 20. No final do Main nós colocamos o valor de "a". 
+
+* Como vimos na outra aula, isso não vai dar certo pois o "a" é passado como valor e não como referência para o método. Isso porque o int é Value Type.
+
+* Para resolver isso nós podemos colocar a palavra ref tanto quando chamamos o método no Main quanto no parâmetro do Método. Nosso código ficará assim:
+
+	static void Adicionar20 (ref int a)
+	{
+	a += 20;
+	}
+
+	static void Main()
+	{
+		int a = 5;
+		Adicionar20(ref a);
+		WriteLine($"O valor de a é {a}");
+	}
+
+* Quando colocamos o ref no valor "a" que é int isso não significa que esse valor int foi enviado para a HEAP. Ele continua na STACK da Main, mas quando usamos o ref o processo consegue fazer a alteração no valor que está na Main.
+
+
+
+Capítulo 2 - Aula 3 - Criando uma Array de Strings
+
+
+* Criar um array de string com nomes, permitindo que o usuário localize e altere um nome dentro do array
+
+* Lembrar que um array é um Reference Type, mas as strings, mesmo sendo reference Types funcionam como Value Types.
+
+* Qualquer mudança que precisar ser feita no método e passado para a Main precisa ser feita no array (que é Reference Type). Se a mudança for feita na string, quando o método teminar a mudança vai deixar de existir.
+
+* O código final ficou:
+
+	static void AlterarNome(string[] nomes, string nome, string nomeNovo)
+	{
+	for (int i = 0; i < nomes.Length; i++)
+	{
+		if(nomes[i] == nome)
+		{
+			nomes[i] = nomeNovo;
+		}
+	}
+	}
+
+	static void Main ()
+	{
+	var nomes = new string[]{"José", "Maria", "Ricardo", "Alice", "Pedro"};
+	WriteLine($"Alista de nomes é: {string.Join(",", nomes)}");
+	WriteLine("Qual nome voce quer alterar?");
+	var nome = ReadLine();
+	WriteLine("Qual é o novo nome:");
+	var nomeNovo = ReadLine();
+
+	AlterarNome(nomes, nome, nomeNovo)
+
+	WriteLine($"A nova lista de nomes é: {string.Join(", \", nomes)});
+	}
+
+
+
+Capítulo 2 - Aula 4 - Desenvolvendo o projeto
+
+
+* No exemplo acima, temos um método que recebe a lista, procura o nome a altera o nome.
+
+* Para ter um código mais limpo e utilizando melhores práticas, devemos fazer um método para cada ação.
+
+* Criaremos um método que encontra o nome na lista e outro que faz a substituição do nome na lista.
+
+* Precisamos criar o método para localizar o nome. Esse método vai receber a lista de nomes e vai receber o nome que é pra achar. O código vai ficar assim:
+
+** Chamada no método no Main:
+	var indice = LocalizarNome(nomes, nome);
+
+** Método:
+	static int LocalizaNome(string[] nomes, string nome)
+	{
+	for (int i = 0; i < nomes.Length; i++)
+	{
+		if(nomes[i] == nome)
+		return i;
+	}
+	return -1;
+
+* No código acima, nós trocamos o void por int, isso porque o que eu estou tentando localizar é um nome que é um string, apesar da string ser um Reference Type ela passa o valor por cópia. Uma vez que o nome foi encontrado, o método precisa retornar para a Main (que chamou o método) o nome encontrado. Desta forma, o método precisa retornar um valor, mas os métodos com void não retornam valor. Assim, é necessário trocar o void por int. Quando o nome for encontrar, será retornado pra Main o índice onde se encontra o nome. 
+
+* Se o nome não for encontrado, também é necessário retornar algum valor. Como o índice começa em 0 e vai seguindo positivamente, o nosso retorno de algo não encontrado precisa ser um número negativo para não dar problema.
+
+* Para receber o valor retornado pelo método, nós precisamos criar uma variável. Como são duas possibilidades de retorno (ou o índice para valores encontrados e -1 para valores não encontrados) Nós temos que criar um if no Main que ficará assim:
+	if(indice >= 0)
+	{
+		nomes[indice] = nomeNovo;
+		WriteLine($"A lista atualiza é {string.Join(",", nomes}
+	}
+	else
+	}
+		WriteLine("Nome não encontrado");
+
+* Nesse caso nós colocamos para retornar um int, pois nós decidimos retornar o indice (que é inteiro). Mas nós poderíamos trocar o void por string e em vez de retornar o indice retornaríamos o próprio nome. Para isso, também temos que mudar o nome da var no Main.
+
+* Mas, nós precisamos tomar cuidado que ao colocar string no lugar de int e tentar retornar diretamente o nome achado, nós encontramos o impecilho de que a string se comporta como uma Value Type e quando a stack método acabar os valores serão perdidos a não ocorrerá a mudança de nome. 
+
+* Para resolver isso, precisamos indicar que o retorno será uma referencia e não uma cópia. Para isso usamos o "ref" na frente da palavra string que abre o método e ref após o return e antes do nomes[i]. No lugar de retornar um valor "" caso não ache o nome procurado, devemos returnar uma "throw new Exception("Nome não encontrado").
+
+* Também precisamos indicar no Main, antes do chamado do método, que esse método retorna uma referência. Na linha que chama o método temos que colcoar ref antes de var e antes do método. Nesse caso o código ficaria assim:
+
+** No Main:
+
+	ref var nomeAchado = ref LocalizaNome(nomes, nome);
+	if(!string.IsNullOrWhiteSpace(nomeAchado))
+	{
+		nomeAchado = nomeNovo;
+		WriteLine($"A lista atualiza é {string.Join(",", nomes}
+	}
+	else
+	}
+		WriteLine("Nome não encontrado");
+	}
+
+** No Método:
+
+	static ref string LocalizaNome(string[] nomes, string nome)
+	{
+	for (int i = 0; i < nomes.Length; i++)
+	{
+		if(nomes[i] == nome)
+		return ref nomes[i];
+	}
+	throw new Exception("Nome não encontrado");
+
+
+
+Capítulo 3 - Descobrindo o que é um ref struct
+
+
+
+Capítulo 3 - Aula 1 - Teoria sobre os conceitos de ref e Struct
+
+
+* "ref struct" serve para assegurar que a struct ficará na Stack e nunca irá para a Heap.
+
+* "Boxing" processo de pegar a Struct (que é um Value Type) e o compilar alocar na Heap por alguma necessidade de tratar ele como um objeto, como uma referência. 
+
+* Apesar da palavra ser a mesma (ref) a ideia é bem diferente, pois a gente não está querendo tratar nada como se fosse uma referência. Nesse caso (ref struct) é garantir que esse struct vai estar sempre alocado na stack. 
+
+* ref struct não pode:
+	1 - ser elemento tipado de um array: isso significa que ele não pode ser um elemento dentro de um array. O array é reference type e seus elementos, mesmo sendo de tipo primitivo, vão ser alocados na Heap. 
+	2 - ser o tipo em campo em uma classe ou não-ref struct: Não dá para ter um ref struct dentro de uma classe. Precisa ser uma ref struct dentro de uma ref struct.
+	3 - implementar interfaces.
+	4 - ser convertida para Object e nem para Value Type
+	5 - ser usada em métodos assíncronos: no método assíncrono vai ser feito um "boxing" dele ou vai ser convertido para um System.Object.
+
+* Quando usar um ref struct:
+	1 - Quando for necessário garantir que a instância da struct não irá acessar a Heap: Quando eu crio uma struct sem a palavra ref, eu estou dizendo que eu quero um objeto mais simples, que vai ser criado na stack e ele é um Value Type, só que dependendo o que for feito com essa struct ele sofre um boxing e vai ser enviado para a Heap e será tratado por referência. Ou se eu tenho uma struct dentro de uma classe, essa struct vai ser enviada para a Heap, pois ela está dentro da classe (que é reference type). 
+	2 - Quando for usar tipos do C# que são ref struct, como o caso do ref struct Span.
+
+
+
+Capítulo 3 - Aula 2 - Praticando Usando Ref e Struct
+
+
+* Vamos construir uma ref struct e tentar utilizá-la em uma classe. Vamos tentar usar um Span em uma não-ref struct.
+
+
+
+Capítulo 4 - Aprendendo a comparar Valores e Referências
+
+
+* Em Value Types é feita a comparação de um valor com o outro:
+	int a = 2;
+	int b = 2;
+	* Nesse caso a == b
+
+* Em Reference Types não é comparado o valor, mas a referência. Por exemplo, você cria uma classe e essa class tem um construtor que cria um Numero a  = 2 e cria um Numero b = 2. Nesse caso "a" não é igual a 2 pois a referência deles são diferentes. Para eles serem iguais eu preciso fazer a comparação dos valores que cada um desses Numeros recebeu.
+
+* O CLR quando vai fazer a comparação de Value Types ela compara a instância de um com a instância do outro. No caso de Reference Types o CLR vai comparar a referência de um com a referência do outro. 
+
+
+
+Capítulo 5 - O que é o Coletor de Lixo do C# e como ele funciona
+
+
+
+Capítulo 5 - Aula 1 - Garbage Collector
+
+
+* Garbage Collector ou GC é o coletor de lixo. Ele fornece suporte para a criação e destruição de objetos na HEAP. Isso é uma característica de uma linguagem de programação que tem sua memória gerenciável (sua Heap gerenciável). No C ou C++ não possuem memória gerenciável e não possuem Garbage Collector e essa tarefa tem que ser feita pelo próprio desenvolvedor. 
+
+* Vantagens do GC: Segurança; Programador não precisa se preocupar com a liberação de memória; Não precisa se preocupar com sobrescrita de memória em uso.
+
+* Desvantagens do GC: Perda de performance (tem melhorado muito a performance nas últimas versões); Observabilidade (os desenvolvedores as vezes nem sabem ou entendem como funciona).
+
+* É possível fazer o desligamento do GC e o proprio programador gerenciar a memória.
+
+* Arquitetura do GC
+	* O GC é dividido em 3 Gerações: 
+	1 - Gen 1: Objetos de ciclo de vida curto. São objetos que estão apenas em um stack. 
+	2 - Gen 2: Buffer de alternância entre Gen 1 e Gen 3. Quando você começa a fazer um uso mais prolongado de um objeto, passando ele de uma stack para a outra ele acaba passando para a Gen 2.
+	3 - Gen 3: Objetos com longo ciclo de vida, em especial objetos criados como "static". É possível criar classes "static" que vão ficar na HEAP e vão ter o ciclo de vida igual ao ciclo de vida da aplicação. Mesmo esses objetos durando todo o ciclo de vida da aplicação, o GC tem que ficar monitorando eles. Os "static" são encerrados pelo programador, mas é o GC que vai limpar ele da HEAP (e a limpeza vai ser feita no Gen 3 e vai ter um custo muito grande na performance).   
+
+
+
+Capítulo 5 - Aula 2 - Revisão Geral e Conclusão do curso
+
+* Estudamos o que são Reference Types e Value Types e seu comportamento. 
+
+* Fizemos Demos sobre alocação na stack e na heap.
+
+* Vimos boas práticas na criação de classes e structs.
+
+* Vimos a palavra chave ref em parâmetros de entrada.
+
+* A palavra chave ref no retorno de métodos e na atribuição de variáveis. 
+
+* Aprendemos sobre o comportamento do CLR ao comparar value e reference types. 
+
+* Vimos o que é e como é o funcionamento básico do GC. 
+
+* Documentação da Microsoft ("reference-types").
