@@ -1,0 +1,229 @@
+Curso - Controlando o Fluxo de Execução
+
+
+
+Capítulo 1 - Capturando Entradas do Usuário pelo Console
+
+
+* Objetivo: Entender como capturar as informações enviadas pelo usuário e fazer cálculos a partir dessas informações.
+
+* Uma pasta e dentro dessa pasta criar um projeto usando o comando dotnet new console no CLI.
+
+* WriteLine(); é uma função que o valor dentro dos parenteses serão mostrados no console.
+
+* O Console (do Console.WriteLine) está dentro da biblioteca System do .NET
+
+* ReadLine(); é uma função que vai capturar a informação passada pelo usuário.
+
+* Para a informação passada pelo usuário seja armazenada, você precisa criar uma variável e determinar de que tipo ela vai ser.
+
+* Por padrão as informações são passadas como string, mesmo que você esteja pedindo para o usuário passar um int. Desta forma, é necessário fazer a conversão da string para int antes de armazenar na variável. Isso é feito da seguinte forma:
+	valor1 = int.Parse(Console.ReadLine()); // a função Parse() transforma o valor de string para o tipo que você determinar antes (no nosso caso int.
+
+* Você pode concatenar texto com valores de variáveis das seguintes formas:
+	Console.WriteLine("O primeiro valor é: " + valor');
+	OU
+	Console.WriteLine($"O primeiro valor é: {valor1}");
+
+* O C# é altamente tipada. DEsta forma, você precisa sempre determinar qual é o tipo da variável. Depois de determinar o tipo da variável você pode usar apenas o nome da variável. Por exemplo:
+	int valor1;
+	int valor2;
+	int total;
+
+	total = valor1 + valor2;
+
+
+
+Capítulo 2 - Comandos condicionais IF e SWITCH
+
+
+* Objetico: Entender como funciona as condicionais em uma aplicação de diversas formas e soluções
+
+* A condicional IF eu já sei usar. Vou apenas copiar o código aqui para treinar a sintaxe do C#:
+
+	static void Main()
+	{
+	    int idade;
+	    Console.WriteLine("Digite a sua idade:");
+	    idade = int.Parse(Console.ReadLine());
+
+	    if(idade >= 18);
+	    {
+		Console.WriteLine("Você é maior de idade");
+	    }
+	    else
+	    {
+		Console.WriteLine("Você é menor de idade");
+	    }
+	}
+
+
+* Podemos usar o else if {Bloco} deversas vezes para quantas condicionais a gente tiver. Um exemplo seria para os meses do mes:
+	if (mes == 1)
+	{
+	Console.WriteLine("Janeiro");
+	}
+	else if (mes == 2)
+	{
+	Console.WriteLine("Fevereiro);
+	}
+	...
+	else
+	{
+	Console.WriteLine("Mês inválido");
+	}
+
+* Para facilitar o comando acima nós podemos usar a condicional SWITCH:
+
+	int mes;
+
+	Console.WriteLine("Digite o número do mês");
+	mes = int.Parse(Console.ReadLine());
+	
+	switch(mes)
+	{
+	    case mes 1:
+	    Console.WriteLine("Janeiro");
+	    break;
+	    case 2:
+	    Console.WriteLine("Fevereiro");
+	    break;
+	    ...
+	    default:
+	    Console.WriteLine("Mês inválido");
+	    break;
+	}
+
+
+
+Capítulo 3 - Comandos de repetição FOR, FOREACH, DO e WHILE
+
+
+* Objetivo: Entender a funcionalidade dos comandos de repetição para executar determinado bloco de um código
+
+* A primeira condição que vamos rever é o while (Enquanto).
+
+* No C# você tem uma variável que é do tipo boolean, você deve tipar ela quando cria a variável:
+	Boolean condicao = true;
+
+* Na repetição WHILE determinada coisa vai ser feita enquanto a condição for verdadeira. Quando o condição mudar para falso, a repetição termina.
+
+* O código de exemplo é o seguinte:
+
+static void Main()
+{
+	Boolean condicao = true;
+	int valor;
+
+	while(condicao == true)
+	{
+	Console.WriteLine("Digite um valor ou 0 para sair");
+	valor = int.Parse(Console.ReadLine());
+
+	    if(valor == 0)
+	    {
+		Console.WriteLine("Você saiu da aplicação");
+		condicao = false;
+	    }
+	    else
+	    {
+		Console.WriteLine($"O valor informado é: {valor}");
+	    }
+	}
+}
+
+* A repetição DO é parecida com While, mas primeiro ela vai executar o comando e depois vai fazer a verificação da condição. O código vai ficar parecido com o de cima:
+
+static void Main()
+{
+	Boolean condicao = true;
+	int valor;
+
+	do
+	{
+	Console.WriteLine("Digite um valor ou 0 para sair");
+	valor = int.Parse(Console.ReadLine());
+
+	    if(valor == 0)
+	    {
+		Console.WriteLine("Você saiu da aplicação");
+		condicao = false;
+	    }
+	    else
+	    {
+		Console.WriteLine($"O valor informado é: {valor}");
+	    }
+	} while(condicao == true);
+}
+
+
+* O laço FOR vai fazer o incremento da condição enquanto ela for verdadeira:
+
+static void Main()
+{
+	int valor;
+	Console.WriteLine("Digite um valor:");
+	valor = int.Parse(Console.WriteRead());
+
+	for(int i = valor; i <= 10; i++)
+	{
+		Console.WriteLine(i);
+	}
+}
+
+
+* O FOREACH é utilizado para varrer uma array.
+
+* No nosso exemplo o Foreach vai varrer o array e printar os valores:
+
+static void Main()
+{
+	int[] lista = {1, 2, 3, 4, 5};
+
+	foreach(int numero in lista)
+	{
+	    Console.WriteLine(numero);
+	}
+}
+
+* Nesse exemplo nós podemos ver o funcionamento do foreach. Criamos uma lista com vários inteiros dentro dela. O nosso foreach vai fazer o seguinte: ele vai procurar todos os int que tem dentro da lista (nos chamamos a variável de número, mas o nome poderia ser qualquer outro.) Como nós não atribuímos nenhuma manipulação na variável número, a única coisa que vai acontecer é que cada um dos números será printado na tela devido ao foreach.
+
+
+
+Capítulo 4 - Pulando com BREAK e CONTINUE
+
+
+* Objetivo: Entender como pular uma determinada condição dentro de um bloco de laço de repetição
+
+* Podemos utilizar o BREAK para parar uma aplicação quando determinada coisa acontecer. Vamos utilizar o código que fizemos para a repetição DO:
+
+static void Main()
+{
+	Boolean condicao = true;
+	int valor;
+
+	do
+	{
+	Console.WriteLine("Digite um valor ou 0 para sair");
+	valor = int.Parse(Console.ReadLine());
+
+	    if(valor == 0)
+	    {
+		Console.WriteLine("Você saiu da aplicação");
+		break; //mudança está aqui!!!
+	    }
+	    else
+	    {
+		Console.WriteLine($"O valor informado é: {valor}");
+		continue; // outra mudança aqui!!
+	    }
+	} while(condicao == true);
+}
+
+* No código original tinhamos uma mudança na variável condição quando o "0" era digitado pelo usuário. Desta forma, o comando era interrompido.
+
+* No lugar da mudança na variável (de true para false), nós poderíamos utilizar apenas um break. Assim, sempre que usuário digitasse "0" o laço cairia no break e a aplicação chegaria ao fim.
+
+* Na áre a else nós colocamos o continue para indicar que ao cair nessa condição a aplicação sempre vai continuar. Pelo menos nesse exemplo, a repetição funciona sem o continue.
+
+ 
