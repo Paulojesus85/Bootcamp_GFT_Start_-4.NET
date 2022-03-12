@@ -1,0 +1,871 @@
+Curso - Fundamentos de Coleções e LINQ com .NET
+
+
+
+Capítulo 1 - Arrays
+
+
+
+Capítulo 1 - Aula 1 - Etapa 1 - Introdução Arrays
+
+
+* Vou copiar os slides e escrever apenas o que for necessário.
+
+* O array é uma estrutura de dados que armazena valores do mesmo tipo, com um tamanho fixo. O array é uma coleção itens do mesmo tipo. Também é conheido como vetor, matriz ou arranjo. Ela é uma variável que armazena varios itens. Você acessa os itens pelo índice.
+
+1. int[] array = new int[4]; // este é um array com 4 espaços
+
+1. int[] array = new int[] { 42, 75, 74, 61 }; // um array com a quantidade de espaços omitidas, pq os valores já foram passaos na inicialização
+
+1. string[] nomes = { "Jan", "Fev" }; // uma array de string
+
+* Você não pode alterar a capacidade do array depois que ele foi inicializado. O que você pode é criar um novo array que copia o array anterior e aumenta a capacidade.
+
+* Você pode modificar o valor dos itens, mas não a capacidade do array.
+ 
+* Índice: É a posição de um determinado valor de um array, sempre começando com zero.
+
+* Para acessar um array a posição vai ser sempre n-1. 
+
+* Para armazenar um item de uma array em uma variável a gente precisa:
+
+var elemento = array[0]; // Vai pegar o item na posição 0 e armazenar na variável elemento.
+
+* Para modificar o valor do item do array eu preciso:
+
+array[0] = 42; 
+
+* Array Multidimensional: O array pode possuir mais de uma dimensão:
+
+* Para declarar um array multidimensional eu preciso:
+
+int[,] array = new int[4, 2]; // o 4 é o número de linhas e o 2 o número de colunas.
+
+4 = Número de linhas
+2 = Número de colunas
+
+* Para cessar um valor: 
+
+array[1, 1] // pegando a linha 1 e coluna 1.
+
+
+
+Capítulo 1 - Aula 2 - Criando e percorrendo um array
+
+
+* Vamos declarar o array:
+
+int []arrayInteiros = new int[3]; // no último colchetes eu vou colcoar a capacidade máxima do array.
+
+* Como armazenar números no array:
+
+arrayInteiros[0] = 10; // a primeira posição recebeu o número 10.
+
+arrayInteiros[1] = 20;
+arrayInteiros[2] = 30; // o índice 2 é o limite da capacidade do array.
+
+* Imprimir todos os elementos do array:
+
+for (int 1 = 0; i < arrayInteiros.Length; 1++) // length é uma propriedade do array para pegar sempre a capacidade máxima do array.
+{
+    Console.WriteLine(arrayInteiros[i]);
+}
+
+foreach (int item in arrayInteiros)
+{
+    Console.WriteLine(item);
+} // nesse caso, cada vez que o laço for executado, um item do array vai ser colocado em uma variável e vai entrar no bloco de código. Quando o bloco terminar, vai voltar para o foreach e o próximo item será colocado na variável e fará o bloco. Isso vai acontecer até os itens acabarem.
+
+
+
+Capítulo 1 - Aula 3 - Debugando um array
+
+* Mostrou como funciona o debug e breakpoints.
+
+* Com o for você tem mais controle para saber onde está a varredura do laço. No foreach você não tem isso.
+
+
+
+Capítulo 1 - Aula 4 - Acessando um array de forma segura
+
+
+* Se você tentar acessar um posição que não existe no array vai dar uma exception.
+
+* Eu posso criar um novo array que conste o array anterior e mais capacidade interna.
+
+* Se eu tentar passar um valor de tipo diferente para o array, vai dar uma mensagem de erro.
+
+* Se eu tentar passar a string "30" para um array de inteiro vai dar erro. Mas, eu posso converter essa string em int usando o int.Parse("30");
+
+* Mas nem tudo dar para ser convertido e vai dar erro.
+
+
+
+Capítulo 1 - Aula 5 - Array Multidimensional
+
+
+* Vamos declarar um array multidimensional:
+
+int [,] matriz = new int [4, 2];
+
+* Para colocar e acessar valores no array multidimensional nos precisamos:
+
+matriz [0, 0] = 5;
+
+* Para atribuir valor eu preciso pegar o nome do array multidimensional, abrir o colchetes, e dentro dele indicar qual é a linha e qual é a coluna em que eu vou armazenar o valor.
+
+* Para acessar o valor eu também vou ter que indicar a linha e a coluna do valor que quero.
+
+* Como eu faço para instanciar um array multidimensional já com todos os valores:
+
+int [,] matriz = new int[4, 2]
+{
+	(8, 9),
+	(10, 20),
+	(50, 100),
+	(90, 200)
+};
+
+* No exemplo acima, para instanciar um array muldimensional nós precisamos abrir colchetes e dentro desses colchetes nós vamos colocar parenteses para cada uma das linhas de valores que queremos atribuir. Desta forma, o primeiro parenteses (8, 8) significa que a primeira linha da matriz vai ter o valor 8 para a primeira coluna da linha 1 e valor 9 para a segunda coluna da linha 1. Assim faremos até todas as prosições receberem valores.
+
+* Para acessar/percorrer os valores de um array multidimensional é necessário fazer dois laços for. Um for vai ser para as linhas e o outro para colunas.
+
+for (int i = 0; i < matriz.GetLength(0); 1++)
+{
+	for (int j = 0; j < matriz.GetLength(1); j++)
+	{
+	    Console.WriteLine(matriz[i, j]);
+	}
+} 
+
+* O .GetLength vem da class array. Essa class vai pegar a dimensão do array. Por isso, precisamos passar o valor zero, pois eu quero passar as linhas.
+
+* Dentro do for eu tenho que colocar outro for para pegar a coluna. Não podemos usar o i no contador pois ele já foi usado (vamos mudar para j). No .GetLength(), nós vamos usar o 1 para pegar a coluna. 
+
+* Para imprimir a matriz, nós precisamos colocar o WriteLine() e dentro dos parenteses a gente coloca o índice i do primeiro for que é a linha e o índice j que é o índice do segundo for da coluna.
+
+
+
+Capítulo 2 - Aula 1 - Algoritmos de ordenação
+
+
+* Para ordenar um array, existem diversos algoritmos de ordenação, diferentes técnicas e casos a serem considerados. 
+
+* Como instruímos o computador a ordenar os valores de um array? Existem diversos algoritmos para isso (dos mais simples aos mais complexos)
+
+* Na wikipedia você encontra uma lista de algoritmos de ordenação. Nessa lista você vai ter o método a ser utilizado, o melhor e o pior cenário, quanto de memória. São algoritmos de comparação e de não comparação.
+
+* Você pode usar em diversas linguagens.
+
+* Site: visualgo.net/en/sort = mostra de forma visual vários algoritmos de ordenação.
+
+* O método Bubble Sort vai realizando a ordenação através da comparação de um valor com o outro. Se o elemento da esquerda for maior que o da direita a troca é feita.
+
+* O Bubble Sort serve para casos simples e com poucos elementos.
+
+* O Selection Sort varre o array procurando o menor elemento comparando com o primeiro valor. Achando o menor valor, vai acontecer uma troca entre o primeiro valor e o menor valor. O menor valor vai ser o primeiro do array e a comparação será feita com o segundo elemento.
+
+
+
+Capítulo 2 - Aula 2 - Ordenando via bubble sort
+
+
+* O professor vai implementar o bubble sort.
+
+* Vai criar uma pasta chamada operações arry que vai ter alguns métodos que vai ajudar a ordenar o array:
+
+imprimirArray (int[] array)
+{
+laço for para imprimir
+}
+
+
+public void OrdenarBubbleSort(ref int[] array)
+int temp = 0; //serve para realizar a troca sem preder a informação do valor anterior.
+{
+    for(int i = 0; i < array.Length; i++)
+    {
+	for (int j = 0 < array.Length -1; j++) // o -1 serve para que a comparação só aconteça entre o penúltimo e último elemento do array. Se não tiver esse -1 o laço vai para o último valor e ele vai fazer a comparação com algo que não existe e vai dar erro.
+	{
+	    if(array[j] > array[j + 1])
+	    {
+		temp = array[j + 1];
+		array[j + 1] = array[j];
+		array[j] = temp;
+	    }
+ 	}
+    }
+}
+
+* No Program você vai declarar um array para ser ordenado pelo método que criamos.
+
+* Como os métodos estão dentro de uma classe é necessário instanciá-la antes:
+
+static void Main (string[] args)
+{
+	OperacoesArray op = new OperacoesArray ();
+	int[] array = new int [5] {6, 3, 8, 1, 9};
+
+	Console.WriteLine ("Array original:");
+	op.ImprimirArray(array);
+
+	op.OrdenarBubbleSort(ref array);
+
+	Console.WriteLine("Array odenado:")
+	op.Imprimir(array);
+}
+
+
+
+Capítulo 2 - Aula 3 - Debugando o Método bubble sort
+
+
+* No método ImprimirArray o professor fez uma alteração para que os elementos do array aparecessem um ao lado do outro separado por vírgula. Para isso ele utlizou o método string.Join().
+
+* O string.Join vai fazer a junção de coisas e vai determinar como elas serão separadas. Para isso, dentro dos parenteses nós precisamos passar primeiro como eles serão separados e depois o que será juntado. Nós vamos colocar esse string.Join dentro de uma variável. Será essa variável que será printada com o WriteLine:
+
+var linha = stringJoin(", ", array);
+Console.WriteLine(linha);
+
+
+
+Capítulo 2 - Aula 4 - A classe Array
+
+
+* Quando trabalhamos com array, trabalhamos em baixo nível. Isso quer dizer que precisamos escrever bastante código para ter o comportamento desejado.
+
+* O For e o Foreach é quse sempre usado quando trabalhamos com arrays.
+
+* A classe Array é um classe do C# que nos oferece diversos métodos que nos auxiliam a trabalhar com arrays.
+
+* Essa classe facilita o nosso trabalho.
+
+* Ela pertence ao namespace System e oferece diversos métodos que facilitam nossa vida com arrays.
+
+
+
+Capítulo 2 - Aula 4 - Ordenando pela classe Array
+
+
+* O método sort() é o método responsável por fazer a ordenação da nossa array.
+
+* Vamos criar um novo método na nossa class OrdenarArray chamado Ordenar e vamos receber nosso array por referência.
+
+* A classe array começa com A maiúsculo.
+
+* Após escrever Array, você precisa fazer o import da classe segurando "ctrl + ." e selecionando using System.
+
+* Após fazer o import você vai notar que ao escrever Array. vai aparecer diversos métodos para trabalhar com a classe. 
+
+* O método que queremos é o Sort() onde passaremos a nossa array.
+
+public void Ordenar(ref int[] array)
+{
+	Array.Sort(array);
+}   
+
+
+* Indo no program nós vamos chamar o método que acabamos de criar
+
+op.Ordenar(ref array);
+
+
+
+Capítulo 2 - Aula 5 - Copiando um Array
+
+
+* No program vamos criar um novo array chamado de arrayCopia que vai receber o tamanho 10.
+
+int[] arrayCopia = new int[10];
+
+
+* A maneira mais visual seria através de um laço for que copiaria os valores da array para a arrayCopia.
+
+* Vamos criar um novo método chamado arrayCopiar
+
+public void Copiar(ref int[] array, ref int[] arrayDestino)
+{
+    Array.Copy(array, arrayDestino, array.Length); //vai pegar 3 parâmetros o array que você vai pegar os dados, o array de destivo, e o length.
+}
+
+
+* No program vamos chamar o método para copiar:
+
+op.Copiar(ref array, arrayCopia);
+
+* O array copiado vai ter nas primeiras posições os valores copiados e os outros valores vão ficar com 0.
+ 
+
+
+Capítulo 2 - Aula 6 - Verificando um elemento existente
+
+
+* Vamos criar um novo método Existe que vai retornar um booleano e vai receber como parâmetro o array a ser consultado e um int que vai ser o valor procurado.
+
+* O retorno vai ser a classe Array.Exists(array, elemento => elemento == valor). O método existe vai varrer o array procurando o elemento e vai retornar um true ou false. Neste caso este elemento vai representar cada variável no array - ele vai ser como se fosse o elemento atual de uma expressão for - e vai ser verificad se o elemento vai ser igual ao valor que eu estou buscando. 
+
+public bool Existe(int[] array, int valor)
+{
+	return Array.Exists(array, elemento => elemento == valor);
+}
+
+
+* No program eu vou colocar em uma variável:
+
+int valorProcurado = 1;
+bool existe = op.Existe(array, valorProcurado);
+if (existe)
+{
+	Console.WriteLine("Encontrei o valor: {0}", valorProcurado);
+}
+else
+{
+	Console.WriteLine("Não encontrei o valor: {0}", valorProcurado);
+}
+
+* Dentro da expressão do método que criamos, nós podemos alterar para que a busca seja feita para encontrar valores maiores ou menores que o valor procurado. Por exemplo:
+
+return Array.Exists(array, elemento => elemento >= valor);
+
+
+
+Capítulo 2 - Aula 7 - Verificando todos os elementos do array
+
+
+*  Vamos criar um método para verificar se todos os elementos no array são maior que 0.
+
+* Se todos forem maior que zero retorna true, se não for retorna false.
+
+* Vamos usar o método TrueforAll. Ele vai receber como parâmetro (array, elemento => elemento > valor). O método vai fazer um for usando os eleentos do array e vai comparar com o valor passado pra ver se todos os elementos são maiores que o valor.
+
+public bool TodoMaisQue (int[] array, int valor)
+{
+	return Array.TrueforAll(array, elemento => elemento > valor);
+}
+
+* No program vamos criar uma variavel boleana para recebr o valor op.TodosMaiorQue(array, valorProcurado.
+
+int valorProcurado = 0;
+
+bool todosMaiorQue = op.TodosMaiorQue(array, valorProcurado);
+
+if (todosMaiorque)
+{
+	Console.WriteLine("Todos os valores são maiores que {0}", valorProcurado);
+}
+else
+}
+	Console.WriteLine("Existem valores que são maiores que {0}", valorProcurado);
+}
+
+
+
+Capítulo 2 - Aula 8 - Encontrando um elemento no array
+
+
+* Vamos criar um métodos para percorre o array para encontrar um valor.
+
+public int ObterValor(int[] array, int valor)
+{
+	return Array.Find(array, element => element == valor);
+}
+
+* No program nós vamos criar uma variável para o valor procurado e vamos criar uma variável para o valor achado chamando o método ObterValor:
+
+int valorProcurado = 9;
+
+int valorAchado = op.ObterValor(array, valorProcurado);
+
+
+if (valorAchado > 0)
+{
+	Console.WriteLine("Encontrei o valor");
+}
+else
+}
+	Console.WriteLine("Não encontrei o valor");
+
+* Caso não ache o valor, ele vai retornar o valor padrão do tipo do array (no int o valor é zero). Se retornar 0 significa que ele não achou. Se fosse de uma classe o valor seria nulo.
+}
+
+
+
+Capítulo 2 - Aula 9 - Encontrando o índice de um valor
+
+* Vamos procurar um valor e descobrir em qual índice ele está.
+
+* Vamos criar um método ObterÍndice.
+
+public int ObterIndice(int[] array, int valor)
+{
+	return Array.IndexOf(array, valor); 
+}
+
+* O IndexOf() não precisa fazer uma expressão e pode colocar o valor que está procurando. Ele sempre vai retornar uma condição de igualdade e se não achar o valor que estiver buscando ele vai retornar -1. 
+
+* No program:
+
+int valorProcurado = 9;
+
+int indice = op.ObterIndice(array, valorProcurado);
+
+
+if (indice > -1)
+{
+	Console.WriteLine("O índice do elemento {0} é: {1}", valorProcurado, indice);
+}
+else
+}
+	Console.WriteLine("Valor não existente no array");
+
+* No if o primeiro {0} será substituído pela valorProcurado, enquanto o {1} vai ser substituído pelo índice.
+
+* O retorno de elementos não existentes é -1 porque o 0 pode ser a primeira posição do array.
+
+
+
+Capítulo 2 - Aula 10 - Redimensionando um array
+
+
+* Vamos redimensionar o array em tempo de execução.
+
+* Vamos criar um método RedimensionarArray:
+
+public void RedimensionarArray (ref int[] array, int novoTamanho)
+{
+	Array.Resize(ref array, novaTamanho);
+}
+
+* No program:
+
+Console.WriteLine($"Capacidade atual do array: {array.Length}")
+
+op.RedimensionarArray(ref array, array.Length * 2);
+
+Console.WriteLine($"Capacidade atual do array apos redimensionar: {array.Length}");
+
+
+
+Capítulo 2 - Aula 11 - Convertendo um array
+
+
+* Vamos converter um array de inteiros para array de string.
+
+* Criar um novo método:
+
+public string[] ConverterParaArrayString(int[] array)
+{
+	return Array.ConvertAll(array, elemento => elemento.ToString());
+}
+
+* O método ConvertAll vai pedir como parâmetro o array que você quer converter e vai te pedir uma expressão de como você quer converter. Nesse caso, vamos converter elemento por elemento passado para string usando o método .ToString().
+
+* No program:
+
+string[] arrayString = op.CoverterParaArrayString(array);
+
+
+
+Capítulo 3 - Coleções Genéricas
+
+
+
+Capítulo 3 - Aula 1 - Introdução Coleções Genéricas
+
+
+* Coleções Genéricas são coleções do C# que podemos trabalhar de uma maneira semelhante a um array só qu de alto nível. É uma maneira mais fácil, sem termos que nos preocupar com umas nuances do array.
+
+* No C#, existem classes de coleções que agrupam valores do mesmo tipo e essas classes (muito parecidas com o Array) são padronizadas pela as operações mais comuns, como:
+
+	Ordenação
+	Obter valor por índice
+	Obter valor com expressões
+	Trabalhar com tamanhos dinâmicos
+
+* Elas facilitam muito a forma como trabalhamos com um tipo de coleção.
+
+* Você pode ter uma coleção ou uma lista de inteiros ou objetos, uma lista de strings. E nessas listas elas possuem alguns métodos padronizados para facilitar o trabalho.
+
+* Uma das grandes diferenças entre um Array e uma Lista é que quando você declara um Array você precisa obrigatóriamente passar o tamanho do array e caso você queira aumentar o diminuir isso fica a seu cargo. 
+
+* Em uma lista você não precisa se preocupar com o tamanho dela. Apesar da lista trabalhar internamente com array, ela é uma abstração disso (uma interface) e a manipulação interna do array você não precisa se preocupar. Você não precisa prever o tamamnho da lista
+
+* As listas e outros tipos de coleções ficam na classe System.Collections.Generic. Existem alguns tipos de classes desse System:
+	Directory<TKey, TValue>
+	List<T>
+	Queue<T>
+	SortedList<TKey, TValue>
+	Stack<T>
+
+* O T é o tipo que você deseja (int, string, etc)
+
+* Trabalhamos muito mais com lista. Pq ela é uma lista genérica que atende a maioria dos casos. 
+
+* Uma List representa uma lista de objetos que podem ser acessados por índice. Fornece métodos para pesquisar, classificar e modoficar listas. Internamente essas listas possuem array.
+
+* A list tem uma inteligência que consegue identificar se você está estourando a capacidade do array interno e com isso aumenta automaticamente seu tamanho.
+
+
+
+Capítulo 3 - Aula 2 - Declarando e acessando uma lista
+
+
+* Como é feito para declarar uma lista.
+
+1 - digitar List e fazer a importação da class segurando "ctrl + .". (using System.Collections.Generic)
+
+2 - após o List usar o sinal <> e dentro colocar o tipo de lista que queremos
+
+3 -dar um nome para a lista.
+
+4 - instanciar com new List<string>();
+
+Exemplo:
+
+static void Main (string[] args)
+{
+	Lista<string> estados = new List<string>();
+
+* Para adicionarmos elementos a nossa lista:
+	nome da lista + método Add()
+
+estados.Add("SP");
+estados.Add("MG");
+estados.Add("BA");
+
+* Eu posso adicionar quantos elementos eu quiser sem se preocupar com o tamamnho.
+
+* Eu acesso os elementos da lista da mesma forma que acesso no array. 
+
+* A lista tem uma propriedade que retorna o número total de elementos na lista. Essa propriedade é nomedalista.Count
+
+* Para imprimir os elementos no console a gente pode usar o for e o foreach. O mais comum é o foreach 
+
+
+
+Capítulo 3 - Aula 3 - Removendo elemento da lista
+
+
+* Para remover um elemento da lista eu uso a propriedade .remove. Existem 4 propriedades de remove e você precisa escolher o que se encaixa melhor na situação.
+
+estados.Remove("MG"); 
+
+* Se você tiver 3 elementos e o elemento do meio for removido, o último elemento vai ser reposicionado para o lugar do elemento 2. Se fosse array nós teriamos que fazer muito código para isso acontecer.
+
+
+
+Capítulo 3 - Aula 4 - Adicionando coleções na lista
+
+
+* Como podemos adicionar elementos de uma outra coleção na nossa coleção.
+
+* Vamos declarar um array de string chamado de estadosArray
+
+string[] estadosArray = new string[2] {"SC", "MT"};
+
+
+* Eu posso instanciar a lista com valores sem precisar dar um .Add
+
+* Nós temos uma array de strings e uma lista de strings. Como podemos passar os valores do array de strings para a lista de strings?
+
+* Vou ter que chamar a minha lista estados e usar o método AddRange(). Dentro desse método eu vou passar o nome do meu array que quero adicionar na lista. O .AddRange vai receber uma coleção desde que seja do mesmo tipo e vai adicionar todos os elementos dentros da sua coleção existentes.
+
+estados.AddRange(estadosArray);
+
+
+
+Capítulo 3 - Aula 5 - Adicionando elemento por índice.
+
+* Vamos ver como adicionar um elemento em um índice específico e não no final da lista.
+
+* Por exemplo, vamos adicionar o RJ logo depois do SP.
+
+* Vamos usar o método .Insert(). Nesse método temos que passar dois parâmetros. No primeiro vamos passar o índice que queremos que o novo elemento ocupe. O segundo parâmetro é o próprio elemento que queremos adicinar. O código vai ficar:
+
+estados.Insert(1, "RJ");
+
+
+
+Capítulo 4 - Coleções específicas
+
+
+
+Capítulo 4 - Aula 1 - Introdução coleções específicas
+
+
+* Coleções específicas implementam regras para sua ordem de acesso e manipulação de seus elementos, são elas:
+	Queue (Fila): Obedece a ordem FIFO (First In First Out)
+	Stack (Pilha): Obedece a ordem LIFO (Last In First Out)
+
+
+
+Capítulo 4 - Aula 2 - Filas na prática
+
+
+* Vamos usar a class Queue seguida do sinal de <> que vai receber o tipo da fila. Depois instanciamos usando new Queue<>().
+
+* Podemos passar valores de entrada na inicialização da fila, mas isso é opcional.
+
+Queue<string> fila = new Queue<string>();
+
+
+* Para adicionar elementos nós temos o método .Enqueue() que adiciona o elemento no final da fila.
+
+* Temos também o Dequeue que remove e retorna o objeto no início da fila. 
+
+* Temos o .Peek() que retorna o objeto no começo da fila, mas ele não remove.
+
+* Temos o .Count() que retorna a quantidade de elementos na fila. 
+
+* Não temos um método de inserir em determinado índice da fila, pois a fila segue o FIFO. Você não pode nem inserir nem remover um objeto no meio da sua fila. 
+
+Queue<string> fila = new Queue<string>();
+fila.Enqueue("Leonardo");
+fila.Enqueue("Eduardo");
+fila.Enqueue("Andre");
+
+
+* Para ler a fila nós podemos usar o foreach. Mas o foreach só vai percorrer e não vai remover
+
+* Para remover elementos da fila enquanto e vou chamando os elementos eu posso usar o while:
+
+while (fila.Count > 0)
+{
+    Console.WriteLine("Vez de: (fila.Peek())");
+    Console.WriteLine($"{fila.Dequeue()} atendido");
+}
+
+
+
+Capítulo 4 - Aula 3 - Pilha na prática
+
+
+* Para implementar uma pilha nós vamos usar a class Stack que também pertence a System.Collection.Generic
+
+* Nós temos que passar um tipo para a pilha dentro do <>. Também podemos passar elementos para ela na inicialização:
+
+Stack<string> pilaLivros = new Stack<string>();
+
+* Para adicionar elementos na pilha nos temos alguns métodos;
+	.Push(): insere o elemento no topo da pilha 
+	.Pop(): remove o objeto no topo da pilha obedecendo o LIFO.
+	.Peek(): obter o último objeto no topo, mas sem remover.
+	.Count(): obter a quantidade de elementos na pilha.
+
+Stack<string> pilaLivros = new Stack<string>();
+
+pilhaLivros.Push(".NET");
+pilhaLivros.Push("DDD");
+pilhaLivros.Push("Código limpo");
+
+
+* Para fazer a leitura da pilha nós podemos usar o foreach, mas ele não vai remover elementos da pilha.
+
+* Para fazer a leitura e ao mesmo tempo remover nós vamos usar o while:
+
+while(pilhaLivros.Cunt > 0)
+{
+	Console.WriteLine($"Próximo livro para a leitura: {pilha.Peek())");
+	Console.WriteLine($"{pilhaLivros.Pop()} lido com sucesso");
+}
+
+
+
+Capítulo 5 - Dicionários
+
+
+
+Capítulo 5 - Aula 1 - Introdução dicionários
+
+
+* Um dicionário é uma coleção de chave e valor, permitindo que você recupere rapidamente seus itens baseado em sua chave. Essa chave é uma identificação única (nao existem duas chaves iguais no seu dicionário).
+
+* A busca com chaves vai ser muito mais performática. 
+
+* O dicionário armazena a sua chave em hash
+
+* Criação de um dicionário:
+Dictionary<string, string> estados = new Dictionary<string, string>() 
+
+* Dentro do <> você passa primeiro o tipo da chave e depois o tipo do valor da chave. 
+
+* Sempre que eu for buscar um elemento, eu passo a chave e ele busca o valor que está associado a essa chave. 
+
+
+
+Capítulo 5 - Aula 2 - Dicionário na prática
+
+
+* Para declarar um dicionário no C#, nós vamos usar a class Dictionary que pertence ao namespace que pertence ao System.Collectin.Generic.
+
+* Temos que passar o tipo da chave e o tipo do valor da chave e dar um nome para ele. Aí passamos o new Dictionary<tipoDaChave, tipoDoValor>(valoresOpcionais);
+
+* Como adicionamos um valor no dictionary:
+
+nomeDoDictionary.Add("SP", "São Paulo");
+nomeDoDictionary.Add("MG", "Minas Gerais");
+nomeDoDictionary.Add("BA", "Bahia");
+
+* Não podemos ter chaves repetidas. Se eu tentar adicionar uma chave existente ele vai retornar um exception.
+
+* Como percorrer um dictionary: usando foreach
+
+foreach (KeyValuePair(<string, string> item in estados)
+{
+	WriteLine($"Chave: {item.Key), Valor: {item.Value}");
+}
+
+* O KeyValuePair representa uma coleção de chaves e valores. 
+
+
+
+Capítulo 5 - Aula 3 - Acessando um valor
+
+
+* Para acessar um valor a gente sempre tem que passar a chave.
+
+* Criamos uma variável para procurar a chave.
+
+* Damos um WriteLine(estados[valorProcurado]);
+
+* Mesmo que você esteja procurando pela chave, ele sempre vai retornar o valor.
+
+string valorProcurado = "BA";
+Console.WriteLine(estados[valorProcurado]);
+
+
+
+Capítulo 5 - Aula 4 - Atualizando um valor
+
+
+* Para atualizar um valor contindo no dictionary basta passar o sinal de igual após colocar a chave que queremos atualizar. 
+
+estados[valorProcurado] = "BA" - teste atualização";  
+
+
+
+Capítulo 5 - Aula 5 - Removendo um valor
+
+
+* Para remover nós utilizamos o método .Remove()
+
+string valorProcurado = "BA";
+
+Console.WriteLine($"Removendo o valor: {valorProcurado}");
+
+estados.Remove(valorProcurado);
+
+foreach (KeyValuePair(<string, string> item in estados)
+{
+	WriteLine($"Chave: {item.Key), Valor: {item.Value}");
+}
+
+
+
+Capítulo 5 - Aula 6 - Acessando de maneira segura
+
+
+* Sempre que você tentar acessar uma chave que não existe no seu Dictionary ele vai retornar uma exception e vai interomper a execução do seu código.
+
+* Para acessar de forma segura podemos usar o método tryGetValue()
+
+string valorProcurado = "BA";
+
+if (estados.tryGetValue(valorProcurado, out string estadoEncontrado))
+{
+   Console.WriteLine(estadoEncontrado);
+}
+else
+{
+    Console.WriteLine($"Chave {valorProcurado} não existe no dicionário");
+}
+
+* o método tryGetValue() vai pedir dois parametros: o primeiro é o valor que está sendo procurado; o segundo é o valor de saída, que é o valor caso ele tenha conseguido recuperar.
+
+
+
+Capítulo 6 - Operações LINQ
+
+
+
+Capítulo 6 - Aula 1 - Introdução LINQ
+
+
+* LINQ é Language-Integrated Query: é uma maneira de utilizar uma sintaxe de consulta padronizada para coleções de objetos. Utilizando as clausulas mais comuns em uma consulta (where, max, min, average, etc)
+
+* Com o LINQ nós temos duas sintaxe que podemos utilizar que se assemelham a consultas.
+
+1 - Método: Query syntax:
+
+int[] numbers = {5, 10, 8, 3, 6, 12};
+
+IEnumrable<int> nunQuery1 = 
+    from num in numbers
+    where num %2 == 0
+    orderby num
+    select num;
+
+2 - Método: Method Syntax:
+
+int[] numbers = {5, 10, 8, 3, 6, 12};
+
+IEnumerable<int> numQuery2 = numbers.Where(num => num %2 == 0).OrderBy(n => n);
+
+* No método 1 temos várias cluauslas em comum em nossa lógica e conseguimos o nosso numero.
+
+* No método 2 ela se assemelha ao método Query porem as clausulas se dão através de métodos.
+
+
+
+Capítulo 6 - Aula 2 - Obtendo e ordenando valores com LINQ
+
+
+* Vamos criar um array e criar um método para retornar os valores pares.
+
+static void Main(string[] args)
+{
+    int[] arrayNumeros = new int[5] {5, 10, 8, 3, 6, 12};
+
+    var numerosParesQuery = 
+	from num in arrayNumeros
+	where num % 2 == 0
+	orderby num
+	select num;
+
+    var numerosParesMetodo = arrayNumeros.Where(x => x % 2 == 0).Orderby(x => x).ToList();
+
+    Console.WriteLine("Numeros pares query: " . string.Join(", ", numerosParesQuery));
+    Console.WriteLine("Numeros pares método: " . string.Join(", ", numerosParesMetodo));
+
+
+
+Capítulo 6 - Aula 3 - Valores mínimo, máximo e médio com LINQ
+
+Criamos variáveis para cada coisa que queremos encontrar na coleção:
+
+var minimo = arrayNumeros.Min();
+var maximo = arrayNumeros.Max();
+var medio = arrayNumeros.Average();
+
+Console.WriteLine($"Minimo: {minimo}");
+Console.WriteLine($"Mazimo: {maximo}");
+Console.WriteLine($"Medio: {medio}");
+
+
+
+Capítulo 6 - Aula 3 - Sum e Distinct
+
+* Sum = somar todos os elementos presentes da coleção
+
+* Distinct = retornar uma nova coleção com valores únicos (vai eliminar os valores que se repetem).
+
+var soma = arrayNumeros.Sum();
+
+Console.WriteLine($"Soma: {soma}");
+
+var arrayUnico = arrayNumeros.Distinct().ToArray();
+
+Console.WriteLine($"Array original: {string.Join(", ", arrayNumeros)}");
+
+Console.WriteLine($"Array distinto: {string.Join(", ", arrayUnico)}");
+ 

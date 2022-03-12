@@ -1,0 +1,281 @@
+Curso - Introdução ao HTTP/HTTPS
+
+
+
+Capítulo 1 - Protocolo HTTP e SSL
+
+
+
+Capítulo 1 - Aula 1 - Protocolo HTTP
+
+
+* Siginifica HyperText Transfer Protocol (HTTP)
+
+* Transferencia de dados pela WEB.
+
+* Rege a estrutura das mensagens (protocolo de comunicaçao)
+
+* Definido pelos RFCs 1945 e 2116
+
+* Do lado do cliente é o Browser que implementa o cliente HTTP
+
+* E do lado do servidor é onde estão hospedados os objetos web (tudo que está dentro de uma página é um objet web - vídeos, textos, etc) 
+
+* O cliente envia mensagens - Request HTTP
+
+* O servido envia mensagens - Response HTTP
+
+* O cliente solicita ou envia dados solicitando objetos web. Essa comunicação é realizada através do protocolo TCP (que é um protocolo da camada de transporte). Ele opera de duas formas: 
+	1 - Comunicação persistente: quando a conexão é feita ela vai se manter até que surja um pedido específico para concluir a conexão. 
+	2 - Comunicação não persistente: A cada envio de mensagens a conexão é encerrada. 
+
+* Arquitetura Client-server: os papeis são seguimentados, o lado do cliente só cuida das necessidades do cliente e o servidor só recebe e repassa aquilo que o cliente quer.
+
+* O HTTP é um protocolo Stateless, isso que dizer que ele não tem estado. O servidor não armazena o estado do cliente. Ele não sabe se o cliente está enviando o mesmo pedido mais de uma vez, o servidor apenas responde. Não existe um estado anterior armazenado. Não guarda dados do cliente.
+
+* Existem dois tipos de mensagem HTTP com estruturas diferentes:
+	1 - Request: é um texto ASCII com uma estrutra de "Request line" (aqui dentro vai mostrar o método HTTP utilizado e a versão do protocolo) e um "Header line" (aqui vai ter URL de onde estão hospedados os dados, o Tipo de conexão - se for close é não persistente - Agente que realizou o request, e a preferência de linguagem do cliente. Além desses campos existe também um Entity body que é o campo da mensagem request HTTP. Não utilizada pelo GET, mas pelo método POST. Em 90% dos casos é utilizado GET.
+
+* Métodos
+	* GET: solicita um recurso de servidor
+	* Head: igual ao GEt mas sem corpo de resposta. Para quando precisa de metadados.
+	* Post: submeter uma entidade a um recurso. O servidor vai ter que pegar todos os dados do pacote.
+	* PUT: substituição de recursos pelos dados da requisição. Vai enviar um novo estado para o recurso (corpo de dados)
+	* Delete: remoção de recurso
+	* Trace: chamada de loop-back a um determinado recurso. 
+	* Option: apresenta opções de comunicação com recurso.
+	* Connect: ele cria um tunel identificado pelo recurso. Conexão segura
+	* Path: RFC 5789 - modifica o recurso parcialmente.
+
+* Métodos seguros: GET, HEAD e OPTION. são métodos seguros pois não acarretam nenhuma mudança de estado ao recurso. Não há alteração de dados no servidor.
+
+	2 - Response: Possui um Status line (vai ter a versão do protocolo, o Status code e o Status da mensagem), um Header line (temos o tipo de conexão, Dados da mesnagem - DATA, SERVIVOR... - e Content-type - tipo de dado) e um Entity body. 
+
+* Variações do Status code:
+	200 OK: request bem sucedido e objeto enviado.
+	301 Moved Permanently: objeto realocado nova URL no campo Location
+	400 Bad Request: resposta genérica - servidor não entendeu a mensagem
+	404 Not Found: o documento solicitado inexistente
+	505 HTTP Version Not Supported: versão do protocolo não suportada pelo servidor.
+
+* Cookies: são tipos de identificação de usuários mantidos pelo site/servidor. Isso acontece mesmo o HTTP ser stateless. Serve para publicidade (descobrir os gostos do cliente e direcionar melhor as propagandas.
+	* RFC 6265
+	* Rastreamento
+	* Identificação (Restrição ou fornecimento de funções)
+
+* Existem 3 tipos de componentes em um Cookies
+
+	1 - Cookie header line: está composto na mensagem de resposta de requerimento
+	2 - Cookie file: que é mantido no cliente e servido. No lado do cliente que gerencia é o navegador.
+	3 - Banco de Dados Back-end(Website): As informações estarão no banco de dados do servidor. 
+
+
+
+Capítulo 1 - Aula 2 - Conceitos básicos de segurança, parte 1
+
+
+* Conceitos básicos divididos em duas partes:
+	1 - Criptografia por chave
+	2 - Certificado digital
+
+* O que é criptografia por chave: Você tem um conjundo de dados e um arquivo e você quer restringir que pode ter acesso a esse arquivo. Para aqueles que você não quer que veja os dados ficarão todos embaralhados. Só quem tem a chave consegue ler os dados da forma correta. Quem não tem a chave não consegue ver. Você usa uma chave para criptografar e usa a mesma chave para acessar. Na criptografa por chave existem dois tipos de chaves:
+	1 - Assimétrica: Ela é composta por dois tipos de chave: uma Chave Privada (É uzada para Assinatura - criptografia) e uma chave Pública (usada para verificação de autenticidade)
+	2 - Simétrica: Essa é a forma de chave utilizada no protoloco SSl, que é a versão segura do HTTP. Existe apenas uma única chave: Chave Privada (Conhecimento prévio da chave, Como transferir a chave)
+	* Cifra de César (Relacionada a Júlio César): Funcinamento - Substituição da letra pela k-énima do alfabeto. Rotatividade do alfabeto. Você determina o range do alfabeto para fazer as trocas das letrar. Se o k for igual a 3, o nome BOB vira ERE.
+
+
+
+Capítulo 1 - Aula 3 - Conceitos básicos de segurança, parte 2
+
+
+* Atualmente temos duas Cifras usadas:
+	1 - Cifra de fluxo: É uma sequência de bits pseudo-aleatório. Mapeamento 1 para 1. Temos o conjunto de bits de entrada e temos um conjunto de bits para realizar a troca (que será o fluxo de bits). Para cada bit da minha sequência original de entrada nós vamos trocar com o bit do Fluxo, gerando o Dado criptgrafado
+	2 - Cifra de bloco: é utilizada por alguns protocolos de segurança (SSL, PGP, Ipsec). Aqui é utilizado bloco de bits. O k vai varia dependendo do tamanho de bits. Exemplo: k=64 significa Bloco de 64 bits. Mapeamento por permutação. Só conhece as possibilidades quem tem a chave. Na prática o número do k é sempre superior a 64, o que gera possibilidades tão grande que o mapeamento é feito por funções que simulam esse tipo de mapeamento por blocos. Os protocolos que usam esse tipo de cifra é DES, 3DES e AES. Outro fator que na prática não acontece é o envio de bloco por bloco, pois como alguns dados são recorrentes na documentação, um atacante pode descobrir esse padrão e quebrar a criptografia. Para isso não ocorrer é utilizado o encadeamento de cifras ( esses blocos são permutados um a um, e depois são agregados e enviados para o seu destino.
+
+* Como eu garanto que uma pessoa é dona de uma chave específica? Para isso existem entidades certificadoras que fornecem o certificado digital.
+
+* O papel de um Entidade Certificadora é verificação de identidade, Emissão de certificados (vinculo entre a chave e a entidade)
+
+* Padrão de autoridades certificadoras:
+	IETF - recomendação ITUX.509 (Especificação de um serviço de autenticação e sintaxe de certificados
+
+	RFC 1422 (Gerenciamento de chaves baseado em CA em emails seguros) 
+
+
+
+Capítulo 1 - Aula 4 - Protocolo SSL
+
+
+* SSL: Secure Socket Layer
+
+* Segurança para conexões TCP (garante que você vai receber os dados)
+
+* Confidencialidade (garantir que não haja leitura dos dados)
+
+* Integridade (garantir que não haja edição dos dados)
+
+* Autenticidade end-point (garantir que os dois lados da conexão são fidedignos).
+
+* A terceira versão desse protocolo é chamada de TLS - Transport Layer Security (RFC 4346)
+
+* Qual a importancia do SSL? Um usuário malicioso pode interceptar uma request e atuar de duas formas:
+	1 - listening: ele apenas captura a informação sem alterá-la e pode usá-la depois (dados de cartão de crédito)
+	2 - ataque ativo: ele vai alterar os pacotes de dados (prejudicando ou o client ou o servidor).
+
+* Conexão SSL não vai existir essa interceptação. 
+
+* Operações SSL - fases
+	* Handshake: Estabelecer conexão TCP - um usuário começa o TCP, o segundo usuário responde o TCP e o primeiro envia uma confirmação de que recebeu o TCP. Conexão de três vias
+	* Key Derivation: Verificação de autenticidade. O primeiro usuário envia um SSL Hello e o segundo usuário envia a Certificação que contém a chave pública. 
+	* Data Transfer: O primeiro usuário vai criar uma EMS (Master Secret), que é um segredo utilizado apenas na seção SSL. O primeiro usuário vai encriptar usando a chave que o segundo usuário havia enviado. O segredo encriptado com a chave é o Encription Master Secret (EMS). Quando o usuário 2 receber os dados encriptados ele vai desencriptar usando a chave dele. Apenas os dois usuários conhecem esse Master Secret
+
+* A partir do Master Secret são criadas 4 chaves, duas para o primeiro usuário e duas para o segundo. Uma chave é a SEK (Session Encription Key - chave de encriptação espeficica para essa sessão) e a outra é a MAC (utilizada para verificação da chave Master Secret) 
+
+* Os dados não são enviados na forma original, eles precisam ser verificados. Para fazer a verificação é incluído um MAC em cada bloco
+
+* O que é um HTTPS: é um protocolo HTTP que utiliza proteção SSL na comunicação TCP.
+
+* Porta 443 que é utilizada. 
+
+* Proposta de valor do HTTPS: proteção contra fishing e Privacidade do usuário. 
+
+* LGPD: Lei Geral de Proteção de Dados (promulgada em 2018, entrou em vigor em agosto de 2020. Lei de segurança da informação - nº 13.709/2018). Ela é baseada em duas outras legislações: GDPR - General Data Protection Regulation - legislação europeia. Legislação do Estado da Califórnia - EUA
+
+* Proteje os dados de identificação dos usuários, dados sensíveis (religião, etnia, etc). As pessoas não podem ser identificadas. 
+
+* Defini o tratamento de dados (diversos tipos de operações) - livre consentimento, direitos do titular das informações. sanções aos que descumprirem as regras
+
+* Criação da ANPD (Agência Nacional de Proteção de Dados): zelar pela proteção dos dados; elaborar diretrizes para politica nacional de proteção; promover conhecimento das normas; editar regulamentos; realizar auditorias
+
+* Quem deve seguir a lei? Empresas que precisem manter um BD de funcionários e usuários. Devem garantir ao titular sigilo das informações. 
+
+
+
+Capítulo 2 - API e Padrão REST
+
+
+
+Capítulo 2 - Aula 1 - O que é API?
+
+
+* API - Application Programming Interface
+
+* Coleção de métodos disponibilizados por um serviço para interação indireta. Você pode usar serviços sem entender o que está acontecendo por trás. 
+
+* Analogia - Restaurante: Cliente recebe o menu (que seriam as funções) e vai solicitar um prato pro garçom (o garçom é a API). O garçom vai levar o pedido para o chef executar (o chef é o servidor). O chef devolve para o garçom e o garçom entrega para o cliente. O Chef não precisa saber quem pediu o prato, nem o cliente precisa saber como o chef está fazendo o prato. 
+
+* Existem API para diversos contextos, inclusive para mobile. API para localização no maps.
+
+* API para desktop, como para coletar dados de contas de plataforma financeiras.
+
+* Na programação
+	* Rotinas e padrões
+	* Acesso (sistem ou plataforma web) 
+
+* Motivação:
+	* utilização dos seviços da empresa (como o maps)
+
+* API em Java
+	* Recursos disponíveis em API padrão Java
+	* Programas de suporte
+	* Possui partes funcionais chamadas pacotes (o que nós denominamos bibliotecas) 
+
+
+
+Capítulo 2 - Aula 2 - Propriedades de uma API
+
+
+* As propriedades podem ser denominadas de vantagens.
+
+* 4 propriedades de uma API:
+	1 - Acesso de dados: independente da plataforma que esteja sendo usada. A partir dos campos, a API vai solicitar os dados para BD. A API vai gerar uma solicitação e dentro dessa solicitação vai ter código que executa o arquivo dentro do servidor que irá realizar a consulta no BD. Uma resposta vai ser enviada para a API. A API vai receber a respostas e imprimir na tela as opções que o cliente tem.
+	2 - Estender funcionalidades: Comunicação entre software e hardware. Junção de funcionalidades de sistemas e plataformas distintas. Comunicação entre aplicativos (exemplos API do Google Maps com um programa feito por um Dev)
+	3 - Segurança: A API vai te informar sobre tentativa de acesso a informações, como por exemplo "app gostaria de utilizar sua localização. Há dados que são necessários para funcionar o app e outros dados eles querem coletar para outros fins.
+	4 - Esconder complexidade: Acesso a dados (pode ser realizado por arquivos, banco de dados, entre outras) para cada maneira vai ter comandos específicos que são complexas. O acesso tem que ser Transparente (comandos hardware, funções do sistemas). A API vai resultar de forma transparente o intermédio da execução. O programador pode focar na funcionalidade do app/sistema, já que a API fornace todo o suporte para que ele consiga executar essas funções.
+
+* A API vai intermediar o usuário ou sistema com o servidor (serviço). Quem está consumindo não precisa entender o que está acontecendo do lado do servidor e o servidor não precisa saber quem pediu. 
+
+
+
+Capítulo 2 - Aula 3 - Padrão REST
+
+
+* O padrão REST é uma arquitetura que defini as regras de comunicação entre api e sistema. Está quase sempre associada a api que usam o HTTP 
+
+* REST = REpresentational Stat Transfer
+
+* Foi apresentado por Roy Fielding em 2000.
+
+* O REST é uma arquitetura que tem regras bem definidas (Boas práticas), comunicação entre sistemas e padrão de linguagem.
+
+* Vantagens da padronização
+	Maior compreensão
+	Redução do esforço
+	Ganho em agilidade e Eficiência
+	Migração de sistemas 
+
+* Independência da aplicação: Exemplo: uma API que acessa diferentes BD. Se modificações no BD forem feitas, apenas a API teria que ser modificada e não o sistema. Podemos usar a mesma interface para programas distintos que funcionam de forma similar.
+
+* Modelo: Funciona com Constrains
+	* Client-server: Front X back. Princípio da separação; Menos complexidade; Organização dos Devs. O lado do cliente se preocupa com a interface e o servidor com o armazenamento. Portabilidade da Interface do usuário. Aumento da escalabilidade. Simplifica os componentes dos servidores.
+	* Stateless: O servidor não tem o estado do cliente. O request tem que fornecer ao servidor um completo entendimento. Visibilidade. Confiabilidade. Escalabilidade (o servidor libera mais rapidamente os recursos que não estão sendo utilizados). Existe um Tradeoff (escolha) que pode diminuir a performance da rede pela sobrecarga de pedidos (Repetição de dados, Per-interaction overhead, performance da rede versus propriedades do Rest) 
+	* Cache: Objetivo de aumentar a eficiência da rede. Reduz a latência e interação.  As requesições vão ter que ser entiquetadas (Label Request: Cacheable or non-cacheable)
+	* Uniform Interface: Isso diferencia a arquitetura REST dos outros estilos, pois ela da ênfase a uma interface uniforme entre componentes. Usa um princípio de engenharia de software chamado Generalidade. Arquiteturas de multiplas restrições (* Identificação de recursos; * Manipulação de recursos; * Auto-descrição). HATEOAS (Hypermedia As The Engine Of Application State) 
+	* Layeres System (Sistema de camadas): Composição hierárquica de Camada que preve Encapsulamento e Proteção de dados, sendo que a camada inferior não sabe o que a camada superior faz. Com isso aumenta a latência e overhead de dados (compensado pelo uso de cache)
+	Code on Demand (constraint opcional): permite que as funcionalidades do cliente sejam estendidas e baixadas e executadas como se fossem aplicativos ou sricpts. Simplificadções (redução de features a serem pré-implementadas). Sistema extensível versus diminuição de visibilidade.  
+
+* Por que utilizar o padrão REST? APIs Restfull
+	* Padrão comumente adotado
+	* Conversa bem com o protocolo HTTP
+	* Permite criação de APIs mais eficientes
+	* Foco no desenvolvimento
+
+
+
+Capítulo 2 - Aula 4 - API HTTP-Java
+
+
+* API-HTTP: adicionado à versão 11 do Java. Permite requisições Síncronas e assíncronas.
+
+* Pacote HTTP: 1 - HttpClient (classe que define o cliente HTTP - .newBulder() e .newHttpClient; 2 - HttpRequest (classe de solicitações e utilização de métodos); 3 - HttpResponse (Resultado da solicitação HTTP
+
+* .newHttpClient = cria um novo cliente HTTP (imutável)
+* .newBuilder = define estado e configurações do cliente (versão do protocolo, autenticador, timeout)
+
+* HttpRequest: criado a partir do builder, métodos que definem os parâmetros de configuração. Ela é imutável.
+
+* HttpResponse: classe criada indiretamente a partir de um HttpRequest. Retornado como resultado do envio de uma requisição do cliente. Ela pode ser Síncrona (as informações são enviadas na ordem) e Assíncrona (as mensagens são enviadas fora de ordem, com uma flag assossiada para poder reorganizar as informações).
+
+
+
+Capítulo 2 - Aula 5 - Estudo de caso, parte 1.
+
+
+* Vamos realizar requisições HTTP do tipo GET() e POST(). https://jsonplaceholder.typicode.com/post
+
+* Vamos definir as URLs (https://httpbin.org/forms/post e https://httpbin.org/get)
+
+* Exemplo 1 - Utilizar o método get e realizar um content-type: text/html
+
+* Exemplo 2 - Utilizar o método post (vai retornar um erro 405 - method not allowed, pois o post não é um método seguro)
+
+
+
+Capítulo 2 - Aula 6 - Estudo de caso, parte 2.
+
+
+* É um projeto em Java. A professora já criou o Program e as classes (classe getRequest e a class postRequest.
+
+* Ela criou um novo cliente com .newhttpClient()
+
+* Ela criou uma requisição com .httpRequest.newBuilder(). Vai usar o método GET().
+
+* Não deu para entender muita coisa do exemplo prático.
+
+
+
+Capitulo 2 - Aula 7 - Conclusão do curso
+
+* HTTP e HTTPS: Kurose; Tanenbaum; Canal Simplificando Redes (Youtubbe); Respostas HTTP - status code (mozila)
+
+* 

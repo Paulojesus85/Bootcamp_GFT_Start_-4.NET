@@ -1,0 +1,445 @@
+Curso - Construtores, Propriedades, Delegates e Eventos em .NET
+
+
+
+Capítulo 1 - Construtores
+
+
+
+Capítulo 1 - Aula 1 - Introdução Construtores
+
+
+* Um construtor é um método especial que contém o mesmo nome do seu tipo classe e tem o objetivo de definir valores padrão, limitar uma instância e facilitar a instanciação de um objeto.
+
+* Um construtor não possui um retorno.
+
+* Um construtor padrão é sempre definido quando não declaramos nenhum para a sua classe. A linguagem padrão vai sempre definir um construtor padrão, mesmo que você não tenha definido.
+
+* Uma classe pode ter mais de um construtor desde que os parâmetros sejam diferentes.
+
+* Usando o construtor você tem um controle maior de como a sua classe é instanciada e você define quais propriedaddes são passadas por padrão no momento da sua instância.
+
+
+
+Capítulo 1 - Aula 2 - Construtor na prática.
+
+
+* Nós identificamos que é um construtor, pois vai ter o mesmo nome da class e não vai ter nenhum retorno. Um exemplo de construtor vazio:
+	public class Pessoa
+	{
+	    private string nome;
+	    private string sobrenome;
+
+	    public Pessoa()
+	    {
+		nome = string.Empty;
+		sobrenome = string.Empty;
+	    } // esse é um contrutor vazio. Tem o mesmo nome da class e não retorna nada na declaração.
+
+	    public Pessoa(string nome, string sobrenome)
+	    {
+		this.nome = nome;
+		this.nome = sobrenome;
+	    } // esse é um construtor não vazio.
+
+	    public void Apresentar()
+	    {
+		Console.WriteLine($"Olá, meu nome é: {nome} {sobrenome}");
+	    }
+
+* No Main a gente vai instanciar a Pessoa. Lembrando que tem que importar a pessoa para os métodos e construtores serem detectados(usando "ctrl + .":
+
+static void Main(string[] args)
+{
+    Pessoa p1 = new Pessoa("Leonardo", "Bula");
+    p1.Apresentar()
+}
+
+
+
+Capítulo 1 - Aula 3 - Construtor padrão
+
+
+* Construtor padrão não tem parâmetros e toda a class possui um construtor padrão caso você não defina um explicitamente. 
+
+* Mesmo que você tenha mais construtores, o C# sempre vai te passar a opção do construtor padrão e os construtores com parâmetros. 
+
+* Se você apagar o construtor padrão, apenas o construtor com parâmetros vai existir e você não vai mais poder instanciar objetos sem passar os parâmetros. 
+
+
+
+Capítulo 1 - Aula 4 - Construtor privado
+
+
+* O construtor privado serve para quando você quer evitar uma instância de sua classe.
+
+* Pesquisar mais sobre o assunto, pois não entendi nada.
+
+
+
+Capítulo 1 - Aula 5 - Chamando o construtor da herança
+
+
+* Quando uma classe herda de outra um construtor que não é o padrão (sem parâmetros) você é obrigado a passar para a classe filha os parâmetros.
+
+* NO nosso exemplo temos uma classe Pessoa com um construtor com dois parâmetros (string nome, string sobrenome). Se criarmos uma classe Aluno que herda de Pessoa, precisaremos criar um construtor Aluno com os mesmos parâmetros. O código ficará assim:
+
+public class Aluno : Pessoa
+{
+	public Aluno(string nome, string sobrenome) : base(nome, sobrenome)
+	{
+
+	}
+
+* Você pode utilizar a palavra reservada "base" quando vai se referir a alguma coisa da classe mãe. NO código acima, o : base(nome, sobrenome) indica que quando o aluno receber nome e sobrenome ele vai passar para a classe mãe.
+
+* Você pode incluir parametros novos no construtor da classe filha. Se você fizer isso não precisa colocar esse parâmetro no :base().
+
+
+
+Capítulo 2 - Getters e Setters
+
+
+
+Capítulo 2 - Aula 1 - Introdução GET e SET
+
+
+* O Get e Set servem para que você possa atribuir um valor em uma variável de maneira controlada e com validações
+
+* O Get recebe o valor da propriedade.
+
+* O Set vai atribuir um valor para a propriedade.
+
+* Quando vamos atribuir valor pelo Set a gente pode colocar uma validação para que apenas valores válido sejam recebidos na propriedade. 
+
+* O Get pode ser mais do que apenas um retorno: você pode colocar um get documento formatado e o retorno vai ficar com o formato desejado.
+
+* O Get o Set protegem a propriedade. Se você colocar uma propriedade como privada, ela só poderá ser manipulada pelo Get e Set.
+
+
+
+Capítulo 2 - Aula 2 - Get e Set na prática
+
+
+* Criar uma nova classe Data.
+
+* criar uma propriedade privada int mes
+
+* criar um Get e um Set.
+
+* O código vai ficar assim:
+
+public class Data
+{
+    private int mes;
+    private bool mesValido;
+
+    public int GetMes()
+    {
+	return this.mes;
+    }
+
+    public void SetMes(int mes)
+    {
+	if(mes > 0 && mes <=12)
+	{
+	    this.mes = mes;
+	    this.mesValido = true;
+	}
+    }
+
+    public void ApresentarMes()
+    {
+	if(this.mesValido)
+	{
+	    Console.WriteLine(this.mes);
+	{
+	else
+	}
+	    Console.WriteLine("Mês inválido!");
+	}
+    }
+}
+
+
+* No Main nós vamos instanciar a classe data. O código vai ficar:
+
+static void Main(string[] args)
+{
+	Data data = new Data();
+	data.SetMes(2);
+
+	data.ApresentarMes();
+}
+
+
+
+Capítulo 2 - Aula 3 - Propriedades
+
+
+* No C# temos o recurso das propriedades.
+
+* Propriedades são maneiras de unificar o Get e o Set podendo ter validações ou não.
+
+* Para criar uma propriedade eu posso usar o atalho "prop" do VSCode. Qando você digitar prop e der enter vai ser criado essa linha de código
+
+	public int MyProperty (get; set; )
+
+* Você precisa trocar o tipo e o nome da propriedade.
+
+* Para acessar essa propriedade, você precisa ir no Main e digitar o nome do objeto que foi criado com um ponto. Desta forma, já vai aparecer automaticamente o nome da propriedade get e set para você escolher. A propriedade tem um ícone diferente do método Get e Set. NO nosso exemplo podemos fazer da seguinte forma
+
+data.Mes = 12;
+Console.WriteLine(data.Mes);
+
+* Se você colocar data.Mes e colocar = a alguma coisa você estará acessando o set. Se não colocar nada estará acessando o get.
+
+* Se você quiser colocar validações no get e set você vai precisar alterar o código da propriedade. Mas se não for fazer nenhuma alteração pode deixar o código na forma como o atalho prop formula.
+
+* Para deixarmos o código com as mesmas validações da aula anterior:
+
+public int Mes
+{
+    get
+    {
+	return this.Mes;
+    }
+
+    set
+    {
+	if (value > 0 && value <= 12)
+	{
+	    this. mes = value;
+	    this.mesValido = true;
+	}
+    }
+}
+
+* O "value" vem do valor passado no Main para a propriedade Get e Set.
+
+* Quando trabalhos com a propriedade, nós temos apenas um ponto de acesso para trabalhar o get e o set.
+
+
+
+Capítulo 3 - Modificadores
+
+
+
+Capítulo 3 - Aula 1 - Introdução Modificadores
+
+
+* Readonly: O modificador readonly (somente leitura) bloqueia um campo contra alterações nos campos de sua classe que não sejam em sua inicialização ou pelo próprio construtor.
+
+* Se uma propriedade estiver marcada com readonly e for criado um método para alterar o nome, vai aparecer um erro. 
+
+
+
+Capítulo 3 - Aula 2 - Readonly na prática
+
+
+* Vai usar o mesmo código dos exercícios anteriores com a class Pessoa.
+
+
+
+Capítulo 3 - Aula 2 - Introdução Constante
+
+
+* Constante: Uma constante representa um valor que somente pode ser atribuído no momento de sua inicialização e não pode ser modificado posteriormente.
+
+* Por exemplo: o valor do pi é sempre constante e você já inicializa ele com um valor fixo. A constante em momento alguma poderá sofrer alteração. A constante é diferente de uma variável que pode mudar de valor.
+
+
+
+Capítulo 3 - Aula 3 - Constante na prática
+
+
+* Para declarar uma constante a gente usa a palavra const no início, determina o tipo dela, determina o nome dela, e por últim declara qua valor ela vai receber. Por exemplo:
+
+const double pi = 3.14;
+Console.WriteLine(pi);
+
+* Essa declaração foi feita na Main.
+
+* Depois de declada a constante, você não pode alterar ela em outro lugar do código.
+
+* Você não consegue declarar um constante sem valor. Tem que ser declarado exatamente na inicialização.
+
+* São feitas para valores imutáveis ou que serão constantes durante todo o programa.
+
+
+
+Capítulo 4 - Delegates
+
+
+
+Capítulo 4 - Aula 1 - Introdução delegate
+
+
+* Os delegates são uma função muito importante na linguagem C#.
+
+* Um delegate é uma maneira de passar um método como referência, podendo ser usado como um callback, aceitando qualquer método que contenha a mesma assinatura.
+
+* O delegate trabalha mais em baixo nível, com referências, passagem de referência, ponteiro. 
+
+* O Delegate permite com que você passe por parâmetro um método ou uma função para ser executada em um momento oportuno. 
+
+* Vamos ver um exemplo de código:
+
+public class Calculadora
+{
+    public static void Somar (int num1, int num2)
+    {
+	Console.WriteLine($"Adição: {num1 + num2}");
+    }
+
+    public static void Subtratir(int num1, int num2)
+    {
+	Console.WriteLine($"Adição: {num1 - num2}");
+    }
+
+
+public delegate void operacao(int x, int y);
+
+static void Main(string[] args)
+{
+    operacao op = Calculador.Somar;
+    op.Invoke(10, 10);
+}
+
+
+
+Capítulo 4 - Aula 2 - Delegate na prática
+
+
+* O professor vai criar uma class Calculara e criar dois métodos, um para somar e outro para subtrair.
+
+* O delegate é criado no Program, entre a declaração da class do Program e o static void Main()
+
+* Você pode passar a Class e o método para o delegate de duas formas:
+1 - operacao op = Calculadora.Somar;
+2 - operacao op = new operacao(Calculadora.Somar);
+
+* O Delegate precisa receber a mesma quantidade de parâmetros do método que ele está recebendo. Se o método Somar receber 3 parâmetros e o Delegate receber 2 parâmetros vai dar erro.
+
+* Eu passo passar os valores para o Delegate de duas formas:
+1 - op.Invoke(10,10);
+2 - op(10, 10);
+
+
+
+Capítulo 4 - Aula 3 - Multi Cast Delegate
+
+
+* Nada mais é do que chamar vários métodos em sequência em uma punica chamada de seu Delegate.
+
+* No exemplo acima da Calculadora, o Delegate está chamando apenas o método Somar. Com o Multi Cast Delegate eu posso chamar mais de um método em sequência.
+
+* Podemos fazer isso da seguinte forma:
+
+operacao op = new operacao(Calculadora.Somar);
+op += Calculadora.Subtrair;
+
+* o símbolo de += não tem relação com o operador aritimético de +=, mas sim significa que estamos adicionando mais um método sem perder a referência do outro método.
+
+* Se eu fizer op = Calculadora.Subratir, eu vou estar substituindo o método anterior. Por isso tem que usar +=.
+
+* O Mult Cast Delegate obedece uma Ordem FIFO (O primeiro a entrar é o primeiro a sair). Se você chamar o método somar primeiro, ele vai aparecer primeiro ao rodar o programa. 
+
+
+
+Capítulo 5 - Eventos
+
+
+
+Capítulo 5 - Aula 1 - Introdução Eventos
+
+
+* Eventos é um mecanismo de comunicação entre objetos, onde existe um publisher (que chama o evento) que realiza o evento e o subscriber (que escuta o chamado para o evento) que se inscreve em um evento.
+
+* Um evento vai ocorrer quando uma outra determinada ação ocorrer também. 
+
+* Exemplo: Quando você clica no botão fechar de um programa ele vai realizar o encerramento do programa. Você pode clicar no botão enviar e-mail e ele vai realizar esse evento de enviar o e-mail.
+
+* Outro exemplo: quando você se inscreve para receber as noticias de um site. Sempre que o site publicar um nova notícia (o site de notícia é o publisher) você vai receber a noticia (você é o subscriber)
+
+* Antes de definir um Evento é necessário definir um Delegate. Internamente um evento trabalha com o Delegate para executar as suas funções.
+
+* A palavra chave o Evento é o "event".
+
+* Ao declarar o Evento, você vai fazer referência ao Delegate criado anteriormente.
+
+* Quando você vai executar um Evento pouco importa para ele como os seus inscritos vão se comportar. DEsde que você passe um método compatível você tem a garantia que ele vai executar esse método quando ele realizar uma ação. Mas, pouco importa pro Evento o que o método que ele está chamando vai fazer. 
+
+* Sendo compativel e sendo inscrito no Evento eu vou realizar a chamada desse método (vou notificar meus inscritos) que uma determinada ação ocorreu. 
+
+
+
+Capítulo 5 - Aula 2 - Eventos na prática
+
+
+* Código da classe Calculadora
+
+public class Calculadora
+{
+    //Delegate
+    public delegate void DelegateCalculadora();
+
+    //Evento
+    public static event DelegateCalculadora EventoCalculadora;
+
+    public static void Somar(int x, int y)
+    {
+	Console.WriteLine($"Adição: {x+Y}");
+	EventoCalculadora;
+    }
+    else
+    }
+	Console.WriteLine("Nunhum inscrito");
+    }
+}
+
+* Qual é a implementação do EventoCalculadora? Ele vai executar todos os métodos que foram inscritos nesse evento. 
+
+* Para demonstrar isso vamos criar uma nova classe chamada matemática que vai se inscrever no EventoCalculadora.
+
+* Criar a nova classe matemática:
+
+public class Matematica
+{
+	public int x { get; set; }
+	public int y { set; get; }
+
+	public Matematica (intx, int y)
+	{
+	    x = x;
+	    y = y;
+
+	    Calculadora.EventoCalculadora += EventHandler;
+	}
+
+	public void Somar()
+	{
+	    Calculadora.Somar(x, y);
+	}
+
+	public void EventHandler()
+	{
+	    Console.WriteLine("Método inscrito"); 
+	}
+
+* A Calculadora disponibiliza um Evento, e eu inscrevo o método EventHandler no EventoCalculadora. Quando ocorrer uma ação na classe Calculadora, ele vai chamar o EventoCalculadora, que por sua vez, como o EventHandler está inscrito no EventoCalculadora, ele vai executar o método EventHandler.
+
+* No Main o código vai ficar:
+
+class Program
+}
+	static coid Main(string[] args)
+	{
+	   Matematica m = new Matematica(10, 20);
+	   m.Somar();
+	}
+}
+
+* A Calculadora tem um evento que vários outros objetos podem se inscrever. No método Somar, caso tenham inscritos no Evento, ele vai executar a adição e vai executar o Evento Calculadora. 
+
+* O método EventHandler na class Matematica foi inscrito no EventoCalculadora através do += 

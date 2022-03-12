@@ -1,0 +1,159 @@
+Curso - Configuração da arquitetura back-end com .NET CORE
+
+
+
+Capítulo 1 - Apresentação do cenário e documentação da API com swagger
+
+
+
+Capítulo 1 - Aula 1 - Introdução e setup da API
+
+
+* História de Usuário:
+	* Cadastro de usuário
+	* Login
+	* Cadastro de curso usuário autenticado 		* Lista de cursos de usuário autenticado.
+
+* Criar novo projeto
+
+* Asp.NetCore WEb Aplcation -> nome do projeto api -> nome da slução: curso -> diretorio treinamento
+
+* Qual tipo de aplicação - API -> deixar o https ativo
+
+* Iniciar a configuração das Rotas:
+
+* Pasta Controler -> botão direito -> add -> Controller -> Api controller -> nome usuário
+
+* Criar a primeira rota chamada de Logar -> rota com verbo post httppost
+
+
+Aula 2 - Conheça o Postman
+
+* Criação do serviço rest: configuração das rotas (endpoints)
+
+* Ferramenta Postman: ferramenta para testes de APIs. 
+
+* Vamos fazer uma requisição em Posto (ja que colocamos post no nossa rota)
+
+* Utilizando o objeto json
+
+* Criar outra rota para o Registrar. Criar uma nova viewmodel, pois o registrar tem mais elementos do que login e senha.
+
+* Argumento Route (template pre-existente)
+
+
+
+Aula 3 - Introdução e biblioteca Swashbuckle.AspNetCore.Annotations
+
+
+* Configuração do swagger para documentação da API
+
+	* Instalação do Pacote Nuget
+	* Configuração do XML
+	* Configuração do Service (IOC)
+	* Habilitar o Middleware
+
+* O swagger entende os arquivos xml.
+
+* Biblioteca do próprio swagger .Annotations. A gente usa atributos dessa biblioteca para configurar respostas. O swagger vai interpretar o atributo.
+
+
+* Setup validação de entrada de dados
+	* Criação de ViewModels
+	* Configuração das ViewModels
+	* Configuração do actionFilter
+	* Configuração da Startup
+
+* O required é um atributo que torna o campo obrigado.
+
+
+
+Aula 4 - Usando ConfigureApiBehaviorOptions
+
+
+* Precisamos customizar a mensagem de erro
+
+* ConfigureApiBehaviorOptionsvocê consegue desabilitar o padrão que a Micrososft traz para os modelstate de Bad REquest
+
+* Recurso chamado Filter (Filtro): ele intercepta  os request. Criar uma pasta chamada Filters, criar um classe para o filter que herda ActionFilterAttribute.
+
+* sobreescrever o onactionexecuting
+
+
+
+Capítulo 2 - Protegendo a nossa API
+
+
+
+Aula 1 - Configuração com 'provider' JWT
+
+
+* Provider Json Web Token (JWT)
+
+* Instalação do Pacote Nuget: biblioteca autenthication e jwt
+
+* Configuração do Service (IOC): Criar chave de autenticação e ficar no servidor. Converter a chave para bytes. 
+
+* Habilitar o Middleware
+
+
+
+Aula 2 - Correção da Startup
+
+
+* configurar o app.UseAuthentication() para conseguir maperar
+
+* Bearer
+
+
+
+Capítulo 3 - Setup da API - Camada de persistência
+
+
+
+Aula 1 - Modelando as entidades de banco de dados
+
+
+* Modelando as entidades de banco de dados:
+	criação das classes (entidades de login e de curso)
+
+* Instalar o Entity Framework
+
+* Configuração de contexto (Context)
+
+* Pasta Mapping (para usuário e para curso)
+
+
+
+Aula 2 - Implementando HasForeingKey e configurando DbContext
+
+
+* Instalar o sqlserver
+
+
+Aula 3 - Aplicando o pacote EntityFrameworkCore.Tools
+
+
+* Instalar o pacote Tools para fazer o MIgrations
+
+* Add-Migrations
+
+
+
+Capítulo 4 - Um pouco de design pattern
+
+
+Aula 1 - O que é o IOC e DI Pattern - Refatoração
+
+
+* IOC - inversão de controle
+
+* DI - Injeção de Dependência 
+
+* Repository Pattern: Criação das classes e interfaces
+
+* Criar uma interface
+
+* Inversão de controle, ao invés de utilizar uma classe vai usar uma interface
+
+

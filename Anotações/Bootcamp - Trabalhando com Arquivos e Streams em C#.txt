@@ -1,0 +1,865 @@
+Curso - Trabalhando com Arquivos e Streams em C#
+
+
+
+Capítulo 1 - System.IO
+
+
+
+Capítulo 1 - Aula 1 - Introdução e Teoria System.IO
+
+
+* Objetivos do curso:
+
+	* aprender como manipular arquivos e pastas
+	* como navegar pelas estruturas de diretórias do SO;
+	* modificar arquivos existentes;
+	* criar novos arquivos em memória e salvá-los
+	* Diferentes técnicas de impostação de dados.
+	* Criar, Validar e consumir arquivos CSV
+
+* Namespace System.IO: agrega um conjunto de classes, estruturas, enumeradores e delegates, relativos a operações de Entrada e Saída de dados (Input/Output)
+
+* O .IO vem do Input e Output
+
+* Principais classes:
+
+	* File e FileInfo: fornercer suporte para criar, copiar, apagar, mover e abrir arquivos de forma individual. Podemos alterar permissões, nível de acesso e modo de criação/abertura, através dos enumeradores (FileAccess, FileShare, FileMode)
+	* Directory e DirectoryInfo: fornecer suporte para criar, mover e percorrer diretórios e subdiretórios. Semelhante a classe File, podemos realizar operações tais como criar, mover, renomear, etc e enumerar diretórios e subdiretórios. Propriedades do DirectoryInfo (que também valem para o FileInfo): * Exists: boolean que indica se o diretório existe; * Name: nome do diretório e para obter o caminho "Path" FullName; * Parent: Retorna o diretório Pai, pode retornar null se estivermos em uma pasta raiz "root"; Root: Retorna uma instância de DirectoryInfo que representa o diretório raiz.  
+	* FileSystemWatcher: monitora mudanças no sistema de arquivos, através de disparo de eventos quando um arquivo ou diretório muda.
+	* FileStream, MemoryStream, StreamReader. 
+
+
+
+Capítulo 1 - Aula 2 - Demo Criar Arquivo
+
+
+* Peguei o arquivo pronto do professor no GitHub para não ter que ficar digitando os códigos. Vou digitar apenas informações importantes:
+
+* É necessário dar um "using System.IO;" para as classes aparecerem no VSCode se você usar uma versão do .NET inferior ao 6.
+
+* O .NET 6 já traz diversas using disponíveis para a utilização. Essas using estão em obj -> Debug -> ref -> File_And_FileInfo.GlobalUsings.g.cs (consultar os using nesse arquivo). Para isso a opção <ImplicitUsings>enable</ImplicitUsings> precisa estar ativada no arquivo File_And_FileInfo.csproj
+
+* Para criar um arquivo temos a class File.Create(path) 
+
+var path = Path.Combine(Environment.CurrentDirectory, "teste.txt");
+
+File.Create(path);
+
+* No código acima nós criamos uma variável path que recebeu um local para criação do arquivo (nesse caso a pasta atual) e o nome e extensão do arquivo.
+
+* O Path.Combine é uma forma de você juntar coisas sem precisar fazer uma concatenação.
+
+* Essa variável path foi passada como parâmetro para o File.Create e um arquivo com o nomes teste.txt foi criado na pasta atual do Program.
+
+* Para criar e escrever coisas no arquivo:
+
+var path = Path.Combine(Environment.CurrentDirectory, "teste.txt");
+
+var sw = File.CreateText(path);
+sw.WriteLine("Esta é a linha 1 do arquivo");
+sw.WriteLine("Esta é a linha 2 do arquivo");
+sw.WriteLine("Esta é a linha 3 do arquivo");
+sw.Flush();
+
+* No código acima, nós criamos a mesma variável path que vai ser passada para o File.Create como parâmetro para que o arquivo seja criado. A diferença é que esse File.Create vai estar dentro de uma variável que chamamos de sw. 
+
+* Depois, vamos chamar a variável sw, passando um .WrtiLine para ele.
+
+* Por último, adicionamos um .Flush para que todas essas informaçõs passadas por WriteLine e que estão na memória sejam descarregadas no arquivo. Se você não usar o .Flush o arquivo vai continuar vazio.
+
+* Você pode dar o Flush linha por linha ou apenas no final. Se você tiver muita coisa para inserir no arquivo, você pode dar vários flushs até finalizar.
+
+* Você também pode omitir o Flush, mas para isso você vai ter que usar a sintaxe using na frente da variável para forçar uma parada. Isso ocorrer, pois o método CreateText retorna um StreamWriter,  e o StreamWriter herda de uma class chamada TextWrite. A class TextWrite implementa uma interface chamada IDisposable. Toda a classe que implementa uma IDisposable pode ter uma finalização forçada pela aplicação e faz o Flush de maneira automática. O código fica assim:
+
+using var path = Path.Combine(Environment.CurrentDirectory, "teste.txt");
+
+var sw = File.CreateText(path);
+sw.WriteLine("Esta é a linha 1 do arquivo");
+sw.WriteLine("Esta é a linha 2 do arquivo");
+sw.WriteLine("Esta é a linha 3 do arquivo");
+
+
+
+* Capítulo 1 - Aula 3 - Tratamento de Erros
+
+
+* Transformar o código acima em uma método que vai receber uma string path.
+
+* Usar um Console.ReadLine para receber do usuário o nome que ele quer dar ao arquivo que vai ser criado.
+
+* No arquivo launch.json nós precisamos alterar o ""console": "internalConsole"" para ""console":"externalTerminal"" Isso acontece pois estamos solicitando uma entrada para o usuário. 
+
+
+WriteLine("Digite o nome do arquivo:");
+
+var nome = ReadLine(); 
+var path = Path.Combine(Environment.CurrentDirectory, $"{nome}.txt");
+
+CriarArquivo(path);
+
+static void CriarArquivo(string path)
+{
+        using var sw = File.CreateText(path);
+        sw.WriteLine("Esta a linha 1 do arquivo");
+        sw.WriteLine("Esta a linha 2 do arquivo");
+        sw.WriteLine("Esta a linha 3 do arquivo");
+
+
+* Nossa aplicação pode dar erro pois tem tipos de caracteres que não podem ser usados para dar nome a arquivos. Ao rodar a aplicação vai dar um erro, mas não vai aparecer nada para o usuário. O programa só vai fechar e não vai criar nada.
+
+* Precisamos fazer um tratamento de erro na área do código suscetível a erro. Pra isso vamos usar try / catch.
+
+* O try / catch funciona da seguinte forma: pegamos o código que pode dar erro e colocamos dentro de um bloco iniciado com o try. No catch nós abrimos outro bloco e indicamos que determinada coisa deu erro (Por exemplo, o nome do arquivo está inválido". Desta forma, ele tenta rodar o arquivo, se der erro ele mostra uma msg de erro. 
+
+
+static void CriarArquivo(string path)
+{
+    try
+    {
+        using var sw = File.CreateText(path);
+        sw.WriteLine("Esta a linha 1 do arquivo");
+        sw.WriteLine("Esta a linha 2 do arquivo");
+        sw.WriteLine("Esta a linha 3 do arquivo");
+    }
+    catch
+    {
+
+        WriteLine("O nome do arquivo está inválido!");
+    }
+
+}
+
+* Quando temos entrada de informações pelo usuário, nos precisamos ter tratamento de erros.
+
+* Podemos também fazer um tratamento de erros no próprio nome dado pelo usuário usando um método do nosso Path que é o .GetInvalidFileNameChars(). Esse método retorna um array com uma lista de caracteres que não são permitidos para a criação de arquivos. 
+
+* Para fazer o tratamento acima, precisamos criar um foreach para que cada caractere improprio no nome dado pelo usuário seja substituído por outro escolhido pelo programador. Desta forma nossa código ficará:
+
+foreach (var @char in Path.GetInvalidFileNameChars())
+    {
+        nome = nome.Replace(@char, '-');
+    }
+
+* Neste código, cada caractere inválido no nome vai ser substituído por um '-'. O método .Replace(primeiroElemento, segundoelemento) faz a substituíção do primeiro elemento pelo segundo
+
+* Se você quiser usar uma palavra reservado do C# você precisa colocar uma @ na frente. Por exemplo, char é uma palavra reservada. Para usá-la você pode fazer @char.
+
+
+
+Capítulo 1 - Aula 4 - Diretórios
+
+
+* A ideia dessa Demo é criar um diretório central (globo), que vai receber subdiretórios que serão os continentes, que receberão mais subdiretórios que serão os paises, e os países vão receber aquivos de informações.
+
+* Quando for para criar arquivo ou diretório a gente começa criando uma var para o path.
+
+var path = Path.Combine(Environment.CurrentDirectory,"globo");
+
+
+* Para criar um diretório a gente vai usar o Directory.CreateDirectory(path); 
+
+* No primeiro diretório, eu vou querer armazenar os diretórios dos continentes.  
+
+* O código acima vai ser armazenado em uma variável. Essa variável eu vou chamar de dirGlobo. Depois, eu vou pegar essa variável e chamar o método .CreateSubdirectory("Nome do Continente"). Vou fazer isso para cada um dos continentes que eu quiser.
+
+
+var dirGlogo = Directory.CreateDirectory(path);
+dirGlogo.CreateSubdirectory("América do Norte");
+dirGlogo.CreateSubdirectory("América Central");
+dirGlogo.CreateSubdirectory("América do Sul");
+
+
+* Para incluir os países (novos subdiretórios) dentro do respectivo diretório, eu preciso fazer o mesmo processo que foi feito para o dirGlobo (criando uma variável) e criar variáveis para para um dos continentes:
+
+var dirGlogo = Directory.CreateDirectory(path);
+var dirAmNorte = dirGlogo.CreateSubdirectory("América do Norte");
+var dirAmCentral = dirGlogo.CreateSubdirectory("América Central");
+var dirAmSul = dirGlogo.CreateSubdirectory("América do Sul");
+
+* Para icluir os países, nós precisamos pegar o nome do diretório do continente e dar um .CreateSubdirectory(), passando o nome do país.
+
+
+	dirAmNorte.CreateSubdirectory("USA");
+        dirAmNorte.CreateSubdirectory("Mexico");
+        dirAmNorte.CreateSubdirectory("Canada");
+
+        dirAmCentral.CreateSubdirectory("Costa Rica");
+        dirAmCentral.CreateSubdirectory("Panama");
+
+        dirAmSul.CreateSubdirectory("Brasil");
+        dirAmSul.CreateSubdirectory("Argentina");
+        dirAmSul.CreateSubdirectory("Paraguai");
+
+* Desta forma, a gente consegue criar todos os diretórios do projeto.
+
+
+
+Capítulo 1 - Aula 5 - File Move Copy
+
+
+* Para continuar a Demo, a primeira coisa que vamos fazer é isolar o bloco que fizemos na última aula dentro de um método e colocar um if no início usando a o método .Exists(). Desta forma, faremos com que se não existir um diretório criado, o sistema vai criar:
+
+var path = Path.Combine(Environment.CurrentDirectory, "globo");
+if (!Directory.Exists(path))
+{
+código que fizemos na última aula
+}
+
+* Desta forma, ao chamar o método, se existir o diretório ele não cria nada, se não existir ele cria.
+
+* Precisamos criar um arquivo que depois vai ser movido para um dos diretórios:
+
+static void CriarArquivo()
+{
+    var path = Path.Combine(Environment.CurrentDirectory, "brasil.txt");
+    if (!File.Exists(path))
+    {
+        using var sw = File.CreateText(path);
+        sw.WriteLine("População: 213MM");
+        sw.WriteLine("IDH: 0,901");
+        sw.WriteLine("Dados atualizados em: 20/04/2018");
+    }
+}
+
+
+* Para mover um arquivo de um lugar para o outro precisamos criar um método que ao ser chamado mova o arquivo entre os diretórios. Como queremos mudar um arquivo, vamos precisar usar um File.Move(). Dentro do parâmetro precisamos indicar duas informações: 1 - caminho de origem do arquivo, 2 - destino do arquivo.
+
+* Também precisamos criar qual é o caminho de origem e o caminho de destino. Para isso, vamos criar uma variável para a origem e outra para o destino e em ambas vamos usar o Path.Combine().
+
+
+var origem = Path.Combine(Environment.CurrentDirectory, "brasil.txt");
+var destino = Path.Combine(Environment.CurrentDirectory,"globo", "América do Sul", "Brasil", "brasil.txt"); 
+
+MoverArquivo(origem, destino);
+
+static void MoverArquivo(string pathOrigem, string pathDestino)
+{
+File.Move(pathOrigem, pathDestino);
+}
+
+
+* A partir o código acima, se a gente rodar o código novamente vai dar erro, pois já existe esse arquivo na pasta. É importante fazer uma validação para não dar esses erros.
+
+
+static void MoverArquivo(string pathOrigem, string pathDestino)
+{
+    if (!File.Exists(pathOrigem))
+    {
+        Console.WriteLine("Arquivo de origem não existe");
+        return;
+    }
+    if (File.Exists(pathDestino))
+    {
+        Console.WriteLine("Arquivo já existe na pasta de destino");
+        return;
+    }
+    File.Move(pathOrigem, pathDestino);
+}
+
+* Para copiar o arquivo, o processo é o mesmo do mover arquivo. Também temos que indicar o caminho de origem e de destino e das validações.
+
+
+static void CopiarArquivo(string pathOrigem, string pathDestino)
+{
+    if (!File.Exists(pathOrigem))
+    {
+        Console.WriteLine("Arquivo de origem não existe");
+        return;
+    }
+    if (File.Exists(pathDestino))
+    {
+        Console.WriteLine("Arquivo já existe na pasta de destino");
+        return;
+    }
+    File.Copy(pathOrigem,pathDestino);
+}
+
+
+
+Capítulo 1 - Aula 6 - DirectoryInfo
+
+
+* Criar um projeto novo que vai ler diretórios
+
+* Criar um método LerDiretório(string path)
+
+* Esse método vai ter uma variável diretorio que vai receber a classe Directory com o método .GetDirectories(). Dentro do parâmetro será indicado o path (primeiro elemento), o critério da busca (segundo elemento) e a opção de busca (terceiro elemento).
+
+* Esse método vai retornar uma array de string.
+
+* Vamos fazer um foreach para ler cada valor do diretório e printar a informação. 
+
+* Temos que fazer uma validação para caso o valor do path ser inválido.
+
+
+
+var path = @"c:\temp\globo"; //como tem \ é necessário colocar o @ antes do endereço para o sistema identificar que tudo é o path.
+
+static void LerDiretorios(string path)
+{
+    if (Directory.Exists(path))
+    {
+        var diretorios = Directory.GetDirectories(path, "*", SearchOption.AllDirectories);
+        foreach (var dir in diretorios)
+        {
+            var dirInfo = new DirectoryInfo(dir);
+            Console.WriteLine($"[Nome]:{dirInfo.Name}");
+            Console.WriteLine($"[Raiz]:{dirInfo.Root}");
+            if (dirInfo.Parent != null)
+                Console.WriteLine($"[Pai]:{dirInfo.Parent.Name}");
+
+            Console.WriteLine("-------------------");
+        }
+
+    }
+    else
+    {
+        Console.WriteLine($"{path} não existe");
+    }
+
+}
+
+* No código acima, após o foreach vai ser instanciado um novo objeto usando a instancia "DirectoryInfo()". Dentro do () você vai passar o dir do laço foreach.
+
+
+
+Capítulo 1 - Aula 7 - FileInfo
+
+
+* O FileInfo vai ter coisas semelhantes ao DirectoryInfo.
+
+* Criar novo método para ler arquivos.
+
+* Para ler os arquivos nós vamos usar o Directory.GetFiles(path, '*', SearchOption.AllDirectories);
+
+* O GetFile vai retonar uma array de string e nós vamos fazer um foreach para varrer os arquivos.
+
+* Temos que instanciar um novo objeto e especificar todas as informação que queremos retirar do arquivo que será lido.
+
+var path = @"c:\temp\globo";
+LerArquivos(path);
+Console.WriteLine("Digite [enter] para finalizar...");
+Console.ReadLine();
+
+static void LerArquivos(string path)
+{
+    var arquivos = Directory.GetFiles(path,"*",SearchOption.AllDirectories);
+    foreach (var arquivo in arquivos)
+    {
+        var fileInfo = new FileInfo(arquivo);
+        Console.WriteLine($"[Nome]:{fileInfo.Name}"); 
+        Console.WriteLine($"[Tamanho]:{fileInfo.Length}");
+        Console.WriteLine($"[Ultimo acesso]:{fileInfo.LastAccessTime}");
+        Console.WriteLine($"[Extensão]:{fileInfo.Extension}");
+        Console.WriteLine($"[Pasta]:{fileInfo.DirectoryName}");
+        Console.WriteLine("----------------");
+    }
+}
+
+
+
+Capítulo 2 - File System Watcher
+
+
+
+Capítulo 2 - Aula 1 - Teoria
+
+
+* File System Watcher: Permite monitorar eventos de modificação em diretórios e arquivos, através do disparo de eventos.
+
+● OnChanged - quando qualquer coisa muda no sistema de arquivos.
+● OnCreated - quando algo é criado.
+● OnDeleted - quando algo é deletado.
+● OnRenamed - quando algo é renomeado.
+● OnError - para caso de erro
+
+* Filter: Podemos indicar nesse filtro a quais arquivos ou extensões queremos monitorar. Posso determinar que só quero mudanças em arquivos do word ou só do excel. 
+
+
+
+Capítulo 2 - Aula 2 - Demo
+
+
+* Vai usar o mesmo path do projeto do globo.
+
+* Vamos instanciar uma nova class chamada FileSystemWatcher(path) que será armazenado em uma variável chamada fsw. Um File System Watcher implementa a class Component, e a class Component implementa a interface IDisposable. Toda classe que implementar o IDisposable é importante a gente usar o using para garantir que quando o método aonde eu criei essa instancia finalizar, essa instancia mata todo o recurso de memória que essa classe necessita.
+
+* Eu posso listar todos os eventos que eu vou querer capturar usando o nome da variável "." o que eu quero acompanhar seguidos de += o método do File System Watcher.
+
+* Para cada método que for colocar após o += é preciso criar o método. O VSCode vai te ajudar dando uma opção para eles criarem automaticamento o método.
+
+* Os métodos vão receber dois parâmetros: 1 - object sender (que é que enviou o evento); 2 - FileSystemEventArgs e (quais são as propriedades que esse evento vai ter).
+
+* Precisamos incluir fora do método um fsw.EnableRaisinEvents = true; que significa que a gente quer que os eventos sejam disparados.
+
+* Também podemos incluir as subpastas: fsw.IncludeSubdirectories = true; para que a alateração são seja apenas no nível da pasta globo, mas nos subdiretórios também.
+
+* As regras de negócio podem ser implementadas dentro desses métodos. 
+
+
+var path = @"c:\temp\globo";
+using var fsw = new FileSystemWatcher(path);
+fsw.Created += OnCreated;
+fsw.Renamed += OnRenamed;
+fsw.Deleted += OnDeleted;
+
+fsw.EnableRaisingEvents = true;
+fsw.IncludeSubdirectories = true;
+
+Console.WriteLine($"Monitorando eventos na pasta {path}");
+Console.WriteLine("Pressione [enter] para finalizar....");
+Console.ReadLine();
+
+void OnCreated(object sender, FileSystemEventArgs e)
+{
+    Console.WriteLine($"Foi criado o arquivo {e.Name}");
+}
+
+void OnDeleted(object sender, FileSystemEventArgs e)
+{
+    Console.WriteLine($"Foi excluído o arquivo {e.Name}");
+}
+
+void OnRenamed(object sender, RenamedEventArgs e)
+{
+    Console.WriteLine($"O arquivo {e.OldName} foi renomeado para {e.Name}");
+}
+
+
+* Quando você colocar o código para rodar, quando alguma alteração for feita nos arquivos e pastas que estão sendo monitoradas, logo a mensagem que foi determinado no método vai aparecer para alertar que algo foi mudado.   
+
+
+
+Capítulo 3 - Lendo e escrevendo arquivos com Streams
+
+
+
+Capítulo 3 - Aula 1 - stringWriterReader - teoria
+
+
+* Stream é uma classe abstrata que fornece uma visão genérica de uma sequência de bytes. A gente vai ler o arquivo no formato de byte array 
+
+* Existe uma grande vantagem de se utilizar Streams, pois os dados são escritos, lidos ou modificados através de um Buffer.
+
+* Trabalhando dessa forma a gente vai conseguir ler arquivos muito grandes.
+
+* O Buffer é uma espécie de reservatório onde podemos armazenar uma grande quantidade de dados em pequenos pedaços. O famoso dividir para conquistar. A partir de um lugar que tem muita coisa eu vou pegando pedacinhos e enviado para outro lugar.
+
+
+
+Capítulo 3 - Aula 2 - stringReader - prática
+
+
+* Vamos criar um objeto do tipo StringBuilder dentro de uma variável. 
+
+* O StringBuilder não está em nenhum dos using padrão. Por isso vai ser necessário informar o using System.Text; no início do código.
+
+
+using System.Text;
+var sb = new StringBuilder();
+sb.AppendLine("Caracteres na primeira linha para ler");
+sb.AppendLine("e a segunda linha");
+sb.AppendLine("e o fim");
+
+* Vamos criar um outro objeto que agora vai ser um StringReader dentro de uma nova variável. Vamos passar para esse StringReader a variável do StringBuilder acompanhada do método .ToString();
+
+* O método StringReader implementa uma IDisposable e, por isso, temos que usar o using no inicio da declaração para descarregar a memória após concluído o método. 
+
+* O StringReader vai ter vários métodos para fazer a leitura. Escolher o que se encaixa mais a situação. Em ReadtoEnd vai ler o texto todo, mas pode dar problema de performance. O ReadLine vai ler paragrafo por paragrafo, bufferizando um por um. O método Read vai permitir com que você possa passar a quantidade de bytes que ele vai bufferizar de uma vez.
+
+* No caso de usar o método Read você precisa fazer o seguinte:
+
+using var sr = new StringReader(sb.ToString());
+var buffer = new char[10];
+var tamanho = 0;
+
+do
+{
+    buffer = new char[10];
+    tamanho = sr.Read(buffer);
+    Console.Write(string.Join("",buffer));
+
+}while(tamanho >= buffer.Length);
+
+Console.WriteLine("Digite [enter] para finalizar");
+Console.ReadKey();
+
+
+* o método .Peek consome o proximo caractere disponível. Esse caractere é consumido em forma de byte (numérico). Se o Peek não encontrar nenhum caractere para ser consumido ele vai retornar -1
+
+
+
+Capítulo 3 - Aula 3 - stringWriter - prática
+
+
+* O professor colocou uma string textReadertext = "um texto grande"
+
+* Criou duas string nulas, uma chamada linha e a outra paragrafo. 
+
+* foi criado uma variável para receber o texto grande que foi armazenado na variável textReaderText.
+
+
+string linha, paragrafo = null;
+var sr = new StringReader(textReaderText);
+
+* Foi criado um loop infinito através do while(true) para ler e escrever. Para sair do While foi usado um break;
+
+
+
+Capítulo 4 - Importar dados
+
+
+
+Capítulo 4 - Aula 1 - Imoprtação Arquivos - teoria
+
+
+* Qual a necesidade: Sistemas precisam se comunicar e isso pode ocorrer de diversas formas, como por exemplo: APIs Rest, Mensageria e até mesmo troca de arquivo.
+
+* Importação e exportação de arquivos.
+
+* Existem vários formatos para transferência de arquivos. O formato mais utilizado na atualidade é o Json (Java Script Object Notation). Mas temos outros como: XML, Positional, Tab Delimited e CSV.
+
+* O foco vai ser entender como funciona os arquivos CSV.
+
+* CSV = Comma-separated Values - valores separados por vírgula
+
+● Os dados são separados por vírgula;
+● Podem ou não conter aspas para ajudar na identificação do formato contido em cada coluna; As vezes dentro de uma coluna (valor delimidado por uma vírgula) você pode ter um texto que contem uma vírgula.
+● Podem ou não possuir cabeçalho;
+● Podem utilizar outro tipo de delimitador (como ;, |, etc);
+
+
+
+Capítulo 4 - Aula 2 - csvStreamReader
+
+
+* Criar um novo projeto. Criar uma pasta Entrada com um arquiv csv (com cabeçalho e conteudo - nome, email, telefone, e data de nascimento).
+
+* criar um var path para a pasta entrada passando que ela está na pasta atual, que a pasta é Entrada e o nome do arquivo.
+
+* criar um "using var sr = new StreamReader()
+
+* Vamos usar o buffer para ler as linhas = "var cabecalho = sr.ReadLine()?.Split(',');
+
+* Nós sabemos que o cabeçalho está separado por vírgulas, desta forma vamos usar o .Split falando qual é o caractere que vai ser feito o slip. No nosso caso (','). Ele vai pegar cada item do cabecalho que esteja separado pela vírgula e transformar em um array de string separado. No nosso caso ele vai transformar em uma array de 4 posições, pois temos quatro itens.
+
+* Para suprimir um recado de warming  (de que algo pode ser null, o que pode ocasionar um erro em tempo de execução) é só usar um símbolo de ?. Se o ReadLine for nulo o sistema vai ignorar o .Split e o cabeçalho
+
+* Criar um while(true) para a leitura dos registros que não são do cabeçalho:
+
+
+using var sr = new StreamReader(path);
+var cabecalho = sr.ReadLine()?.Split(',');
+while (true)
+        {
+            var registro = sr.ReadLine()?.Split(',');
+            if (registro == null) break;
+            for (int i = 0; i < registro.Length; i++)
+            {
+                WriteLine($"{cabecalho?[i]}:{registro[i]}");
+            }
+            WriteLine("--------------");
+        }
+	WriteLine("\n\nPressione enter para finalizar");
+	ReadLine();
+
+* Precisamos identificar as fraquezas do código. Por exemplo, se passar um path errado. Nesse caso teríamos que fazer um if(File.Exists(path) {bloco} else {Mensasem de erro}. O comando que construímos anteriormente só rodaria se o path existir.  
+
+* Outro problema do nosso código é que ele está dando o split por víruglas. E se o primeiro nome estiver separado do sobrenome por uma vírgula? Nesse caso, o tamanho do array do cabeçalho vai ser diferente do tamanho do array do registro. 
+
+* Para resolver esse problema podemos criar um if dizendoq ue se o tamanho do cabeçalho for diferente do tamanho do registro vai aparecer uma mensagem de erro indicando que está fora do padrão. 
+
+
+
+Capítulo 4 - Aula 3 - csvStreamWriter
+
+
+* No mesmo exemplo da aula passada, vamos criar um novo método chamado CriarCsv(). Dentro desse método vamos criar um caminho para o path. 
+
+static void CriarCsv()
+{
+    var path = Path.Combine(
+        Environment.CurrentDirectory,
+        "Saida"
+        );
+
+* Precisamos criar uma classe para representar os nossos usuarios e dentro dessa classe vamos determinar propriedades:
+
+class Pessoa
+{
+    public string Nome { get; set; }
+    public string Email { get; set; }
+    public int Telefone { get; set; }
+    public DateOnly Nascimento { get; set; }
+}
+
+
+
+* Vamos inicializar uma lista de pessoas e colocar alguns instancias dentro dessa lista. 
+
+var pessoas = new List<Pessoa>(){
+            new Pessoa()
+            {
+                Nome = "José da Silva",
+                Email = "js@gmail.com",
+                Telefone = 123456,
+                Nascimento = new DateOnly(year: 1970, month: 2, day: 14)
+            },
+            new Pessoa(){
+                Nome = "Pedro Paiva",
+                Email = "pp@gmail.com",
+                Telefone = 456789,
+                Nascimento = new DateOnly(year: 2002, month: 4, day: 20)
+            },
+            new Pessoa()
+            {
+                Nome = "Maria Antonia",
+                Email = "ma@gmail.com",
+                Telefone = 123456,
+                Nascimento = new DateOnly(year: 1982, month: 12, day: 4)
+            },
+            new Pessoa()
+            {
+                Nome = "Carla Moraes",
+                Email = "cms@gmail.com",
+                Telefone = 9987411,
+                Nascimento = new DateOnly(year: 2000, month: 7, day: 20)
+            }
+        };
+
+
+* Vamos criar uma instancia de DirectoryInfo passando o path pra ela. Vamos fazer uma validação para que esse DirectoryInfo não existir, que ele seja criado.
+
+
+var di = new DirectoryInfo(path);
+        if(!di.Exists)
+        {
+            di.Create();
+            path = Path.Combine(path,"usuarios.csv");
+        }
+
+* Depois que criou o diretório e passou o path, vamos criar uma instancia do StreamWriter passando o path pra ele. Vamos dar um writeline do cabeçalho. 
+
+* Vamos fazer uma iteração com o foreach em cima da nossa coleção de pessoas.
+
+* Criamos uma variável linha de como queremos escrever o nosso StreamWriter.
+
+
+using var sw = new StreamWriter(path);
+sw.WriteLine("nome,email,telefone,nascimento");
+foreach (var pessoa in pessoas)
+{
+    var linha = $"{pessoa.Nome},{pessoa.Email},{pessoa.Telefone},{pessoa.Nascimento}";
+    sw.WriteLine(linha);
+}
+
+
+
+Capítulo 4 - Aula 4 - csvHelperRader - dynamic
+
+
+* csvHelper é uma biblioteca. Antes de usar a biblioteca, precisamos conhecê-la através do NuGet. No NuGet ficam armazenada as bibliotecas do .NET.
+
+*  Nu NuGet voce vai conseguir o link para o site oficial da biblioteca que você quer usar. Nesse site você vai ter uma documentação que explica como utilizar a biblioteca no seu programa. 
+
+* Você pode pegar a linha de comando para instalação através do CLI.
+
+* No VSCode você vai abrir o terminal e colar o código que copiou no site da biblioteca. 
+
+* Criar uma pasta entrada.
+
+* Criar um arquivo csv com cabeçalho e produtos. 
+
+* criar uma var path.
+
+* criar uma var fi para instanciar um new FileInfor(path).
+
+* Fazer uma validação para verificar se o arquivo fi. Se não existir disparar uma exception: throw new FileNotFoundException($"O aruivo {path} não existe!");
+
+* criar uma variável sr para instanciar um new StreamReader(fi.FullName);
+
+* criar uma variável para cvsConfig para instaciar uma  new CsvConfiguration(CultureInfo.InvariantCulture);. Essa será a configuração do CsvHelper.
+
+** Os nomes dos métodos são grandes, por isso o professor usou um using no topo da página para diminuir o tamanho da linha de código:
+
+using System.Globalization;
+using CsvHelper.Configuration;
+using CsvHelper;
+
+* Criar uma variável csvReader para instanciar uma new CsvReader(sr, csvConfig);
+
+* fazer uma nova variável registro para instanciar csvReader.GetRecords<dynamic>();
+
+* fazer um foreach para varrer o array registros.
+
+foreach (var registro in registros)
+    {
+        Console.WriteLine($"nome:{registro.produto}");
+        Console.WriteLine($"marca:{registro.Marca}");
+        Console.WriteLine($"preço:{registro.Preco}");
+        Console.WriteLine("--------");
+    }
+
+* O dynamic funciona bem, mas é propenso a falhar. Exemplo, se houver diferença entre um letra maiuscula e minúscula.
+
+
+
+Capítulo 4 - Aula 5 - csvReader - classe
+
+
+* Vamos criar uma classe para ler o csv.
+
+* Vamos criar classes Model. Elas são classes modelos para entrada de informação.
+
+* Três propriedades para a classe, com get e set publicos.
+
+* alterar o arquivo do path
+
+* criar uma instancia de FileInfo para caso o arquivo não exista.
+
+* O resto do código é igual ao da aula anterior. A mudança vai acontecer no dynamic que vai ser alterado para a classe usuário.
+
+* Vai ter que alterar as propriedades no Foreach para as propriedades da classe.
+
+
+
+Capítulo 4 - Aula 6 - csvReader - delimiter
+
+
+* Pode acontecer do nosso arquivo csv não seja delimitado por vírgulas. 
+
+* Criar uma classe nova com as respectivas propriedades.
+
+* Criar um novo método para ler o csv com delimitador diferente.
+
+* Criar path, validação se existe. Instanciar os StreamReander, csvConfig e csvReader.
+
+* Na classe Configuration, nós vamos abrir a possibilidade de editar as propriedades do que retorna na classe configutarion. Vamos passar que o "Delimiter = ";""
+
+* Alterar as propriedades no foreach.
+
+
+
+Capítulo 4 - Aula 7 - csvHelper header - configuration
+
+
+* Os títulos na classe vão estar em maiúsculo sem ç e no arquivo em minúsculo com ç.
+
+* Isso se resolve fazendo uma configuração de using no topo da classe. 
+
+using CsvHelper.Configuration.Attributes;
+
+
+* Além disso eu preciso passar uma anotação de propriedade que chama Name. E coloco como que essa propriedade está no arquivo. Temos que fazer em todas as propriedades. 
+
+[Name("titulo")]
+public string Titulo { get; set; }
+
+[Name("autor")]
+public string Autor { get; set; } 
+
+
+* Essa mudanças resolver o nome, mas não resolvem a questão da data no arquivo. Pq a data teria que estar no formato em inglês e no nosso está em portugues. Pra isso a gente ajeita no programa. Para isso, temos que usar a propriedade [Format("dd/MM/yyyy")] que é o formato que está no arquivo
+
+
+[Format("dd/MM/yyyy")]
+public DateOnly Lancamento { get; set; }
+
+
+* O professor vai usar um método .ToList() para rndereizar tudo de uma vez, mas precisa ter cuidado de fazer isso com arquivos grandes pois consume muita memória. É preferível fazer isso no numerable mesmo.
+
+* NO arquivo os preços estavam separados por "," e não por "." como é o formato americano. DEsta forma ele desconfigurou ao mostrar. Para resolver isso é necessário ir na classe e colocar uma propriedade CultureInfo e indicar o pt-BR
+
+[CultureInfo("pt-BR")]
+public decimal Preco { get; set; }
+
+
+
+Capítulo 4 - Aula 8 - csvHeader - sem cabeçalho
+
+
+* Pode existir um csv sem cabeçalho.
+
+* Temos que fazer uma alteração na nossa model, para em ves de trabalhar com títulos ele trabalhe com índice.
+
+* A substituição aconteceria dessa forma:
+
+Antes:
+[Name("título")]
+public string Titulo { get; set; }
+
+[Name("autor")]
+public string Autor { get; set; }
+
+Depois:
+[Index(0)]
+public string Titulo { get; set; }
+
+[Index(1)]
+public string Autor { get; set; }
+
+
+* A ordem do Index tem que seguir a ordem em que aparece a informação no documento. Se na classe a propriedade título aparece primeiro, mas no arquivo ela é a terceira, você precisa colocar Index 2.
+
+
+
+Capítulo 4 - Aula 9 - csvHelperMapping
+
+
+* A metodologia de trabalhar com Notation (atribuir indice) na classe, nem sempre ela é bem vista por desenvolvedores puristas. Teoricamente na classe não deveria ter lógica nenhum, e atribuir indice é uma forma de lógica. A classe precisa ser a mais anemica possível.
+
+* Vamos criar uma nova pasta chamada de Mapping e dentro dela vamos criar uma nova classe chamada LivroMap que será especializada em fazer o mapeamento.
+
+* Para dar suporte a esse mapeamento nós vamos incluir um using para o CsvHelper.Configuration;
+
+* Ao criar a class LivroMap nós vamos implementar a ClassMap (por herança). E nesse ClassMap nós vamos passar um genérico da classe Livro. Isso vai indicar que nós vamos fazer o mapeamento dos objetos das propriedades da classe Livro.
+
+
+public class LivroMap : ClassMap<Livro>
+
+
+* Precisamos criar um consrutor sem parametros. E dentro dele, nós vamos chamar o método Map que vai receber (x==> x.Titulo).Name("titulo"); Vamos fazer isso para todas as outras propriedades da classe Livro.
+
+* No código acima, criamos um x que vai receber as propriedades de Autor da classe Livro. O .Name é o nome que está no arquivo csv.
+
+* Através de uma API fluente a gente pode acrescentar uma chamada para TypeConvertionOption.CultureInfo(CultureInfo.GetCultureInfo("pt-BR")) no Map da propriedade preço para que ela identifique que a vírgula é para separar valores, deixando assim no mesmo formato que colocamos na classe Livro. 
+
+* Também temos que dar um ypeConvertionOption .Format(new [] {"dd/MM/yyyy"}); para que a data fique no padrão do Brasil. 
+
+* NO Program a gente precisa registrar que estamos utilizando um MAP. Pra isso usamos:
+
+csvReader.Context.RegisterClassMap<LivroMap>();
+
+
+* Com tudo o que foi feito a nossa classe fica livre de qualquer lógica, nós temos uma class especializada para converter e fazer o mapeamento e serialização daquilo que está no arquivo para o objeto e com isso a gente ganha mais flexibilidade de usar a nossa model (classe) em outras partes da aplicação que não vai usar a csv.
+
+
+
+Capítulo 4 - Aula 10 - csvWriter
+
+
+* VAmos escrever um csv
+
+* Vamos criar um path de saída do que for escrito
+
+* Vamos instanciar um DirectoryInfo(path) com uma validação de que se ele não existir ele vai ser criado e vai receber o nome do arquivo.
+
+* Criar uma classe pessoa e instanciar algumas pessoas. 
+
+* Abrir um StringWriter
+
+using var sr = new StreamWriter(path)
+using var csvWriter = new CsvWriter (sr, CultureInfo.InvalirantCulture);
+csvWriter.WriteRecords(Pessoas);
+
+* Se eu quiser alterar o delimitador de "," para "|" eu tenho que instanciar um 
+
+var csvConfig = new CsvConfiguration(CultureInfo.InstalleduICulture)
+{
+Delimiter = "|"
+}; // e no csvWriter eu tenho que colcoar (sr, csvConfig);
+
+
+
+

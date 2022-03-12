@@ -1,0 +1,209 @@
+Curso - Abstraindo um jogo de RPG Usando Orientação a Objetos com C#
+
+
+Aula 1 - O que é um objeto e como criar um projeto dotnet
+
+
+* No mundo real um objeto é uma coisa que tem as suas particularidades e que faz determinadas coisas.
+
+* Para o computador, tudo o que vem do mundo real é um objeto, seja uma garrafa ou uma pessoa, ou um animal. O computador abstrai do mundo real.
+
+* Vamos criar um projeto.
+
+* Em qualquer tipo de terminal, é só você digitar dotnet que o computador vai acessar o kit desenvolvimento do dotnet. (SDK). 
+
+* Toda a vez que eu digito "dotnet new" ele vai me perguntar que tipo de projeto vai ser criado. 
+
+* Vamos criar um Console. Vamos digitar o comando: dotnet new console
+
+
+
+Aula 2 - A estrutura básica do projeto
+
+
+* O dotnet criou toda uma estrutura de projeto pronta.
+
+* São criadas duas pastas: bin e a object
+
+* O professor vai criar uma pasta chamada src onde vai ficar todo o código que vamos criar. Ele faz isso por uma boa prática de isolar o código dos outos arquivos criados pelo dotnet. 
+
+* Todo programa começa executando pela class Program.cs. Esse arquivo vai ter o método Main que é a porta de entrada do seu código. 
+
+
+
+Aula 3 - Representando os atributos de um heroi sem orientação a objetos
+
+
+string nome = "Arus";
+int level = 12;
+string tipoheroi = "Guerreiro";
+
+Console.WriteLine(nome + " " + level + " " + tipoHeroi);
+
+* Sem orientação a objetos, para cada heroi que você fosse criar, você teria que criar novas variáveis para os mesmos atributos. 
+
+string nome2 = "Wedge";
+int level2 = 20;
+string tipoheroi2 = "Ninja";
+
+Console.WriteLine(nome2 + " " + level2 + " " + tipoHeroi2);
+
+* O código começa a ficar bagunçado sem POO, criando sempre novas variáveis.
+
+* Na POO você cria uma forma, e só troca o valor dos atributos que estão nessa forma.
+
+
+
+Aula 4 - Primeiros passos para pensar orientado a objetos
+
+
+* Para criar uma forma em POO nós vamos usar uma classe.
+
+* O professor criou uma pasta chamada Entities dentro da pasta src para colocar as classes. Sempre vai guardar as classes dentro dessa pasta (de entidades)
+
+* Criar uma nova class dentro dessa pasta
+
+
+
+Aula 5 - Representando os atributos de um herói com orientação a objetos
+
+
+* Um guerreiro tem característica. As características variam entre objeto/personagem.
+
+* Uma boa prática é programar em inglês, escrevendo as coisas em inglês.
+
+* Indicar as propriedades na classe.
+
+* NO Main, você precisa instanciar o objeto:
+
+guerreiros Arus = new guerreiros();
+
+
+
+Aula 6 - Acessando os métodos e propriedades de um objeto
+
+
+* Sempre que eu quiser acessar uma propriedade ou método da classe é só eu chamar o nome do obeto que estou instanciando e colocar um ".". Você só precisa escolher qual você quer chamar par atribuir.
+
+
+
+Aula 7 - Criando o método construtor do heroi
+
+
+* Para criar um método construtor, você deve ir dentro da sua class e usar o atalho ctor.
+
+* Dentro do construtor você consegue setar as propriedades de uma vez.
+
+* O this. é usado para indicar que a class está olhando para as propriedades dela mesma. 
+
+*Dentro do método você precisa colocar o tipo e o nome da propriedade que você declarou na criação da class
+
+public guerreiros(string Name, int level, string HeroType){
+	this.Name = Name;
+	this.level = level;
+	this.TypeHero = TypeHero;
+}
+
+* Quando você tiver um construtor pronto, sempre que você for instanciar algo no Main, ele já vai pedir para você passar os valores pelo parâmetro.
+
+guerreiros heroi = new guerreiros("Arus", 23, "Knight");
+
+* Você pode criar um mesmo construtor sem valor, pois se você só tiver um construtor com valor, quando você for instanciar um objeto você vai ter que colocar todas as propriedades dele. Mas, por exemplo, se você tem um heroi no jogo que precisa ser criado, mas as características dele só vão ser desvendadas no futuro, com o construtor com valores você teria que passar todas as propriedades. Já com um construtor vazio você pode apenas criá-lo passando o que quiser e depois ir adicionando novas propriedades. 
+
+* Uma recomendação: As classes, objetos e métodos devem ser criados com a primeira letra maiúscula.
+
+ 
+
+Aula 8 - Criando o método ToString usando sobrescrita de método
+
+
+* Por padrão, o dotnet se referencia a um objeto como ele entende na memória e não como a gente quer ver. Por padrão ele vai escrever o nome do namespace.
+
+* Usando o método .ToString() ele vai representar o objeto em formato de string e nós vamos conseguir visualizar. Mas, por padrão, quando a gente não passa nenhum método na delcaração do objeto no WriteLine(), o sistema já colcoar o ToString() internamente.
+
+* Para que o ToString() represente de fato o objeto de forma que a gente consiga enteder é necessário que façamos alguma alterações na classe. 
+
+* Toda a classe pode ter propriedades e métodos. Vamos declarar um método para o ToString(). O problema é que vai dar erro, pois o ToString() é já um método herdado de outra classe superior (class Object). Desta forma termos que sobrescrever o método ToString().
+
+* Para sobrescrever um método a gente usa a palavra override:
+
+public override string ToString()
+{
+	return this.Name;
+}
+
+* Quando a gente ficar a sobrescrita, na hora de rodar o código vai aparecer o nome e não o registro na memória (namespace). 
+
+* Ao sobrescrever você diz para o método esquecer aquilo que ele herdou da class superior e passar a fazer aquilo que você determinou para ele no novo método.
+
+
+Aula 9 - Criando múltiplas instâncias a partir de uma mesma classe
+
+
+* Depois de criar uma forma (classe) você pode criar diversos objetos
+
+* Criar um método Attack()
+
+public string Attack()
+{
+	return this.Name + " Atacou com a sua espada";
+}
+
+
+
+Aula 10 - Como abstrair uma classe
+
+
+* Abstração - como você cria uma forma comum de representatividade daquele mundo para que a gente consiga trabalhar.
+
+
+
+Aula 11 - Entendendo sobre herança na prática
+
+
+* Vamos criar uma nova classe chamada Wizard.
+
+* Nessa classe nós vamos herdar da classe Warrios.
+
+* Para herdar você precisa apenas criar a classe e colocar ": classe que será herdada"
+
+* Para alterar comportamento de classes pai nas filhas você tem que colocar "virtual" no método do pai. DEsta forma, você vai poder dar override na classe filha.
+
+* criar a class contrutora de Wizard
+
+
+
+Aula 12 - Usando exemplo de Attack para o conceito de Polimorfismo
+
+* Tudo aquilo que tem mais de uma forma é polimorfismo
+
+* Você pode criar um nome método usando o mesmo nome de uma método anterior, mas com parâmetros distintos
+
+public string Attack(int Bonus)
+{
+	return this.Name + " lançou magia com bonus de ataque de " + Bonus;
+}
+
+
+
+Aula 13 - O que é encapsulamento
+
+
+* Uma classe abstrata não é para ser usada diretamente, mas sim para que outras herdem dela.
+ 
+* Encapsulamento é quando você consume vários coisa de uma vez só. 
+
+* Uma classe precisa saber se auto-validar e precisa saber sua regra de negócio.  
+
+public string Attack(int Bonus)
+{
+	if (Bonus > 6)
+	{
+	    return this.Name + " lançou magia super efetiva com bonus de " + Bonus;
+	}
+	else
+	}
+	    return this. Name + " lançou uma magia com força fraca com bonus de " + Bonus;
+	}
+}
+

@@ -1,0 +1,923 @@
+Curso - Programando com Orientação a Objeto com C#
+
+
+
+Capítulo 1 - Conhecendo a Programação Orientada a Objetos
+
+
+
+Capítulo 1 - Aula 1 - Apresentando a programação orientada a objetos
+
+
+* A POO é um paradigma de programação, ou seja, corresponde a uma técnica/forma de fazer de programação para um fim específico.
+
+* Ela se aproxima muito da vida real, pois ela usa de abstração. 
+
+* Dentro desta técnica, existem quatro pilares:
+	
+	* Abstração
+	
+	* Encapsulamento
+	
+	* Herança
+
+	* Polimorfismo
+
+* Os principais conceitos da POO são classes e objetos. 
+
+* Class: é um molde. Você pode estabelecer uma class pessoa. Nessa class você estabelece as característica de pessoas que são importantes para o seu projeto (nome, idade, etc) e estabelece o que a pessoa pode fazer (que é o método). A class será um molde com essas características que são importantes pro seu projeto e é o que vai determinar a criação dos objetos. Para projetos diferentes a class para a construção de objetos vai poder ter características diferentes. Enqunato uma class pessoa para um banco é importante ter um número de conta, para o sistema de saúde é importante ter o tipo sanguíneo. A class é a abstração de algo do mundo real que você quer representar na linguagem de programação. 
+
+* Objeto: é aquilo que queremos representar/construir a partir da class. A class não é uma pessoa, mas o molde de uma pessoa. O objeto é a pessoa. A class é uma só, mas eu posso ter uma infinidade de objetos construídos a partir da class. 
+
+* Class e Objeto são a base a POO.
+
+
+
+Capítulo 1 - Aula 2 - Tipos de Paradigmas
+
+
+* Paradigma de programação é diferente de linguagem de programação.
+
+* Uma linguagem de programação implementa um ou mais paradigmas.
+
+* Um paradigma nada mais é do que um modelo de técnicas, estruturas e formas de solucionar um problema.
+
+* Tipos de paradigmas:
+
+	* Programação orientada a objetos
+	* Programação estruturada
+	* Programação imperativa
+	* Progamação procedural
+	* Programação orientada a eventos
+	* Programação lógica
+	* entre outros.
+
+* A POO é a mais usada no mercado hoje.
+
+* Documentação da Microsoft tutorial/oop
+
+
+
+Capítulo 2 - Abstração
+
+
+
+Capítulo 2 - Aula 1 - Entendendo o que é abstração
+
+
+* Abstração: Abstrair um objeto do mundo real para um contexto específico, considerando apenas os atributos importantes.
+
+* POO aproxima objetos da vida real para o mundo da programação.
+
+* Você vai pegar um objeto do mundo real e vai abstrair os atributos mais importantes para colocar no seu sistema. 
+
+
+
+Capítulo 2 - Aula 2 - Requisitos para o projeto
+
+
+* Instalação do .NET e do VSCode.
+
+
+
+Capítulo 2 - Aula 3 - Abstração na prática
+
+
+* Criar uma pasta vazia (professor chamou de POO) e abrir o CLI (ou bash) nessa pasta.
+
+* O professor criou uma solution (que é um agrupamento para o projeto). Ele fez isso com o seguinte comando:
+	dotnet new sln --name ExemploPOO
+
+* Ele criou uma nova pasta onde vai ficar o projeto:
+	mkdir ExemploPOO
+
+* Dentro desta nosa pasta ExemploPOO, o professor criou um novo projeto:
+	dotnet new console
+
+* Voltando para a primeira pasta (POO) e adicionar o arquivo de projeto na Solution que foi criado no primeiro passo. Para isso o comand usado foi:
+	dotnet sln add ExemploPOO/ExemploPOO.csproj
+
+* O comando acima vai adicionar no arquivo Solution o arquivo ExemploPOO.csproj. 
+
+* Abrir o VSCode com o comando code .
+
+* Criar uma classe pessoa.
+
+* Dentro da class criada (public class Pessoa) criar propriedades para essa pessoa. Por exemplo:
+	public string Nome (get; set;)
+	public int Idade (get; set;)
+
+* Criar um método dentro da class:
+	public void Apresentar()
+	{
+		Console.WriteLine($"Olá, meu nome é {Nome} e tenho {Idade} anos");
+
+* Já temos uma classe com propriedades e método para serem atribuídas no projeto.
+
+* Para passar os valores, nós precisamos ir no Program.cs é que onde as entradas serão feitas. 
+
+* No Program.cs você vai criar uma nova pessoa e vai passar as informações que foram determinadas na class:
+	static void Main(string[] args)
+	{
+	    Pessoa p1 = new Pessoa();
+	    p1.Nome = "Paulo"
+	    p1.Idade = 20;
+
+	    p1.Apresentar();
+	} 
+
+* Nós criamos um objeto pessoa com nome e idade e chamamos o método apresentar. 
+
+* Para rodar o programa vamos usar o terminal.
+
+
+
+Capítulo 3 - Encapsulamento
+
+
+
+Capítulo 3 - Aula 1 - Introdução Encapsulamento
+
+* O encapsulamento serve para proteger uma classe e definir limites para alteração de suas propriedades.
+
+* Serve para ocultar seu comportamento e expor somente o necessário.
+
+* Você tem uma classe e determina que as propriedades possam ser alterados ou não.
+
+* Exemplo: Você tem uma classe conta bancária e tem uma propriedade Saldo em conta. Você pode tornar essa propriedade privada para que ninguém possa alterá-la a não ser por outro método sentro da propria classe. 
+
+* Outro exemplo: Você tem uma TV e um controle remoto. Você não precisa entender como funciona a TV internamente para aumentar o volume. O volume spo será alterado pelo controle remoto sem que você tenha acesso aos componentes internos da TV.
+
+* Os modificadores de acesso do encapsulamento são:
+	* public: qualuquer um pode fazer alteração 
+
+	* protected internal
+
+	* protected
+
+	* internal
+
+	* private protected
+
+	* private: somente a própria classe pode alterar. É o modificador mais restritivo
+
+** Os outros modificadores vão dar mais ou menos acesso dependendo da herança (que vai ser explicado mais a frente.
+
+* fonte da tabela usada pelo professor:https://docs.microsoft.com/pt-br/dotnet/csharp/programming-guide/classes-and-structs/access-modifiers
+
+
+
+Capítulo 3 - Aula 2 - Encapsulamento na prática
+
+
+* VAi ser usado o mesmo projeto da aula anterior.
+
+* O modificador é colocado tanto na propriedade como no método.
+
+* Se no Main você tentar acessar ou modificar algo que está como privado na classe, o sistema vai apontar um erro. 
+
+* Você pode definir como público um método que altere a as propriedades que são privadas. Esse método precisa estar dentro da mesma classe da propriedade privada. No Main você vai pode chamar esse método que é público para alterar a propriedade que é privada. 
+
+* Existe o atalho CW que completa automaticamente: System.Console.WriteLine("");
+
+* O valor de qualquer booleano é false.
+
+* É possível chamar um método que retorna um valor dentro do WriteLine("");. Por exemplo:
+	Console.WriteLine($"A área é: {r.ObterArea()}");
+
+
+
+Capítulo 4 - Herança
+
+
+
+Capítulo 4 - Aula 1 - Introdução herança
+
+
+* A herança nos permite reutilizar atributos, métodos e comportamentos de uma classe em outras classes.
+
+* Serve para agrupar objetos que são do mesmo tipo, porém com características diferentes.
+
+* Uma classe filho herda da classe pai todos os métodos e atributos.
+
+* Exemplo: Temos uma classe pessoa, com propriedades de nome e idade e metodo apresentar. Temos também duas classes filhas da classe pessoa, uma classe é a classe aluno com a propriedade nota e a outra é a classe professor com a propriedade salário. Essas duas classes herdam da classe pai (Pessoa) as propriedades nome e idade, e o método apresentar().
+
+* Cada atributo que eu adicionar na classe pai, automaticamente todas as classes filhos vão receber sem eu ter que copiar o memso código.
+
+* Não existe limite de herança, mas quanto mais classes dentro de classes mais problemas podem aparecer.
+
+
+
+Capítulo 4 - Aula 2 - Hernça na prática
+
+
+* Vamos continuar usando o mesmo projeto que já tem uma classe Pessoa;
+
+* O professor criou um arquivo novo para uma nova classe chamada aluno.
+
+* Após criar a classe, para determinar que ela herdará os métodos e atributos de uma outra classe você precisa colocar " : NomeDaClassePai" na frente do nome da Classe que vai passar a herdar. Exemplo:
+	public class Aluno : Pessoa
+	{
+		public int Nota { get; set; }
+	}
+
+* Na Main, para você instanciar, por exemplo, um Aluno você precisa apenas indicar que quem está sendo criado é um Aluno. Por exemplo:
+	static void Main(string[] args}
+	{
+		Aluno p1 = new Aluno();
+		p1.Nome = "Bob";
+		p1.Idade = 20;
+		p1.Nota = 10;
+
+		p1.Apresentar();
+	}
+
+* O sistema sabe de onde vem cada atributo, se é do pai ou do filho. 
+
+
+
+Capítulo 5 - Polimorfismo
+
+
+
+Capítulo 5 - Aula 1 - Introdução polimorfismo
+
+
+* O polimorfismo vem do grego e significa muitas formas.
+
+* Com o polimorfismo podemos sobreescrever métodos das classes filhas para que se comportem de maneira diferente e ter sua própria implementação.
+
+* Se o método que veio da classe pai não atender, você pode sobreescrever o método para que ele tenha uma implementação diferente na classe filha.
+
+* Temos duas formas de polimorfismo:
+	
+	1 - Polimorfismo em tempo de compilação (Overload/Early Binding), também chamada de sobrecarga de métodos: Nesse caso a diferença é que em um método se recebe menos parâmetros e no outro mais:
+	public class Calculadora
+	{
+		public int Somar (int num1, int num2)
+		{
+		    return num1 + num2;
+		}
+
+		public int Somar(int num1, int num2, int num3)
+		{
+		    return num1 + num2 + num3;
+		}
+
+	2 - Polimorfismo em tempo de execução (Override/Late Binding) ou sobreescrita. Nesse caso, ao criar o método pai você deve usar a palavra "virtual" que significa que esse método pode ser sobreescrito. Já no método filho você deve usar a palavra "override" que significa que esse método está sobreescrevendo o método apresentar do pai. Por exemplo:
+	public virtual void Apresentar()
+	{
+	    Console. WriteLine($"Olá meu nome é {Nome} e tenho {Idade} anos");
+	}
+
+	public override void Apresentar()
+	{
+	    Console.WriteLine($"Olá meu nome {Nome} e eu sou um aluno de nota {Nota}");
+
+
+
+Capítulo 5 - Aula 2 - Polimorfismo em tempo de execução
+
+
+* Foi apenas alterado o método do pai e filho do exemplo que já estamos usando. Os códigos alterados foram os que escrevi acima.
+
+
+
+Capítulo 5 - Aula 3 - Polimorfismo em tempo de compilação
+
+
+* O professor vai fazer o que ele explicou na aula teórica. Criu uma nova classe Calculadora com dois métodos Somar(). O primeiro recebe dois parâmetros e o segundo três parâmteros.
+
+* O método escrito tem o mesmo nome, desta forma, ao chamar o método no Main, vai aparecer a opção de você tem um método com 2 parâmetros e o método com 3 parâmetros.
+
+* Se você optar pelo método com 2 parâmetros, você precisa passar 2 valores no parenteses (). Se optar pelo método com 3 parâmetros você precisa passar 3 valores no parenteses(). 
+
+
+
+Capítulo 6 - Classes abstratas
+
+
+
+Capítulo 6 - Aula 1 - Introdução classes abstratas
+
+
+* Uma classe abstrata tem como objetivo ser exclusivamente um modelo para ser herdado, portanto não pode ser instanciada. Você não pode trabalhar diretamente com ela. Sua função é de ser apenas um modelo. 
+
+* Você pode criar um método abstrato para ser subreescrito por um método que vai herdar. 
+
+* Você pode implementar métodos ou deixá-los a cargo de quem herdar.
+
+* Exemplo: Você tem uma classe abstrata que se chama Conta. Esse método tem a propriedade Saldo e possui dois métodos: um de creditar() (que abstrato e não tem implementação) e outro de exibirSaldo() (que não é abstrato e tem implementação). Você também tem uma classe que não é abstrata chamada Corrente que herda da classe Conta. Essa classe tema propriedade Tarifa, e tem o método Creditar() que ela sobreescreveu de Conta. Como a classe Conta é abstrata eu não posso criar um objeto a partir dela. E o método Creditar() eu preciso obrigatoriamente sobreescrever ele através do Polimorfismo. O método ExibirSaldo() não é abstrato e pode ser usado diretamente pela classe Corrente, ou ser sobreescrito para atender outras necessidades da classe. 
+
+
+
+Capítulo 6 - Aula 2 - Classes abstratas na prática
+
+
+* O professor criou uma nova class para Conta. Essa classe será abstrata. Para isso, o comando vai ficar:
+	public abstract class Conta
+	{
+	    protected double saldo;
+
+	    public abstract void Creditar(double valor);
+
+	    public void ExibirSaldo()
+	    {
+		Console.WriteLine("Seu saldo é: " + saldo);
+	    }
+	}
+
+* O método abstract não tem implementação. Já o método que não é abstract tem que ter uma implementação. 
+
+* O professor criou outra classe Corrente que herda de Conta. Automaticamente vai aparecer um erro dizendo que esse método que está herdando de Conta precisa implementar o método abstrato da classe pai. O VSCode tem um macete para ajudar a resolver os problemas: é só clicar em cima do erro e depois clicar na lampada que vai aparecer e escolher a opção que se encaixa na situação. Nesse caso, ele vai implementar o método abstrato. 
+
+* Ao implementar um método herdade na qual você precisa usar uma propriedade existente na class pai é mais indicado você usar base.nomeDaPropriedade; do que usar this.nomeDaPropriedade;
+
+* Nosso exemplo da classe filho é:
+	public classe Corrente : Conta
+	{
+	    public override vois Creditar(double valor)
+	    {
+		base.saldo = valor;
+	    }
+	}
+
+* No Main, você vai instanciar um objeto na class corrente, pois a Conta é abstrata:
+	static void Main(string[] args)
+	{
+	    Corrente c = new Corrente();
+	    c.Creditar(100)
+
+	    c.ExibirSaldo();
+	}
+
+
+
+Capítulo 6 - Aula 3 - Introdução a métodos selados
+
+
+* Uma classe selada tem como objetivo de impedir que outras classes façam uma herança dela, ou seja, nenhuma classe pode ser sua derivada. Uma classe selada não pode ter classes filhas. 
+
+* Também existem métodos (significa que você não pode sobreescrever um método selado - não tem polimorfismo) e propriedades seladas. 
+
+* Uma classe selada é o ponto final da herança. 
+
+* Uma classe selada pode receber herança de outra class.
+
+* Um método selado não pode ser usado por uma classe filha.
+
+
+
+Capítulo 6 - Aula 4 - Metodos selados na prática
+
+
+* Vamos continuar usando o mesmo projeto com as classes pessoa, aluno e professor.
+
+* Para marcar uma class ou um método como selado, você precisa colocar a palavra sealed. 
+
+
+
+Capítulo 6 - Aula 5 - Introdução classe object
+
+
+* A classe System.Object é a mão de todas as classes na hierarquia do .NET.
+
+* Todas as classes derivam, direta ou indiretamente, da classe Object e ela tem como objetivo prover serviços de baixo nível para suas classes filhas.
+
+* Prove serviços de baixo nível como operações com referência, memória, comparação de objetos. 
+
+* Métodos disponíveis na classe System.Object
+	* Equals(Object): determina se o objeto especificado é igual ao objeto atual.
+	* Equals(Object, Object): determina se as instâncias de objeto especificadas são consideradas iguais.
+	* Finalize(): permite que um objeto tente liberar recursos e executar outras operações de limpeza antes de ser recuperado pela coleta de lixo.
+	* GetHashCode(): Serve como a função de hash padrão
+	* GetType(): Obtém o Type da instância atual
+	* MemberwiseClone(): Cria uma cópia superficial do Object atual
+	* ReferenceEquals(Object, Object) Determina se as instâncias de Object especificadas são a mesma instância
+	* ToString(): Retorna uma cadeia de caracteres que representa o objeto atual.
+
+
+
+Capítulo 6 - Aula 6 - Classe Object na prática.
+
+
+* O professor criou uma class vazia apenas para mostrar como o class Object funciona.
+
+* Quando o professor tenta instânciar algo nessa nova classe que não possui nada, o VSCode mostra algumas opções que são da class System.Object. 
+
+* Se na classe vazia que foi criada, você digitar ": System.Object" (indicando que essa classe vazia está herdando da class System.Object), você pode passar o mouse por cima da palavra System.Object e clicar em F12 que a class System.Object vai se abrir em uma nova janela e vai aparecer todos os métodos que são suportados por ela. 
+
+* Você pode sobreescrever os métodos que vem do System.Object que estão indicados com virtual. NO VSCode você pode escrever public override que automaticamente vai aparecer todos os métodos que podem ser sobreescritos. 
+
+
+
+Capítulo 7 - Interfaces
+
+
+
+Capítulo 7 - Aula 1 - Introdução a interface.
+
+
+* Uma interface é um contrato que pode ser implementado por uma classe. 
+
+* É como se fosse uma classe abstrata, podendo definir métodos abstratos, ou não, para serem implementados.
+
+* Assim como uma classe abstrata, uma interface não pode ser instanciada. Isso significa que quando eu implementar uma interface eu posso definir seus métodos, um retorno padrão, ou deixá-los sem implementação, e a classe que for utilizar essa interface, caso o método não tenha implementação, a classe é obrigada a implementá-la. 
+
+* NO C# não existe o conceito de herança multipla. Isso quer dizer que ela só pode herdar de uma única classe. 
+
+* Com interfaces, esse conceito é diferente. Eu posso ter uma classe que implementa multiplas interfaces. Uma classe pode implementar uma ou mais interfaces.
+
+
+
+Capítulo 7 - Aula 2 - Interfaces na prática
+
+
+* Criar uma pasta chamada Interfaces. Dentro da pasta, clicar com o botão direito em New C# file. Como padrão de interface a gente sempre coloca o "i maiúsculo" na frente no nome. 
+
+* O arquivo de interface que é criado ficará assim:
+	public interface ICalculadroa
+	{
+		int Somar(int num1, int num2);
+		int Subtrair(int num1, int num2);
+		int Multiplicar(int num1, int num2);
+		int Dividir(int num1, int num2);
+	}
+
+* Vamos implementar a interface na class Calculadora. Para implementar fica igual a atribuição de herença:
+	public class Calculadora : ICalculadora
+
+* Para importar a interface na classe você precisa apertar "crtl + ." e escolher "using: Pasta.NomedaInterface". 
+
+* Se todos os métodos da interface não estiverem implementados pela classe vai aparecer um erro. Para implementar todos os métodos de uma vez, o VSCode tem uma atalho que é o "ctrl + ." e escolher a opção implement interface. Os métodos da interface serão implementados.
+
+* A interface não pode ser instânciada. 
+
+* Na Main, temos que instanciar na classe que implementa a interface e não a interface.
+
+* Na Main temos que dar um using da interface.
+
+* A implementação vai ficar:
+	ICalculadora calc = new Calculadora(); // Esse código significa que eu estou trabalhando com a minha interface (lado esquerdo do código) e ela está recebendo uma Calculadora. Como a Calculadora implementa a interface, então não vai dar erro.
+
+* Se eu for tentar fazer alguma coisa que não seja a implementação dessa interface, como por exemplo: "ICalculadora calc = new Computador();" vai dar erro, pois Computador não implementa a Interface. 
+
+* O código completo da implementação vai ficar:
+	static void Main (strin[] args)
+	{
+	ICalculadora calc = new Calculadora();
+	Console.WriteLine(calc.Somar(10, 10));
+	}
+
+
+
+Capítulo 7 - Aula 3 - Interfaces com implementação de métodos
+
+
+* Eu só sou obrigado a implementar um método na classe quando ele não tem uma implementação padrão determinada na prórpria interface. Se na interface o método já estiver implementado, você não precisa implementar na classe. 
+
+* Se eu quiser que a minha class implemente o método de uma forma diferente do que está na interface, eu posso sobreescrever o método na class. 
+
+* Antes da versão do C#8 não era possível implementar o método na própria interface. Essa funcionalidade só surgiu a partir do C#8.
+
+
+
+Capítulo 8 - Manipulando arquivos
+
+
+
+Capítulo 8 - Aula 1 - Introdução arquivos
+
+
+* O C# nos apresenta algumas classes estáticas que facilitam o trabalho com arquivos, dentre elas:
+	* File: ela serve para manipular arquivos - criar arquivos, ler arquivos, mover e apagar arquivos. 
+	* Directory: serve para operações com diretorios - listar, criar, obter informações de um diretorio 
+	* Path: serve para organizar os seus caminhos de uma maneira lógica para poder trabalhar com o file e o directory.
+
+* Como elas são estáticas, você não precisa instanciar.
+
+
+
+Capítulo 8 - Aula 2 - Listar diretórios.
+
+
+* Criar uma pasta vazia no C:
+
+* Dentro dessa pasta criar outras duas pastas (pasta 1 e pasta 2) para fazer testes.
+
+* dentro da pasta 1 criar mais uma subpasta
+
+* No VSCode, dentro da pasta do projeto, criar uma nova pasta chamada de Helper. E dentro dessa pasta, criar uma class chamada FileHelper.
+
+* Criar método para listar diretorios (na class filehelper):
+
+public void ListarDiretorios(string caminho)
+{
+	var retornoCaminho = Directory.GetDirectory(caminho);
+	foreach (var retorno in retornoCaminho)
+	{
+	    Console.WriteLine(retorno);
+	}
+}
+
+* Dar um "ctrl + ." para fazer o import do Directory e selecionar o using.SystemIO: esse namespace centraliza todas as classes citadas para trabalhar com arquivos.
+
+* Depois de você importar as classes, ao digitar Directory. já vai aparecer todas as operações referentes a Directory.
+
+* Directory é estática e por isso não precisa instânciar. 
+
+* O que será necessário instanciar é a classe FileHelper
+
+* Para instanciar a classe temosque ir no Program:
+
+static void Main(string[] args)
+var caminho = "C:\\NomedaPastadoIniciodoProjeto";
+{
+	FileHelper helper = new FileHelper();
+	helper.ListarDiretorios(caminho);
+}
+
+* É necessário passar o caminho que está sendo trabalhado. Faremos isso passando o caminho para a variável caminho. Essa variável também será passada como parametro para o ListarDiretorios.
+
+* Esse código que criamos só vai mostrar as pastas dentro do caminho que passamos. Possíveis subpastas não vão aparecer.
+
+* Para que as subpastas apareçam é necessário ir para a nossa classe e no parâmetro do GetDirectory() precisamos colocar (caminho, "*", SearchOptions.AllDirectories);
+
+
+
+Capítulo 8 - Aula 3 - Listar Arquivos
+
+
+* Para retornar os arquivos em vez dos diretorios nós precisamos alterar algumas coisas no código que fizemos na aula anterior.
+
+* Antes de fazer as alteraçõe, nós precisamos colocar arquivos nas pastas que estão vazias.
+
+* Primeiros temos que criar um método para listar os arquivos:
+
+public void ListarArquivosDiretorios(string caminho)
+{
+	var retornoArquivos = Directory.GetFiles(caminho);
+	foreach (var retorno in retornoArquivo)
+	{
+	    Console.WriteLine(retorno);
+	}
+}
+
+* NO Main, precisamos alterar o código para que o novo método seja chamado:
+
+static void Main(string[] args)
+var caminho = "C:\\NomedaPastadoIniciodoProjeto";
+{
+	FileHelper helper = new FileHelper();
+	helper.ListarArquivosDiretorios(caminho);
+}
+
+* Se a pasta raiz não tiver nenhum arquivo e apenas pasta, o método não vai retornar nada, pois esse método só procura por arquivos. Para que o método procure todos os arquivos dentro de todas as pastas é necessário fazer a mesma alteração que fizemos no código da outra aula para que ele liste todos os arquivos ("*") e procure em todos os Diretorios. O código vai ficar:
+
+var retornoArquivos = Directory.GetFiles(caminho, "*", SearchOptions.AllDirectories);
+
+* Quando eu uso "*" tudo vai ser listado. Mas, se eu quiser apenas arquivos de textos eu uso "*.txt". Colocar "*.txt" significa que eu não me importo com o que vier antes (por isso o *), mas que as últimas letras do nome do arquivo terão quer ser .txt.
+
+
+
+Capítulo 8 - Aula 4 - Criar diretorio
+
+
+* Criar novo método para criar diretório
+
+public void CriarDiretorio(string caminho)
+{
+	var retorno = Directory.CreateDirectory(caminho);
+	Console.WriteLine(retorno.FullName);
+}
+
+* No Main, chamar o método que cria o diretório.
+
+static void Main(string[] args)
+var caminho = "C:\\NomedaPastadoIniciodoProjeto";
+{
+	FileHelper helper = new FileHelper();
+	helper.CriarDiretorio(Path.Combine(caminho, "Pasta teste 3", "Subpastateste3"));
+}
+
+* O diretório criado será criado sempre no último nível.
+
+* Dentro do parâmetro do CriarDiretorio() nós precisamos passar um caminho completo. Para isso, escrevemos Path, importamos o using SystemIO com ctrl+., e escolhermos a opção .Combine.
+
+* O Path.Combine vai organizar o diretorio de uma maneira que a gente não precise se preocupar com o caminho das barras.
+
+* Se eu não colocasse o .Combine eu teria que mudar o caminho da variável caminho e preencher as barras e as pastas e subpastas.
+
+* É melhor usar o .Combine, pois o .NET é multiplataforma e em sistemas operacionais diferentes a forma de escrever o caminho muda.
+
+* O professor alterou a estrutura do código acima para tirar o .Combine de dentro do parâmetro e passou para uma variável. Desta forma, o código final ficou:
+
+static void Main(string[] args)
+{
+	var caminho = "C:\\NomedaPastadoIniciodoProjeto";
+	var caminhoPathCombine = Path.Combine(caminho, "Pasta teste 3", "Subpastateste3");
+
+	FileHelper helper = new FileHelper();
+
+	Console.WriteLine("Criando diretorio: " + caminhoPathCombine);
+	helper.CriarDiretorio(caminhoPathCombine);
+}
+
+
+
+Capítulo 8 - Aula 5 - Apagar diretório
+
+
+* Criar um método chamado Apagar Direório
+
+public vois ApagarDiretorio(string caminho, bool apagarArquivos)
+{
+	Directory.Delete(caminho, apagarArquivos);
+}
+
+* É necessário colocar o parâmetro "bool apagarArquivos" para que seja possível apagar o diretório mesmo que tenho arquivos dentro dele.   
+
+* No main o comando vai ficar:
+
+static void Main(string[] args)
+{
+	var caminho = "C:\\NomedaPastadoIniciodoProjeto";
+	var caminhoPathCombine = Path.Combine(caminho, "Pasta teste 1");
+
+	FileHelper helper = new FileHelper();
+
+	helper.ApagarDiretorio(caminhoPathCombine, true);
+}
+
+* Se a gente não indicar o parametro bool no método e não indicar no Main o parâmetro true, vai dar erro quando rodar, pois a pasta que queremos apagar possui arquivos internamente. 
+
+* Cuidado ao deletar arquivos pelo C#. Diferente de deletar pelo Windows, o arquivo não vai para a lixeira, mas sim é deletado definitivamente.
+
+
+
+Capítulo 8 - Aula 6 - Criar arquivo de texto
+
+
+* Criar novo método na class:
+
+public void CriarArquivosTexto(string caminho, string conteudo)
+{
+	File.WriteAllText(caimnho, conteudo);
+}
+
+* No File. existem diversos métodos automáticos que podem ser usados. Apesar dos métodos parecerem redundantes, cada um tem um desenvolvimento diferente.
+
+* No Main o comando vai ser:
+
+static void Main(string[] args)
+{
+	var caminho = "C:\\NomedaPastadoIniciodoProjeto";
+	var caminhoPathCombine = Path.Combine(caminho, "Pasta teste 1");
+var caminhoarquivo = Path.Combine(caminho, "arquivotexte.txt");
+
+	FileHelper helper = new FileHelper();
+
+	helper.CriarArquivoTexto(caminhoArquivo, "Olá! Teste de escrita de arquivo");
+
+* Ao rodar o código, vai ser criado um arquivo txt no caminho indicado e com o nome do arquivo que foi indicado.
+
+* Se a gente abrir o arquivo e escrever um texto extra, salvar, fechar e rodar o código novamente, vamos perceber que o arquivo vai ser sobreescrito e o texto extra vai ser apagado.
+
+* Para evitar o comportamento acima, nós precisamos voltar a classe FileHelper e incluir o if para ele validar se o arquivo existe ou nao existe. Se existir ele não faz nada, e se não existir ele cria. O código vai ficar assim:
+
+public void CriarArquivosTexto(string caminho, string conteudo)
+{
+	if (!File.Exists(caminho))
+	{
+	    File.WriteAllText(caimnho, conteudo);
+	}
+}
+
+
+
+Capítulo 8 - Aula 7 - Criar arquivo texto com stream
+
+* Criar um novo método:
+
+public void CriarArquivoTextoStream(string caminho, Lista<string> conteudo)
+{
+	using (var stream = File.CreateText(caminho))
+	{
+	    foreach(var linha in conteudo)
+	    {
+	        stream.WriteLine(linha);
+	    }
+	}
+}
+
+* Notar que não vamos escrever diretamente no arquivo, mas sim na stream e a stream vai gerenciar a escrita do arquivo. A stream vai ser uma intermediária entre a escrita do arquivo para que ele não escreva tudo de uma vez, vai escrevr em partes. 
+
+* O using é responsável por terminar a stream, pois ela não pode ficar aberta. Ele garante que o arquivo vai ser liberado para outro processo.
+
+* No Main o comando vai ficar:
+ 
+static void Main(string[] args)
+{
+	var caminho = "C:\\NomedaPastadoIniciodoProjeto";
+	var caminhoPathCombine = Path.Combine(caminho, "Pasta teste 1");
+	var caminhoarquivo = Path.Combine(caminho, "arquivotestestream.txt");
+	var listaStream = new List<string>{"linha 1", "linha 2", "linha 3"};
+
+	FileHelper helper = new FileHelper();
+
+	helper.CriarArquivoTextoStream(caminhoArquivo, listaString);
+
+* Usar stream é a melhor maneira de trabalhar com arquivos grandes, pois ele não é criado/carregado de uma só vez sobrecarregando o sistema. 
+
+
+
+Capítulo 8 - Aula 8 - Adicionar novas linhas em um arquivo.
+
+
+* Criar novo método:
+
+public void AdicionarTexto(string caminho, string conteudo)
+{
+	File.AppeendAllText(caminho, conteudo);
+}
+
+* O AppendAllText vai abrir o arquivo, adicionar o conteúdo e fechar o arquivo. Se o arquivo não exisir ele vai criar.
+
+* Para fazer a mesma coisa com o stream, a mudança vai ser bem pequena em relação ao código da aula anterior:
+
+public void AdicionarArquivoTextoStream(string caminho, List<string> conteudo)
+{
+	using (var stream = File.AppendText(caminho))
+	{
+	    foreach(var linha in conteudo)
+	    {
+	        stream.WriteLine(linha);
+	    }
+	}
+}
+
+* Os dois métodos vão fazer o AppendText
+
+* No Main vai ficar:
+
+static void Main(string[] args)
+{
+	var caminho = "C:\\NomedaPastadoIniciodoProjeto";
+	var caminhoPathCombine = Path.Combine(caminho, "Pasta teste 1");
+	var caminhoarquivo = Path.Combine(caminho, "arquivotestestream.txt");
+	var listaString = new List<string>{"linha 1", "linha 2", "linha 3"};
+	var listaStringContinuação = new List<string> {"linha 4", "linha 5", "linha 6"};
+
+	FileHelper helper = new FileHelper();
+
+	helper.CriarArquivoTextoStream(caminhoArquivo, listaString);
+	helper.AdicionarTextoStream(caminhoArquivo, listaStringContinuação);
+
+
+
+Capítulo 8 - Aula 9 - Lendo Arquivos
+
+
+* Criar novo método para ler string diretamente:
+public void LerArquivo(string caminho)
+{
+	var conteudo = File.ReadAllLines(caminho);
+	
+	foreach (var linha in conteudo)
+	{
+		Console.WriteLine(linha);
+	}
+}
+
+* Criar novo metodo para ler usando stream:
+
+public void LerArquivoStream(string caminho)
+{
+	string linha = string.Empty;
+
+	using(var stream = file.OpenText(caminho)
+	{
+		while((linha = stream.ReadLine()) !=null)
+		{
+		   Console.WriteLine(linha);
+		}
+	}
+}
+
+* No Main vai ficar:
+
+static void Main(string[] args)
+{
+	var caminho = "C:\\NomedaPastadoIniciodoProjeto";
+	var caminhoPathCombine = Path.Combine(caminho, "Pasta teste 1");
+	var caminhoArquivo = Path.Combine(caminho, "arquivotestestream.txt");
+	var listaString = new List<string>{"linha 1", "linha 2", "linha 3"};
+	var listaStringContinuação = new List<string> {"linha 4", "linha 5", "linha 6"};
+
+	FileHelper helper = new FileHelper();
+
+	helper.LerArquivoStream(caminhoArquivo);
+}
+
+
+
+Capítulo 8 - Aula 10 - Movendo Arquivo
+
+
+* Novo método na class:
+
+public void MoverArquivo (string caminho, string novoCaminho)
+{
+	File.Move(caminho, novoCaminho);
+}
+
+* No Main vai ficar:
+
+static void Main(string[] args)
+{
+	var caminho = "C:\\NomedaPastadoIniciodoProjeto";
+	var caminhoPathCombine = Path.Combine(caminho, "Pasta teste 1");
+	var caminhoArquivo = Path.Combine(caminho, "arquivotestestream.txt");
+	var novoCaminhoArquivo = Path.Combine(caminho, "Pasta Teste 2", "arquivotestestream.txt");
+
+	var listaString = new List<string>{"linha 1", "linha 2", "linha 3"};
+	var listaStringContinuação = new List<string> {"linha 4", "linha 5", "linha 6"};
+	
+
+	FileHelper helper = new FileHelper();
+
+	helper.MoverArquivo(caminhoArquivo, novoCaminhoArquivo);
+}
+
+
+
+
+Capítulo 8 - Aula 11 - Copiando arquivo
+
+
+* Criar um novo método na class:
+
+public void CopiarArquivo(string caminho, string novoCaminho, bool sobreescrever)
+{
+	File.Copy(caminho, novoCaminho, sobreescrever);
+}
+
+* No Main vai ficar:
+
+static void Main(string[] args)
+{
+	var caminho = "C:\\NomedaPastadoIniciodoProjeto";
+	var caminhoPathCombine = Path.Combine(caminho, "Pasta teste 1");
+	var caminhoArquivo = Path.Combine(caminho, "arquivotestestream.txt");
+	var caminhoArquivoTeste = Path.Combine(caminho, "arquivoteste.txt");
+	var caminhoArquivoTesteCopia = Path.Combine(caminho, "arquivoteste-bkp.txt");
+	var novoCaminhoArquivo = Path.Combine(caminho, "Pasta Teste 2", "arquivotestestream.txt");
+
+	var listaString = new List<string>{"linha 1", "linha 2", "linha 3"};
+	var listaStringContinuação = new List<string> {"linha 4", "linha 5", "linha 6"};
+	
+
+	FileHelper helper = new FileHelper();
+
+	helper.CopiarArquivo(caminhoArquivoTeste, caminhoArquivoTesteCopia, false);
+}
+
+
+
+Capítulo 8 - Aula 12 - Deletando arquivo
+
+
+* Criar um novo método:
+
+public void DeletarArquivo(string caminho)
+{
+	File.Delete(caminho);
+}
+
+* No Maind vai ficar:
+
+static void Main(string[] args)
+{
+	var caminho = "C:\\NomedaPastadoIniciodoProjeto";
+	var caminhoPathCombine = Path.Combine(caminho, "Pasta teste 1");
+	var caminhoArquivo = Path.Combine(caminho, "arquivotestestream.txt");
+	var caminhoArquivoTeste = Path.Combine(caminho, "arquivoteste.txt");
+	var caminhoArquivoTesteCopia = Path.Combine(caminho, "arquivoteste-bkp.txt");
+	var novoCaminhoArquivo = Path.Combine(caminho, "Pasta Teste 2", "arquivotestestream.txt");
+
+	var listaString = new List<string>{"linha 1", "linha 2", "linha 3"};
+	var listaStringContinuação = new List<string> {"linha 4", "linha 5", "linha 6"};
+	
+
+	FileHelper helper = new FileHelper();
+
+	helper.DeletarArquivo(caminhoArquivoTesteCopia);
+}
+
+* Da mesma forma que no delete de diretório, quando se apaga um aruivo pelo C# ele não vai para a lixeira mas sim é deletado definitivamente.
+
+
+
+Capítulo 9 - Conclusão
+
+* Nenhuma informação

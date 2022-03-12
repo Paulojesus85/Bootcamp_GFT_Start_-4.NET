@@ -1,0 +1,43 @@
+Curso - Criando um APP simples de cadastro de séries em .NET
+
+
+
+Aula 1 
+
+Objetivos:
+
+1 - Implementação de CRUD de séries
+
+2 - Utilização de classes abstratas
+
+3 - Utilização de Interfaces
+
+* CRUD
+Create
+Read
+Update
+Delete
+
+* Cadastro básico de registros
+
+* Classes Abstratas: classes que podem conter métodos abstrados
+	* um método abstrato é um método que é declarado, porém não contém implementação.
+	* Não pode ser instanciada
+	* Exige subclasses que tenham implementação dos métodos abstratos
+	* Você atribui propriedades e métodos, mas não implementa. As classes que herdarem vão ter que implementar.
+
+* Interfaces: é muito semellhante a uma classe abstrata, mas não possui atributos e não pde definir como os métodos devem ser implementados.
+	* Em vez disso, é simplesmente uma lista de métodos que devem ser implementados.
+
+* Eu herdo de uma classe abstrata e eu Implemento uma Interface.
+
+
+
+Aula 2
+
+
+* Organizar o trabalho em pastas.
+
+* Criar um classe abstrata apenas com a propriedade ID (todas as classes vão herdar e ter essa propriedade id em seus objetos)
+
+* No namespace retirar o nome da pasta para que a classe possa ser usada nas outras partes do código. 
